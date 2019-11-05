@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Room;
 use Illuminate\Http\Request;
-
+use DB;
 class RoomController extends Controller
 {
     /**
@@ -14,7 +14,9 @@ class RoomController extends Controller
      */
     public function index()
     {
-        //
+        $room = DB::table('rooms')->get();
+        // dd($rooms);
+        return response()->json($room);
     }
 
     /**
@@ -24,7 +26,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +37,16 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+      'room_name' => 'required',
+      'room_code' => 'required',
+
+     ]);
+     return Room::create([
+      'room_code' => $request['room_code'],
+      'room_name' => $request['room_name'],
+
+     ]);
     }
 
     /**
@@ -67,9 +78,15 @@ class RoomController extends Controller
      * @param  \App\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Room $room)
+    public function update(Request $request, Room $room ,$id)
     {
-        //
+      $room= Room::findOrFail($id);
+      $this->validate($request, [
+         'room_code' => 'required',
+         'room_name' => 'required'
+        ]);
+
+      $room->update($request->all());
     }
 
     /**

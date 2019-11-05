@@ -323,22 +323,25 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigation</li>
         <li class="treeview">
+            <router-link to="/dashboard" class="nav-link" > <i class="fa fa-dashboard "></i>  <span>Dashboard</span> </router-link>
+        </li>
+        <li class="treeview">
             <router-link to="/teachers" class="nav-link" > <i class="fa fa-users "></i>  <span>Teachers</span> </router-link>
         </li>
         <li class="treeview">
-            <router-link to="/teachers" class="nav-link" > <i class="fa fa-home"></i>  <span>Rooms</span> </router-link>
+            <router-link to="/rooms" class="nav-link" > <i class="fa fa-home"></i>  <span>Rooms</span> </router-link>
         </li>
         <li class="treeview">
-            <router-link to="/teachers" class="nav-link" > <i class="fa fa-book "></i>  <span>Subjects</span> </router-link>
+            <router-link to="/departments" class="nav-link" > <i class="fa fa-th "></i>  <span>Departments</span> </router-link>
         </li>
         <li class="treeview">
-            <router-link to="/teachers" class="nav-link" > <i class="fa fa-calendar"></i>  <span>Schedules</span> </router-link>
+            <router-link to="/subjects" class="nav-link" > <i class="fa fa-book "></i>  <span>Subjects</span> </router-link>
         </li>
         <li class="treeview">
-            <router-link to="/teachers" class="nav-link" > <i class="fa fa-th "></i>  <span>Departments</span> </router-link>
+            <router-link to="/schedules" class="nav-link" > <i class="fa fa-calendar"></i>  <span>Schedules</span> </router-link>
         </li>
         <li class="treeview">
-            <router-link to="/teachers" class="nav-link" > <i class="fa fa-table "></i>  <span>Attendance Report</span> </router-link>
+            <router-link to="/attendancereport" class="nav-link" > <i class="fa fa-table "></i>  <span>Attendance Report</span> </router-link>
         </li>
 
 

@@ -18,8 +18,16 @@ class CreateSubjectsTable extends Migration
             $table->string('subject_name');
             $table->integer('units');
             $table->string('type');
+            $table->bigInteger('department_id')->unsigned();
             $table->boolean('status')->default(1);
             $table->timestamps();
+        });
+
+        Schema::table('subjects', function($table)
+        {
+            $table->foreign('department_id')
+                    ->references('id')
+                    ->on('departments');
         });
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Department;
 use Illuminate\Http\Request;
-
+use DB;
 class DepartmentController extends Controller
 {
     /**
@@ -14,7 +14,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $department = DB::table('departments')->get();
+
+        return response()->json($department);
     }
 
     /**
@@ -35,7 +37,15 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+      'department_name' => 'required',
+      'department_code' => 'required',
+
+     ]);
+     return Department::create([
+      'department_name' => $request['department_name'],
+      'department_code' => $request['department_code'],
+     ]);
     }
 
     /**
@@ -67,9 +77,15 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, Department $department, $id)
     {
-        //
+      $department= Department::findOrFail($id);
+      $this->validate($request, [
+         'department_name' => 'required',
+         'department_code' => 'required'
+        ]);
+
+      $department->update($request->all());
     }
 
     /**
