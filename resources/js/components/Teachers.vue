@@ -13,6 +13,7 @@
                     <tbody>
                         <tr>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Gender</th>
@@ -22,8 +23,18 @@
                             <th>Department</th>
                             <th>Status</th>
                         </tr>
-                        <tr>
-
+                        <tr v-for="teacher in teachers" :key="teacher.id">
+                            <td>{{teacher.id}}</td>
+                            <td><img style=" border-radius: 50%;" :src="'img/'+teacher.image"  height="42" width="42"/></td>
+                            <td>{{teacher.firstname}}</td>
+                            <td>{{teacher.lastname}}</td>
+                            <td>{{teacher.gender}}</td>
+                            <td>{{teacher.birthday}}</td>
+                            <td>{{teacher.age}}</td>
+                            <td>{{teacher.type}}</td>
+                            <td>{{teacher.department_name}}</td>
+                            <td v-if="teacher.status == 1"><span  class="label label-success">Active</span></td>
+                            <td v-else><span  class="label label-danger">Inactive</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -38,14 +49,23 @@
     export default {
       data(){
         return{
-          form: new Form({
-            firstname:'',
-            lastname: "",
-          }),
+            teachers: '',
         }
       },
-        mounted() {
-            console.log('Component mounted.')
+        created() {
+            this.getTeachers()
+            // console.log('Component mounted.')
+        },
+        methods:{
+            getTeachers(){
+                axios.get('getTeachers')
+                    .then((res)=>{
+                        this.teachers = res.data
+                    })
+                    .catch((e)=>{
+                        console.log(e)
+                    })
+            }
         }
     }
 </script>

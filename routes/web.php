@@ -36,5 +36,9 @@ Route::get('/getSubjects','SubjectController@index');
 Route::post('/addSubject','SubjectController@store');
 Route::put('/updateSubject/{id}','SubjectController@update');
 
+//Teachers
+Route::get('/getTeachers','TeacherController@index');
+Route::post('/addTeacher','TeacherController@store');
+
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

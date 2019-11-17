@@ -14,7 +14,11 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        $teachers = \DB::table('teachers')
+                    ->join('departments','teachers.department_id','=','departments.id')
+                    ->select('departments.department_name', 'teachers.*')
+                    ->get();
+        return response()->json($teachers);
     }
 
     /**
@@ -35,7 +39,41 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'gender' => 'required',
+            'type' => 'required',
+            'status' => 'required',
+            'age' => 'required',
+            'department_id' => 'required',
+            'birthday' => 'required',
+        ]);
+
+        if($request->image){
+            $name = time().'.'. explode('/', explode(':', substr($request->image, 0, strpos
+             ($request->image, ';'))) [1])[1];
+             \Image::make($request->image)->save(public_path('img/').$name);
+
+            //  $request->merge(['image' => $name]);
+             $userPhoto = public_path('img/profile/');
+             if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+             }
+             return Teacher::create([
+                'firstname' => $request['firstname'],
+                'lastname' => $request['lastname'],
+                'gender' => $request['gender'],
+                'type' => $request['type'],
+                'status' => $request['status'],
+                'department_id' => $request['department_id'],
+                'birthday' => $request['birthday'],
+                'age' => $request['age'], 
+                'image' => $name,
+            ]);
+        };
+
+      
     }
 
     /**
@@ -82,4 +120,6 @@ class TeacherController extends Controller
     {
         //
     }
+
+
 }
