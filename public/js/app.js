@@ -2602,6 +2602,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2622,6 +2623,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   }
+});
+$(function () {
+  $("#example").DataTable();
 });
 
 /***/ }),
@@ -40396,58 +40400,62 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "box-body table-responsive no-padding" }, [
-        _c("table", { staticClass: "table table-hover" }, [
-          _c(
-            "tbody",
-            [
-              _vm._m(0),
-              _vm._v(" "),
-              _vm._l(_vm.teachers, function(teacher) {
-                return _c("tr", { key: teacher.id }, [
-                  _c("td", [_vm._v(_vm._s(teacher.id))]),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("img", {
-                      staticStyle: { "border-radius": "50%" },
-                      attrs: {
-                        src: "img/" + teacher.image,
-                        height: "42",
-                        width: "42"
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(teacher.firstname))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(teacher.lastname))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(teacher.gender))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(teacher.birthday))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(teacher.age))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(teacher.type))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(teacher.department_name))]),
-                  _vm._v(" "),
-                  teacher.status == 1
-                    ? _c("td", [
-                        _c("span", { staticClass: "label label-success" }, [
-                          _vm._v("Active")
+        _c(
+          "table",
+          { staticClass: "table table-hover", attrs: { id: "example" } },
+          [
+            _c(
+              "tbody",
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._l(_vm.teachers, function(teacher) {
+                  return _c("tr", { key: teacher.id }, [
+                    _c("td", [_vm._v(_vm._s(teacher.id))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("img", {
+                        staticStyle: { "border-radius": "50%" },
+                        attrs: {
+                          src: "img/" + teacher.image,
+                          height: "42",
+                          width: "42"
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(teacher.firstname))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(teacher.lastname))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(teacher.gender))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(teacher.birthday))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(teacher.age))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(teacher.type))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(teacher.department_name))]),
+                    _vm._v(" "),
+                    teacher.status == 1
+                      ? _c("td", [
+                          _c("span", { staticClass: "label label-success" }, [
+                            _vm._v("Active")
+                          ])
                         ])
-                      ])
-                    : _c("td", [
-                        _c("span", { staticClass: "label label-danger" }, [
-                          _vm._v("Inactive")
+                      : _c("td", [
+                          _c("span", { staticClass: "label label-danger" }, [
+                            _vm._v("Inactive")
+                          ])
                         ])
-                      ])
-                ])
-              })
-            ],
-            2
-          )
-        ])
+                  ])
+                })
+              ],
+              2
+            )
+          ]
+        )
       ])
     ])
   ])

@@ -564,9 +564,10 @@
 </div>
 <!-- ./wrapper -->
 
+
 <!-- jQuery 3 -->
 <script src="{{asset('layout/bower_components/jquery/dist/jquery.min.js')}}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> --}}
 
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -575,6 +576,11 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+
+<link rel="stylesheet" href="{{asset('layout/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+<script src="{{asset('layout/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('layout/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('layout/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- Morris.js charts -->

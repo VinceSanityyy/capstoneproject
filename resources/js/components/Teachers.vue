@@ -9,7 +9,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
+                <table id="example" class="table table-hover">
                     <tbody>
                         <tr>
                             <th>ID</th>
@@ -45,7 +45,9 @@
     </div>
 </template>
 
+
 <script>
+
     export default {
       data(){
         return{
@@ -68,4 +70,8 @@
             }
         }
     }
+$(function () {
+        $("#example").DataTable();
+});
+
 </script>
