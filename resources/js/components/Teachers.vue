@@ -9,7 +9,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-                <table id="example" class="table table-hover">
+                <table id="myTable" class="table table-hover">
                     <tbody>
                         <tr>
                             <th>ID</th>
@@ -22,6 +22,7 @@
                             <th>Type</th>
                             <th>Department</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                         <tr v-for="teacher in teachers" :key="teacher.id">
                             <td>{{teacher.id}}</td>
@@ -35,6 +36,7 @@
                             <td>{{teacher.department_name}}</td>
                             <td v-if="teacher.status == 1"><span  class="label label-success">Active</span></td>
                             <td v-else><span  class="label label-danger">Inactive</span></td>
+                            <td><router-link to="/viewTeacher"> <i class="fa fa-edit"></i></router-link></td>
                         </tr>
                     </tbody>
                 </table>
@@ -47,7 +49,7 @@
 
 
 <script>
-
+    // import datatables from 'datatables'
     export default {
       data(){
         return{
@@ -63,15 +65,17 @@
                 axios.get('getTeachers')
                     .then((res)=>{
                         this.teachers = res.data
+                        // this.sortData()
                     })
                     .catch((e)=>{
                         console.log(e)
                     })
-            }
+            },
+            // sortData(){
+            //     $(document).ready( function () {
+            //         $('#myTable').DataTable();
+            //     } );
+            // }
         }
     }
-$(function () {
-        $("#example").DataTable();
-});
-
 </script>

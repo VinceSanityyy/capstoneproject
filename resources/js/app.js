@@ -22,6 +22,8 @@ const routes = [
     { path: '/subjects', component: require('./components/Subjects.vue').default },
     { path: '/schedules', component: require('./components/Schedules.vue').default },
     { path: '/attendanceReport', component: require('./components/Attendance.vue').default },
+    { path: '/viewTeacher', component: require('./components/editTeacher.vue').default },
+    
   ]
 
 
