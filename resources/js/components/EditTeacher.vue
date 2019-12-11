@@ -12,13 +12,21 @@
          
      </div>
  </div>
+ <div v-for="(teacher,index) in teachers" :key="index">
+    {{teacher}}
+ </div>
  </div>
 </template>
 
 <script>
     export default {
+        data() {
+            return {
+                teachers: []
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
+            this.teachers = this.$router.currentRoute.params
         }
     }
 </script>

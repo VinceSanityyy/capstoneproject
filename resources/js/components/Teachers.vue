@@ -36,7 +36,7 @@
                             <td>{{teacher.department_name}}</td>
                             <td v-if="teacher.status == 1"><span  class="label label-success">Active</span></td>
                             <td v-else><span  class="label label-danger">Inactive</span></td>
-                            <td><router-link to="/viewTeacher"> <i class="fa fa-edit"></i></router-link></td>
+                            <td><button @click="editTeacher(teacher)"> <i class="fa fa-edit"></i></button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -71,6 +71,9 @@
                         console.log(e)
                     })
             },
+            editTeacher(data) {
+                this.$router.push({ name: 'EDITTEACHER', params: data})
+            }
             // sortData(){
             //     $(document).ready( function () {
             //         $('#myTable').DataTable();
