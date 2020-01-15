@@ -3,20 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Teacher extends Model
 {
 
+  use SoftDeletes;
     protected $fillable =[
-      'firstname','lastname','gender','birthday','age','type','department_id',
-      'type','status','image',
+      'id','fullname','image','course',
     ];
 
-    public function subjects(){
-      return $this->hasMany('App/Subject');
-    }
+    // public function subjects(){
+    //   return $this->hasMany('App/Subject');
+    // }
 
-    public function schedules(){
-      return $this->hasMany('App/Schedule');
-    }
+    // public function schedules(){
+    //   return $this->hasMany('App/Schedule');
+    // }
 }

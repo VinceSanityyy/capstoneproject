@@ -14,7 +14,9 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $room = DB::table('rooms')->get();
+        $room = DB::table('rooms')
+                ->where('rooms.deleted_at',null)
+                ->get();
         // dd($rooms);
         return response()->json($room);
     }
@@ -38,13 +40,13 @@ class RoomController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
-      'room_name' => 'required',
-      'room_code' => 'required',
+      'room_desc' => 'required',
+      'bldg' => 'required',
 
      ]);
      return Room::create([
-      'room_code' => $request['room_code'],
-      'room_name' => $request['room_name'],
+      'room_desc' => $request['room_desc'],
+      'bldg' => $request['bldg'],
 
      ]);
     }
@@ -82,8 +84,8 @@ class RoomController extends Controller
     {
       $room= Room::findOrFail($id);
       $this->validate($request, [
-         'room_code' => 'required',
-         'room_name' => 'required'
+         'room_desc' => 'required',
+         'bldg' => 'required'
         ]);
 
       $room->update($request->all());
@@ -95,8 +97,9 @@ class RoomController extends Controller
      * @param  \App\Room  $room
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Room $room)
+    public function destroy(Room $room,$id)
     {
-        //
+        $room = Room::findOrFail($id);
+        $room->delete();
     }
 }

@@ -14,7 +14,10 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = \DB::table('subjects')
+                    ->where('deleted_at',null)
+                    ->get();
+        return response()->json($subjects);
     }
 
     /**
@@ -35,7 +38,13 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'subject_name' => 'required',
+      
+           ]);
+           return Subject::create([
+            'subject_name' => $request['subject_name'],
+           ]);
     }
 
     /**
@@ -67,9 +76,14 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, Subject $subject, $id)
     {
-        //
+        $subject= Subject::findOrFail($id);
+        $this->validate($request, [
+        'subject_name' => 'required',
+        ]);
+
+         $subject->update($request->all());
     }
 
     /**
@@ -78,8 +92,9 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subject $subject)
+    public function destroy(Subject $subject,$id)
     {
-        //
+        $subject = Subject::findOrFail($id);
+        $subject->delete();
     }
 }

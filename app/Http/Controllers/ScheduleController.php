@@ -14,7 +14,16 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        //
+        $schedules = \DB::table('schedules')
+        ->join('teachers','teachers.id','=','schedules.teacher_id')
+        ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
+        ->join('rooms','schedules.room_id','rooms.id')
+        ->where('schedules.deleted_at',null)
+        ->latest('schedules.created_at')
+        ->limit(12)
+        ->get();
+
+        return response()->json($schedules);
     }
 
     /**
@@ -35,7 +44,42 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            // 'subject_code_id' => 'required',
+            // 'teacher_id' => 'required',
+            // 'room_id' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'schoolyr' => 'required',
+            'sem' => 'required',
+            'term' => 'required',
+            'days' => 'required',
+      
+           ]);
+        
+           return Schedule::create([
+            'subject_code_id' => $request["subject"],
+            'teacher_id' => $request["teacher"],
+            'room_id' =>$request["room"],
+            'start_time' => $request["start_time"],
+            'end_time' => $request["end_time"],
+            'school_year' => $request["schoolyr"],
+            'semester' => $request["sem"],
+            'term' => $request["term"],
+            'day' => $request["days"],
+           ]);
+
+        // $schedules = \DB::table('schedules')->insert([
+        //     ['subject_code_id' => $request->subject],
+        //     ['teacher_id' => $request->teacher],
+        //     ['room_id' =>$request->room],
+        //     ['start_time' => $request->start_time],
+        //     ['end_time' => $request->end_time],
+        //     ['school_year' => $request->schoolyr],
+        //     ['semester' => $request->sem],
+        //     ['term' => $request->term],
+        //     ['day' => $request->days],
+        // ]);
     }
 
     /**
@@ -81,5 +125,17 @@ class ScheduleController extends Controller
     public function destroy(Schedule $schedule)
     {
         //
+    }
+
+    public function filterSchedule(Request $request){
+        $schedules = \DB::table('schedules')
+        ->join('teachers','teachers.id','=','schedules.teacher_id')
+        ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
+        ->join('rooms','schedules.room_id','rooms.id')
+        ->where('schedules.deleted_at',null)
+        ->where('schedules.start_time','=',$request->start_time)
+        ->where('schedules.end_time','=',$request->end_time)
+        ->latest('schedules.created_at')
+        ->get();
     }
 }

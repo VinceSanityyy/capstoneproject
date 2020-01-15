@@ -15,27 +15,31 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('time_from');
-            $table->string('time_to');
-            $table->string('day');
-            $table->bigInteger('subject_id')->unsigned();
+           
+            $table->bigInteger('subject_code_id')->unsigned();
             $table->bigInteger('teacher_id')->unsigned();
             $table->bigInteger('room_id')->unsigned();
-            $table->boolean('status')->default(1);
+            $table->string('start_time');
+            $table->string('end_time');
+            $table->string('school_year');
+            $table->string('semester');
+            $table->string('term');
+            $table->string('day');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('schedules', function($table)
         {
-            $table->foreign('subject_id')
+            $table->foreign('subject_code_id')
                     ->references('id')
-                    ->on('subjects');
-           $table->foreign('teacher_id')
+                    ->on('subject_codes');
+             $table->foreign('teacher_id')
                     ->references('id')
                     ->on('teachers');
-           $table->foreign('room_id')
+             $table->foreign('room_id')
                     ->references('id')
-                    ->on('rooms');
+                    ->on('rooms');        
         });
     }
 

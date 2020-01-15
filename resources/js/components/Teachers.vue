@@ -13,30 +13,21 @@
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>Image</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Gender</th>
-                            <th>Birthday</th>
-                            <th>Age</th>
-                            <th>Type</th>
-                            <th>Department</th>
-                            <th>Status</th>
+                            <th>Picture</th>
+                            <th>Name</th>
+                            <th>Course</th>
                             <th>Actions</th>
                         </tr>
                         <tr v-for="teacher in teachers" :key="teacher.id">
                             <td>{{teacher.id}}</td>
-                            <td><img style=" border-radius: 50%;" :src="'img/'+teacher.image"  height="42" width="42"/></td>
-                            <td>{{teacher.firstname}}</td>
-                            <td>{{teacher.lastname}}</td>
-                            <td>{{teacher.gender}}</td>
-                            <td>{{teacher.birthday}}</td>
-                            <td>{{teacher.age}}</td>
-                            <td>{{teacher.type}}</td>
-                            <td>{{teacher.department_name}}</td>
-                            <td v-if="teacher.status == 1"><span  class="label label-success">Active</span></td>
-                            <td v-else><span  class="label label-danger">Inactive</span></td>
-                            <td><button @click="editTeacher(teacher)"> <i class="fa fa-edit"></i></button></td>
+                            <td><img  :src="'img/'+teacher.image" class="img-rounded"  height="42" width="42"/></td>
+                             <td>{{teacher.fullname}}</td>
+                            <td>{{teacher.course}}</td>                
+                            <td>
+                            <a href="#" @click="editTeacher(teacher)"> <i class="fa fa-edit"></i></a>
+                            <a href="#" @click="deleteTeacher(teacher.id)">
+                                <i class="fa fa-trash text-red"></i>
+                            </a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -54,6 +45,9 @@
       data(){
         return{
             teachers: '',
+             form: new Form({
+                 id:''
+             })
         }
       },
         created() {
@@ -73,6 +67,29 @@
             },
             editTeacher(data) {
                 this.$router.push({ name: 'EDITTEACHER', params: data})
+            },
+
+            deleteTeacher(id){
+                swal.fire({
+                title: "Are you sure?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Delete!"
+                }).then(result=>{
+                    if(result.value){
+                         this.form.delete('/deleteTeacher/'+id)
+                        .then(()=>{
+                             this.getTeachers();
+                             swal.fire("Deleted!", "", "success");
+                            
+                        })
+                        .catch(()=>{
+                              swal.fire("Something went wrong.", "", "warning");
+                        })
+                    }
+                })
             }
             // sortData(){
             //     $(document).ready( function () {

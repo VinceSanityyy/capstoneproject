@@ -13,20 +13,20 @@
                         <tr>
                             <th>Room ID</th>
                             <th>Room Name</th>
-                            <th>Room Code</th>
-                            <th>Status</th>
+                            <th>Building</th>
                             <th>Actions</th>
                         </tr>
                         <tr v-for="room in rooms" :key="room.id">
                             <td>{{room.id}}</td>
-                            <td>{{room.room_name}}</td>
-                            <td>{{room.room_code}}</td>
-                            <td v-if="room.status == 1"><span  class="label label-success">Active</span></td>
-                            <td v-if="room.status == 0"><span  class="label label-danger">Inactive</span></td>
+                            <td>{{room.room_desc}}</td>
+                            <td>{{room.bldg}}</td>
                             <td>
                            <a href="#"  data-toggle="modal" data-target="#exampleModal" @click="editModal(room)">
                              <i class="fa fa-edit"></i>
                            </a>
+                            <a href="#" @click="deleteRoom(room.id)">
+                            <i class="fa fa-trash text-red"></i>
+                          </a>
                          </td>
                         </tr>
                     </tbody>
@@ -48,40 +48,27 @@
                     <div class="form-group">
                       <label>Room Name</label>
                       <input
-                        v-model="form.room_name"
+                        v-model="form.room_desc"
                         type="text"
-                        name="room_name"
+                        name="room_desc"
                         placeholder="Room Name"
                         class="form-control"
-                        :class="{ 'is-invalid': form.errors.has('room_name') }"
+                        :class="{ 'is-invalid': form.errors.has('room_desc') }"
                       />
-                      <has-error :form="form" field="room_name"></has-error>
+                      <has-error :form="form" field="room_desc"></has-error>
                     </div>
                     <div class="form-group">
-                      <label>Room Code</label>
+                      <label>Building</label>
                       <input
-                        v-model="form.room_code"
+                        v-model="form.bldg"
                         type="text"
-                        name="room_code"
-                        placeholder="Room Code"
+                        name="bldg"
+                        placeholder="Room bldg"
                         class="form-control"
-                        :class="{ 'is-invalid': form.errors.has('room_code') }"
+                        :class="{ 'is-invalid': form.errors.has('bldg') }"
                       />
-                      <has-error :form="form" field="room_code"></has-error>
+                      <has-error :form="form" field="bldg"></has-error>
                     </div>
-                    <div v-show="editmode" class="form-group">
-                    <label>Status</label>
-                    <select
-                      v-model="form.status"
-                      name="status"
-                      class="form-control"
-                      :class="{ 'is-invalid': form.errors.has('status') }"
-                    >
-                      <option value="1">Active</option>
-                      <option value="0">Inactive</option>
-                    </select>
-                    <has-error :form="form" field="type"></has-error>
-                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -102,9 +89,8 @@
           rooms: [],
           form: new Form({
             id:'',
-            room_code:'',
-            room_name:'',
-            status:''
+            room_desc:'',
+            bldg:'',
           })
         }
       },
@@ -126,6 +112,7 @@
           createRoom(){
             this.form.post('/addRoom')
               .then(({data})=>{
+                swal.fire("Record Created!", "", "success");
                 $('#exampleModal').modal('hide');
                 $(".modal-backdrop").remove();
                 this.getRooms()
@@ -141,6 +128,7 @@
           updateRoom(){
             this.form.put('/updateRoom/' + this.form.id)
               .then(()=>{
+                  swal.fire("Record Updated!", "", "success");
                 $('#exampleModal').modal('hide');
                 $(".modal-backdrop").remove();
                 this.getRooms()
@@ -148,6 +136,28 @@
               .catch((e)=>{
                 console.log(e)
               })
+          },
+          deleteRoom(id){
+             swal.fire({
+            title: "Are you sure?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+             }).then(result => {
+              //send delete request
+              if (result.value) {
+              this.form.delete('deleteRoom/' +id)
+                .then(()=>{
+                    swal.fire("Deleted!", "", "success");
+                    this.getRooms()
+                })
+                .catch(()=>{
+                    swal.fire("Something went wrong.", "", "warning");
+                });
+              }
+          });
           }
         },
         created() {

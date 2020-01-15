@@ -25,21 +25,32 @@ Route::get('/dashboard', 'HomeController@index')->name('home');
 Route::get('/getRooms','RoomController@index');
 Route::post('/addRoom','RoomController@store');
 Route::put('/updateRoom/{id}','RoomController@update');
+Route::delete('/deleteRoom/{id}','RoomController@destroy');
 
-//Departments
-Route::get('/getDepartments','DepartmentController@index');
-Route::post('/addDepartment','DepartmentController@store');
-Route::put('/updateDepartment/{id}','DepartmentController@update');
 
 //Subjects
 Route::get('/getSubjects','SubjectController@index');
 Route::post('/addSubject','SubjectController@store');
 Route::put('/updateSubject/{id}','SubjectController@update');
+Route::delete('/deleteSubject/{id}','SubjectController@destroy');
 
 //Teachers
 Route::get('/getTeachers','TeacherController@index');
 Route::post('/addTeacher','TeacherController@store');
 Route::put('/editTeacher/{id}','TeacherController@update');
+Route::delete('/deleteTeacher/{id}','TeacherController@destroy');
 
+//Subject Codes
+Route::get('/getSubjectCodes','SubjectCodeController@index');
+Route::post('/addSubjectCode','SubjectCodeController@store');
+Route::put('/updateSubjectCode/{id}','SubjectCodeController@update');
+Route::delete('/deleteSubjectCode/{id}','SubjectCodeController@destroy');
+
+//Schedules
+Route::get('/getSchedules','ScheduleController@index');
+Route::post('/addSchedules','ScheduleController@store');
+
+//Filter
+Route::get('filterSchedule','ScheduleController@filterSchedule');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

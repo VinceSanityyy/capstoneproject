@@ -2,25 +2,45 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+Vue.prototype.$toast = toast
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { Form, HasError, AlertError } from 'vform'
+import swal from 'sweetalert2'
+
+import datePicker from 'vue-bootstrap-datetimepicker';
+import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+Vue.use(datePicker);
 Vue.use(VueRouter)
 
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+
+
+window.swal = swal;
 window.Form = Form;
+
+const toast = swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  width: 300,
+  timer: 3000
+});
+
+window.toast = toast;
+
 const routes = [
     { path: '/teachers', component: require('./components/Teachers.vue').default },
     { path: '/rooms', component: require('./components/Rooms.vue').default },
     { path: '/addteacher', component: require('./components/AddTeacher.vue').default },
-    { path: '/departments', component: require('./components/Departments.vue').default },
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/subjects', component: require('./components/Subjects.vue').default },
+    { path: '/subjectcodes', component: require('./components/SubjectCodes.vue').default },
     { path: '/schedules', component: require('./components/Schedules.vue').default },
+    { path: '/addSchedules', component: require('./components/AddSchedule.vue').default },
     { path: '/attendanceReport', component: require('./components/Attendance.vue').default },
     { path: '/viewTeacher', name: 'EDITTEACHER', component: require('./components/EditTeacher.vue').default },
     
@@ -38,4 +58,7 @@ Vue.component('teachers', require('./components/Teachers.vue').default);
 const app = new Vue({
     el: '#app',
     router,
+    components: {
+      datePicker
+      }
 });

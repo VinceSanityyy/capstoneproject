@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Department extends Model
+class CheckerDetails extends Model
 {
     protected $fillable = [
-      'department_code','department_name','status','id',
+        'round_id','violation_id'
     ];
 }

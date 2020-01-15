@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{asset('layout/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="{{asset('layout/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+  
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -331,12 +332,11 @@
         <li class="treeview">
             <router-link to="/rooms" class="nav-link" > <i class="fa fa-home"></i>  <span>Rooms</span> </router-link>
         </li>
-        <li class="treeview">
-            <router-link to="/departments" class="nav-link" > <i class="fa fa-th "></i>  <span>Departments</span> </router-link>
+      
+        <li class="treeview" style="height: auto;">
+          <router-link to="/subjectcodes" class="nav-link" > <i class="fa fa-book "></i>  <span>Subjects </span> </router-link>
         </li>
-        <li class="treeview">
-            <router-link to="/subjects" class="nav-link" > <i class="fa fa-book "></i>  <span>Subjects</span> </router-link>
-        </li>
+
         <li class="treeview">
             <router-link to="/schedules" class="nav-link" > <i class="fa fa-calendar"></i>  <span>Schedules</span> </router-link>
         </li>
@@ -611,8 +611,18 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('layout/js/demo.js')}}"></script>
 
+{{-- timepicker --}}
+<script src="{{asset('layout/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 
 
+<script>
+  $(function(){
+     //Timepicker
+     $('.timepicker').timepicker({
+      showInputs: false
+    })
+  });
+</script>
 
 <script src="/js/app.js"></script>
 

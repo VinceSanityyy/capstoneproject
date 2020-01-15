@@ -15,8 +15,7 @@ class TeacherController extends Controller
     public function index()
     {
         $teachers = \DB::table('teachers')
-                    ->join('departments','teachers.department_id','=','departments.id')
-                    ->select('departments.department_name', 'teachers.*')
+                    ->where('teachers.deleted_at','=',null)
                     ->get();
         return response()->json($teachers);
     }
@@ -40,14 +39,10 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'gender' => 'required',
-            'type' => 'required',
-            'status' => 'required',
-            'age' => 'required',
-            'department_id' => 'required',
-            'birthday' => 'required',
+            'fullname' => 'required',
+            'image' => 'required',
+            'course' => 'required',
+       
         ]);
 
         if($request->image){
@@ -61,14 +56,8 @@ class TeacherController extends Controller
                 @unlink($userPhoto);
              }
              return Teacher::create([
-                'firstname' => $request['firstname'],
-                'lastname' => $request['lastname'],
-                'gender' => $request['gender'],
-                'type' => $request['type'],
-                'status' => $request['status'],
-                'department_id' => $request['department_id'],
-                'birthday' => $request['birthday'],
-                'age' => $request['age'], 
+                'fullname' => $request['fullname'],
+                'course' => $request['course'],
                 'image' => $name,
             ]);
         };
@@ -105,9 +94,38 @@ class TeacherController extends Controller
      * @param  \App\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, Teacher $teacher,$id)
     {
-        //
+
+        $teacher = Teacher::findOrFail($id);
+
+       
+        $this->validate($request,[
+            'fullname' => 'required',
+            // 'image' => 'required',
+            'course' => 'required',
+        ]);
+
+        if($request->image){
+            $name = time().'.'. explode('/', explode(':', substr($request->image, 0, strpos
+             ($request->image, ';'))) [1])[1];
+             \Image::make($request->image)->save(public_path('img/').$name);
+             $userPhoto = public_path('img/profile/');
+             if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+             }
+
+            // return Teacher::update([
+            //     'fullname' => $request['fullname'],
+            //     'course' => $request['course'],
+            //     'image' => $name,
+            // ]);
+           
+        };
+        $teacher->fullname = $request->fullname;
+        $teacher->course = $request->course;
+        $teacher->image = $name;
+        $teacher->save($request->all());
     }
 
     /**
@@ -116,9 +134,13 @@ class TeacherController extends Controller
      * @param  \App\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Teacher $teacher)
+    public function destroy(Teacher $teacher, $id)
     {
-        //
+        $teacher = Teacher::findOrFail($id);
+
+        $teacher->delete();
+
+        return ['message' => 'Record Deleted'];
     }
 
 
