@@ -82,4 +82,39 @@ class CheckerController extends Controller
     {
         //
     }
+
+    public function getScheduleRound(Request $request,$id){
+        
+        $scid = $request->id;
+        $round = \DB::table('rounds')
+        ->select('rounds.*','checkers.*','remarks.*','violations.*')
+        ->join('checkers','checkers.id','=','rounds.checker_id')
+        ->join('checker_details','rounds.id','=','checker_details.round_id')
+        ->join('remarks','remarks.id','=','rounds.remarks_id')
+        ->join('violations','violations.id','=','checker_details.violation_id')
+        ->where('checkers.schedule_id',$scid)
+        ->where('rounds.round_no','=',1)
+        ->distinct('rounds.remarks_id')
+        ->get();
+        return response()->json($round);
+
+    }
+
+    public function getScheduleRoundTwo(Request $request,$id){
+        
+        $scid = $request->id;
+        $round = \DB::table('rounds')
+        ->select('rounds.*','checkers.*','remarks.*','violations.*')
+        ->join('checkers','checkers.id','=','rounds.checker_id')
+        ->join('checker_details','rounds.id','=','checker_details.round_id')
+        ->join('remarks','remarks.id','=','rounds.remarks_id')
+        ->join('violations','violations.id','=','checker_details.violation_id')
+        ->where('checkers.schedule_id',$scid)
+        ->distinct('rounds.remarks_id')
+        ->where('rounds.round_no','=',2)
+        // ->latest('checker_details.round_id')
+        ->get();
+        return response()->json($round);
+
+    }
 }

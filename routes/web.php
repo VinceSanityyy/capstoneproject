@@ -50,7 +50,18 @@ Route::delete('/deleteSubjectCode/{id}','SubjectCodeController@destroy');
 Route::get('/getSchedules','ScheduleController@index');
 Route::post('/addSchedules','ScheduleController@store');
 
+Route::get('/getDetails/{id}','CheckerController@getScheduleRound');
+Route::get('/getDetailsTwo/{id}','CheckerController@getScheduleRoundTwo');
+
 //Filter
 Route::get('filterSchedule','ScheduleController@filterSchedule');
+
+// GetViolations
+Route::get('getViolations','ViolationController@index');
+// getRemarks
+Route::get('getRemarks','RemarksController@index');
+
+//Rounds
+Route::get('/getRound','RoundController@index');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

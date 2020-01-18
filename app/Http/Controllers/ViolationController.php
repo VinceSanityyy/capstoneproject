@@ -14,7 +14,11 @@ class ViolationController extends Controller
      */
     public function index()
     {
-        //
+        $violations = \DB::table('violations')
+                    ->where('deleted_at', null)
+                    ->get();
+        
+        return response()->json($violations);
     }
 
     /**

@@ -15,13 +15,17 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = \DB::table('schedules')
+        ->select('schedules.*','teachers.*','rooms.*','subject_codes.*')
         ->join('teachers','teachers.id','=','schedules.teacher_id')
         ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
         ->join('rooms','schedules.room_id','rooms.id')
         ->where('schedules.deleted_at',null)
         ->latest('schedules.created_at')
-        ->limit(12)
+        
+        // ->limit(12);
+        
         ->get();
+        // dd($schedules);
 
         return response()->json($schedules);
     }
@@ -138,4 +142,6 @@ class ScheduleController extends Controller
         ->latest('schedules.created_at')
         ->get();
     }
+
+ 
 }

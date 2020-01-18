@@ -30,9 +30,9 @@
                     <div class="col-xs-3 form-group">
                         <label>Schedule days</label>
                         <select class="form-control" name="day" v-model="form.days" :class="{ 'is-invalid': form.errors.has('days') }">
-                            <option value="T-TH">T-TH</option>
                             <option value="M-W-F">M-W-F</option>
-                            <option value="M-T-W-T-F">M-T-W-T-F</option>
+                            <option value="T-TH">T-TH</option>
+                             <option value="M-T-W-T-F">M-T-W-Th-F</option>
                             <option value="SAT">SAT</option>
                         </select>
                     </div>

@@ -21,7 +21,8 @@
             </div>
          </div>
          <div class="row" >
-            <div class="col-md-4 " v-for="schedule in schedules" :key="schedule.id">
+            <div class="col-md-4 " 
+            v-for="(schedule, index) in schedules" :key="index.id">
                <div class="box box-primary">
                   <div class="box-body box-profile">
                      <img class="profile-user-img img-responsive img-circle" :src="'img/'+schedule.image" style="max-width: 100%;height: 100px;"  alt="User profile picture">
@@ -43,9 +44,10 @@
                         <li class="list-group-item">
                            <b>Time</b> <a class="pull-right">{{schedule.start_time}} - {{schedule.end_time}}</a>
                         </li>
+                        {{schedule.id}}
                      </ul>
-                    <button class="btn btn-primary btn-block">First Round</button>
-                    <button class="btn btn-primary btn-block">Second Round</button>
+                    <a href="#"  @click="editFirstRound(schedule)" class="btn btn-primary btn-block">First Round</a>
+                    <button  @click="editSecondRound(schedule)" class="btn btn-primary btn-block">Second Round</button>
                     <button class="btn btn-info btn-block">Change </button>
                     <button class="btn btn-danger btn-block">Delete </button>
                   </div>
@@ -116,6 +118,12 @@
                    console.log(e)
                  })
          },
+         editFirstRound(data){
+            this.$router.push({name:'editFirst',params: data})
+         },
+          editSecondRound(data){
+            this.$router.push({name:'editSecond',params: data})
+         }
        
        },
        created() {

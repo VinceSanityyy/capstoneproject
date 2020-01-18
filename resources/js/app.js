@@ -43,7 +43,8 @@ const routes = [
     { path: '/addSchedules', component: require('./components/AddSchedule.vue').default },
     { path: '/attendanceReport', component: require('./components/Attendance.vue').default },
     { path: '/viewTeacher', name: 'EDITTEACHER', component: require('./components/EditTeacher.vue').default },
-    
+    { path: '/firstRound', name: 'editFirst', component: require('./components/FirstRound.vue').default },
+    { path: '/secondRound', name: 'editSecond', component: require('./components/SecondRound.vue').default },
   ]
 
 

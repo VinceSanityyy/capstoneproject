@@ -1,16 +1,6 @@
 <template>
    <div class="row">
-      <!-- <div class="col-xs-3">
-         <div class="box">
-             <div class="box-tools" v-for="(teacher,index) in teachers" :key="index">
-               <img :src="'img/'+teachers.image" class="img-rounded" style="width:204px;height:auto;">
-             
-                    <label>Replace Picture</label>
-                    <input class="form-control" type="file" v-on:change="addImage">
-                    </div>
-            
-         </div>
-         </div> -->
+     
       <div class="col-md-3">
          <div class="box box-danger" >
             <div class="box-body box-profile">

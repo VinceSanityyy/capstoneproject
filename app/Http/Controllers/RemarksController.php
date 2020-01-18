@@ -14,7 +14,9 @@ class RemarksController extends Controller
      */
     public function index()
     {
-        //
+        $remarks = \DB::table('remarks')->where('deleted_at',null)->get();
+
+        return response()->json($remarks);
     }
 
     /**
