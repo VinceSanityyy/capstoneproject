@@ -154,7 +154,8 @@
                     createSchedule(){
                         this.form.post('/addSchedules')
                             .then(({data})=>{
-                                swal.fire("Subject Updated!", "", "success");
+                                swal.fire("Schedule Added!", "", "success");
+                                // this.$router.push('/schedules');
                             })
                              console.log(this.form)
                     }

@@ -44,7 +44,7 @@
                         <li class="list-group-item">
                            <b>Time</b> <a class="pull-right">{{schedule.start_time}} - {{schedule.end_time}}</a>
                         </li>
-                        {{schedule.id}}
+                    
                      </ul>
                     <a href="#"  @click="editFirstRound(schedule)" class="btn btn-primary btn-block">First Round</a>
                     <button  @click="editSecondRound(schedule)" class="btn btn-primary btn-block">Second Round</button>

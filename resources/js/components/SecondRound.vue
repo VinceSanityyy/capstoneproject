@@ -9,18 +9,38 @@
               </div>
           </div>
       </div>
-        <div class="col-xs-4">
-              <div class="box box-danger">
-                  <h3 class="box-title">Violations</h3>
-              </div>
-          </div>
-            <div class="col-xs-4">
-              <div class="box box-danger" v-for="detail in details" :key="detail.id" >
-                  <h3 class="box-title">{{detail.remarks_desc}}</h3>
-                  
-              </div>
-          </div>
-
+   <div class="row" v-for="detail in details" :key="detail.id">
+            <div class="col-xs-3">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">Violations</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <input class="form-check-input" checked="checked" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                {{detail.violation_details}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">Remarks</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <input class="form-check-input" checked="checked" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                {{detail.remarks_desc}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </template>
 

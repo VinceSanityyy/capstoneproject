@@ -1987,7 +1987,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     createSchedule: function createSchedule() {
       this.form.post('/addSchedules').then(function (_ref2) {
         var data = _ref2.data;
-        swal.fire("Subject Updated!", "", "success");
+        swal.fire("Schedule Added!", "", "success"); // this.$router.push('/schedules');
       });
       console.log(this.form);
     }
@@ -2346,6 +2346,26 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2761,6 +2781,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -64898,55 +64938,125 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "box box-danger" }, [
-        _c("div", { staticClass: "box-body box-profile" }, [
-          _c("img", {
-            staticClass: "profile-user-img img-responsive img-circle",
-            staticStyle: { width: "200px", height: "200px" },
-            attrs: {
-              src: "img/" + _vm.schedule.image,
-              alt: "User profile picture"
-            }
-          }),
-          _vm._v(" "),
-          _c("h3", { staticClass: "profile-username text-center" }, [
-            _vm._v("Name: " + _vm._s(_vm.schedule.fullname))
+  return _c(
+    "div",
+    { staticClass: "row" },
+    [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "box box-danger" }, [
+          _c("div", { staticClass: "box-body box-profile" }, [
+            _c("img", {
+              staticClass: "profile-user-img img-responsive img-circle",
+              staticStyle: { width: "200px", height: "200px" },
+              attrs: {
+                src: "img/" + _vm.schedule.image,
+                alt: "User profile picture"
+              }
+            }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "profile-username text-center" }, [
+              _vm._v("Name: " + _vm._s(_vm.schedule.fullname))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted text-center" }, [
+              _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.details, function(detail) {
+        return _c("div", { key: detail.id, staticClass: "row" }, [
+          _c("div", { staticClass: "col-xs-3" }, [
+            _c("div", { staticClass: "box box-success" }, [
+              _vm._m(0, true),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: {
+                      checked: "checked",
+                      type: "checkbox",
+                      value: "",
+                      id: "defaultCheck1"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(detail.violation_details) +
+                          "\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
           ]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-muted text-center" }, [
-            _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
+          _c("div", { staticClass: "col-xs-3" }, [
+            _c("div", { staticClass: "box box-success" }, [
+              _vm._m(1, true),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: {
+                      checked: "checked",
+                      type: "checkbox",
+                      value: "",
+                      id: "defaultCheck1"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(detail.remarks_desc) +
+                          "\n                        "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-xs-4" },
-      _vm._l(_vm.details, function(detail) {
-        return _c("div", { key: detail.id, staticClass: "box box-danger" }, [
-          _c("h3", { staticClass: "box-title" }, [
-            _vm._v(_vm._s(detail.remarks_desc))
-          ])
-        ])
-      }),
-      0
-    )
-  ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xs-4" }, [
-      _c("div", { staticClass: "box box-danger" }, [
-        _c("h3", { staticClass: "box-title" }, [_vm._v("Violations")])
-      ])
+    return _c("div", { staticClass: "box-header" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Violations")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Remarks")])
     ])
   }
 ]
@@ -65354,12 +65464,7 @@ var render = function() {
                           _vm._s(schedule.end_time)
                       )
                     ])
-                  ]),
-                  _vm._v(
-                    "\n                     " +
-                      _vm._s(schedule.id) +
-                      "\n                  "
-                  )
+                  ])
                 ]),
                 _vm._v(" "),
                 _c(
@@ -65427,55 +65532,125 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-4" }, [
-      _c("div", { staticClass: "box box-danger" }, [
-        _c("div", { staticClass: "box-body box-profile" }, [
-          _c("img", {
-            staticClass: "profile-user-img img-responsive img-circle",
-            staticStyle: { width: "200px", height: "200px" },
-            attrs: {
-              src: "img/" + _vm.schedule.image,
-              alt: "User profile picture"
-            }
-          }),
-          _vm._v(" "),
-          _c("h3", { staticClass: "profile-username text-center" }, [
-            _vm._v("Name: " + _vm._s(_vm.schedule.fullname))
+  return _c(
+    "div",
+    { staticClass: "row" },
+    [
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "box box-danger" }, [
+          _c("div", { staticClass: "box-body box-profile" }, [
+            _c("img", {
+              staticClass: "profile-user-img img-responsive img-circle",
+              staticStyle: { width: "200px", height: "200px" },
+              attrs: {
+                src: "img/" + _vm.schedule.image,
+                alt: "User profile picture"
+              }
+            }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "profile-username text-center" }, [
+              _vm._v("Name: " + _vm._s(_vm.schedule.fullname))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted text-center" }, [
+              _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.details, function(detail) {
+        return _c("div", { key: detail.id, staticClass: "row" }, [
+          _c("div", { staticClass: "col-xs-3" }, [
+            _c("div", { staticClass: "box box-success" }, [
+              _vm._m(0, true),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: {
+                      checked: "checked",
+                      type: "checkbox",
+                      value: "",
+                      id: "defaultCheck1"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                              " +
+                          _vm._s(detail.violation_details) +
+                          "\n                          "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
           ]),
           _vm._v(" "),
-          _c("p", { staticClass: "text-muted text-center" }, [
-            _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
+          _c("div", { staticClass: "col-xs-3" }, [
+            _c("div", { staticClass: "box box-success" }, [
+              _vm._m(1, true),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    staticClass: "form-check-input",
+                    attrs: {
+                      checked: "checked",
+                      type: "checkbox",
+                      value: "",
+                      id: "defaultCheck1"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: "defaultCheck1" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                              " +
+                          _vm._s(detail.remarks_desc) +
+                          "\n                          "
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
           ])
         ])
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "col-xs-4" },
-      _vm._l(_vm.details, function(detail) {
-        return _c("div", { key: detail.id, staticClass: "box box-danger" }, [
-          _c("h3", { staticClass: "box-title" }, [
-            _vm._v(_vm._s(detail.remarks_desc))
-          ])
-        ])
-      }),
-      0
-    )
-  ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-xs-4" }, [
-      _c("div", { staticClass: "box box-danger" }, [
-        _c("h3", { staticClass: "box-title" }, [_vm._v("Violations")])
-      ])
+    return _c("div", { staticClass: "box-header" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Violations")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Remarks")])
     ])
   }
 ]
@@ -82183,8 +82358,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Projects\capstoneproject\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Projects\capstoneproject\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\NCGC\Desktop\capstoneproject\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\NCGC\Desktop\capstoneproject\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
