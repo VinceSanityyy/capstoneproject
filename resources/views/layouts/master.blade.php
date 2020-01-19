@@ -606,15 +606,16 @@
 <script src="{{asset('layout/bower_components/fastclick/lib/fastclick.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('layout/js/adminlte.min.js')}}"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{asset('layout/js/pages/dashboard.js')}}"></script>
+{{-- <script src="{{asset('layout/js/pages/dashboard.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{asset('layout/js/demo.js')}}"></script>
+<script src="{{asset('layout/js/demo.js')}}"></script> --}}
 
 {{-- timepicker --}}
 <script src="{{asset('layout/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
 
-
+{{-- 
 <script>
   $(function(){
      //Timepicker
@@ -622,7 +623,7 @@
       showInputs: false
     })
   });
-</script>
+</script> --}}
 
 <script src="/js/app.js"></script>
 

@@ -2131,6 +2131,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -2346,6 +2355,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -64608,18 +64619,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Attendance Report Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    Attendance Report Goes here\n                "
-              )
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xs-12" }, [
+        _c("div", { staticClass: "box box-danger" }, [
+          _c("div", { staticClass: "box-header" }, [
+            _c("h3", { staticClass: "box-title" }, [
+              _vm._v("Generate Weekly Report")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-body" }, [
+            _c("form", { attrs: { action: "" } }, [
+              _c("div", { staticClass: "col-xs-3 form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("From: ")]),
+                _vm._v(" "),
+                _c("input", { attrs: { type: "date", name: "", id: "" } })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-xs-3 form-group" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("To: ")]),
+                _vm._v(" "),
+                _c("input", { attrs: { type: "date", name: "", id: "" } })
+              ]),
+              _vm._v(" "),
+              _c("button", { staticClass: "btn btn-info" }, [
+                _vm._v("Genarate")
+              ])
             ])
           ])
         ])
@@ -64944,24 +64969,42 @@ var render = function() {
     [
       _c("div", { staticClass: "col-md-4" }, [
         _c("div", { staticClass: "box box-danger" }, [
-          _c("div", { staticClass: "box-body box-profile" }, [
-            _c("img", {
-              staticClass: "profile-user-img img-responsive img-circle",
-              staticStyle: { width: "200px", height: "200px" },
-              attrs: {
-                src: "img/" + _vm.schedule.image,
-                alt: "User profile picture"
-              }
-            }),
-            _vm._v(" "),
-            _c("h3", { staticClass: "profile-username text-center" }, [
-              _vm._v("Name: " + _vm._s(_vm.schedule.fullname))
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "text-muted text-center" }, [
-              _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
-            ])
-          ])
+          _c(
+            "div",
+            { staticClass: "box-body box-profile" },
+            [
+              _c("img", {
+                staticClass: "profile-user-img img-responsive img-circle",
+                staticStyle: { width: "200px", height: "200px" },
+                attrs: {
+                  src: "img/" + _vm.schedule.image,
+                  alt: "User profile picture"
+                }
+              }),
+              _vm._v(" "),
+              _c("h3", { staticClass: "profile-username text-center" }, [
+                _vm._v("Name: " + _vm._s(_vm.schedule.fullname))
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-muted text-center" }, [
+                _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
+              ]),
+              _vm._v(" "),
+              _c("button", { staticClass: "btn btn-primary btn-block" }, [
+                _vm._v("Save")
+              ]),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-info btn-block",
+                  attrs: { to: "/schedules" }
+                },
+                [_vm._v("Back")]
+              )
+            ],
+            1
+          )
         ])
       ]),
       _vm._v(" "),
@@ -82358,8 +82401,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\NCGC\Desktop\capstoneproject\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\NCGC\Desktop\capstoneproject\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\Projects\capstoneproject\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\Projects\capstoneproject\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

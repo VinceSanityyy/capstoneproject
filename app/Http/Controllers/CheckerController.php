@@ -87,7 +87,7 @@ class CheckerController extends Controller
         
         $scid = $request->id;
         $round = \DB::table('rounds')
-        ->select('rounds.*','checkers.*','remarks.*','violations.*')
+        ->select('rounds.*','checkers.*','remarks.remarks_desc','violations.violation_details')
         ->join('checkers','checkers.id','=','rounds.checker_id')
         ->join('checker_details','rounds.id','=','checker_details.round_id')
         ->join('remarks','remarks.id','=','rounds.remarks_id')
@@ -95,6 +95,7 @@ class CheckerController extends Controller
         ->where('checkers.schedule_id',$scid)
         ->where('rounds.round_no','=',1)
         ->distinct('rounds.remarks_id')
+        // ->toSql();
         ->get();
         return response()->json($round);
 
@@ -104,16 +105,17 @@ class CheckerController extends Controller
         
         $scid = $request->id;
         $round = \DB::table('rounds')
-        ->select('rounds.*','checkers.*','remarks.*','violations.*')
+        ->select('rounds.*','checkers.*','remarks.remarks_desc','violations.violation_details')
         ->join('checkers','checkers.id','=','rounds.checker_id')
         ->join('checker_details','rounds.id','=','checker_details.round_id')
         ->join('remarks','remarks.id','=','rounds.remarks_id')
         ->join('violations','violations.id','=','checker_details.violation_id')
         ->where('checkers.schedule_id',$scid)
         ->distinct('rounds.remarks_id')
-        ->where('rounds.round_no','=',2)
+        ->where('rounds.round_no','=', 2)
         // ->latest('checker_details.round_id')
         ->get();
+        // ->toSql();
         return response()->json($round);
 
     }
