@@ -2403,6 +2403,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2422,21 +2423,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getRemarks: function getRemarks() {
-      axios.get('getRemarks').then(function (res) {});
-    },
-    getRound: function getRound() {
       var _this2 = this;
 
+      axios.get('getRemarks').then(function (res) {
+        _this2.remarks = res.data;
+      });
+    },
+    getRound: function getRound() {
+      var _this3 = this;
+
       axios.get('getRound').then(function (res) {
-        _this2.rounds = res.data;
+        _this3.rounds = res.data;
       });
     },
     getDetails: function getDetails() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get('getDetails/' + this.schedule.id).then(function (res) {
-        _this3.details = res.data;
-        console.log(_this3.details);
+        _this4.details = res.data;
+        console.log(_this4.details);
       });
     }
   },
@@ -2838,6 +2843,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2857,21 +2864,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getRemarks: function getRemarks() {
-      axios.get('getRemarks').then(function (res) {});
-    },
-    getRound: function getRound() {
       var _this2 = this;
 
+      axios.get('getRemarks').then(function (res) {
+        _this2.remarks = res.data;
+      });
+    },
+    getRound: function getRound() {
+      var _this3 = this;
+
       axios.get('getRound').then(function (res) {
-        _this2.rounds = res.data;
+        _this3.rounds = res.data;
       });
     },
     getDetails: function getDetails() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get('getDetailsTwo/' + this.schedule.id).then(function (res) {
-        _this3.details = res.data;
-        console.log(_this3.details);
+        _this4.details = res.data;
+        console.log(_this4.details);
       });
     }
   },
@@ -64963,101 +64974,102 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "row" },
-    [
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "box box-danger" }, [
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "box box-danger" }, [
+        _c(
+          "div",
+          { staticClass: "box-body box-profile" },
+          [
+            _c("img", {
+              staticClass: "profile-user-img img-responsive img-circle",
+              staticStyle: { width: "200px", height: "200px" },
+              attrs: {
+                src: "img/" + _vm.schedule.image,
+                alt: "User profile picture"
+              }
+            }),
+            _vm._v(" "),
+            _c("h3", { staticClass: "profile-username text-center" }, [
+              _vm._v("Name: " + _vm._s(_vm.schedule.fullname))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-muted text-center" }, [
+              _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
+            ]),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn btn-primary btn-block" }, [
+              _vm._v("Save")
+            ]),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-info btn-block",
+                attrs: { to: "/schedules" }
+              },
+              [_vm._v("Back")]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xs-3" }, [
+        _c("div", { staticClass: "box box-success" }, [
+          _vm._m(0),
+          _vm._v(" "),
           _c(
             "div",
-            { staticClass: "box-body box-profile" },
-            [
-              _c("img", {
-                staticClass: "profile-user-img img-responsive img-circle",
-                staticStyle: { width: "200px", height: "200px" },
-                attrs: {
-                  src: "img/" + _vm.schedule.image,
-                  alt: "User profile picture"
-                }
-              }),
-              _vm._v(" "),
-              _c("h3", { staticClass: "profile-username text-center" }, [
-                _vm._v("Name: " + _vm._s(_vm.schedule.fullname))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-muted text-center" }, [
-                _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
-              ]),
-              _vm._v(" "),
-              _c("button", { staticClass: "btn btn-primary btn-block" }, [
-                _vm._v("Save")
-              ]),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-info btn-block",
-                  attrs: { to: "/schedules" }
-                },
-                [_vm._v("Back")]
-              )
-            ],
-            1
+            { staticClass: "box-body" },
+            _vm._l(_vm.remarks, function(remark) {
+              return _c("div", { key: remark.id, staticClass: "form-group" }, [
+                _c("input", {
+                  staticClass: "form-check-input",
+                  attrs: { type: "checkbox", value: "" },
+                  domProps: { checked: remark.id === _vm.details[0].remarks_id }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-check-label",
+                    attrs: { for: "defaultCheck1" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(remark.remarks_desc) +
+                        "\n                        "
+                    )
+                  ]
+                )
+              ])
+            }),
+            0
           )
         ])
       ]),
       _vm._v(" "),
-      _vm._l(_vm.details, function(detail) {
-        return _c("div", { key: detail.id, staticClass: "row" }, [
-          _c("div", { staticClass: "col-xs-3" }, [
-            _c("div", { staticClass: "box box-success" }, [
-              _vm._m(0, true),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: {
-                      checked: "checked",
-                      type: "checkbox",
-                      value: "",
-                      id: "defaultCheck1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-check-label",
-                      attrs: { for: "defaultCheck1" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(detail.violation_details) +
-                          "\n                        "
-                      )
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
+      _c("div", { staticClass: "col-xs-3" }, [
+        _c("div", { staticClass: "box box-success" }, [
+          _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "col-xs-3" }, [
-            _c("div", { staticClass: "box box-success" }, [
-              _vm._m(1, true),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [
-                _c("div", { staticClass: "form-group" }, [
+          _c(
+            "div",
+            { staticClass: "box-body" },
+            _vm._l(_vm.violations, function(violation) {
+              return _c(
+                "div",
+                { key: violation.id, staticClass: "form-group" },
+                [
                   _c("input", {
                     staticClass: "form-check-input",
-                    attrs: {
-                      checked: "checked",
-                      type: "checkbox",
-                      value: "",
-                      id: "defaultCheck1"
+                    attrs: { type: "checkbox", value: "" },
+                    domProps: {
+                      checked: violation.id === _vm.details[0].violation_id
                     }
                   }),
                   _vm._v(" "),
@@ -65070,20 +65082,20 @@ var render = function() {
                     [
                       _vm._v(
                         "\n                            " +
-                          _vm._s(detail.remarks_desc) +
+                          _vm._s(violation.violation_details) +
                           "\n                        "
                       )
                     ]
                   )
-                ])
-              ])
-            ])
-          ])
+                ]
+              )
+            }),
+            0
+          )
         ])
-      })
-    ],
-    2
-  )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -65091,7 +65103,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Violations")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Remarks")])
     ])
   },
   function() {
@@ -65099,7 +65111,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Remarks")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Violations")])
     ])
   }
 ]
@@ -65575,13 +65587,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "row" },
-    [
-      _c("div", { staticClass: "col-md-4" }, [
-        _c("div", { staticClass: "box box-danger" }, [
-          _c("div", { staticClass: "box-body box-profile" }, [
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "box box-danger" }, [
+        _c(
+          "div",
+          { staticClass: "box-body box-profile" },
+          [
             _c("img", {
               staticClass: "profile-user-img img-responsive img-circle",
               staticStyle: { width: "200px", height: "200px" },
@@ -65597,61 +65609,80 @@ var render = function() {
             _vm._v(" "),
             _c("p", { staticClass: "text-muted text-center" }, [
               _c("b", [_vm._v("Course: " + _vm._s(_vm.schedule.course))])
-            ])
-          ])
+            ]),
+            _vm._v(" "),
+            _c("button", { staticClass: "btn btn-primary btn-block" }, [
+              _vm._v("Save")
+            ]),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-info btn-block",
+                attrs: { to: "/schedules" }
+              },
+              [_vm._v("Back")]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-xs-3" }, [
+        _c("div", { staticClass: "box box-success" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "box-body" },
+            _vm._l(_vm.remarks, function(remark) {
+              return _c("div", { key: remark.id, staticClass: "form-group" }, [
+                _c("input", {
+                  staticClass: "form-check-input",
+                  attrs: { type: "checkbox", value: "" },
+                  domProps: { checked: remark.id === _vm.details[0].remarks_id }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass: "form-check-label",
+                    attrs: { for: "defaultCheck1" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(remark.remarks_desc) +
+                        "\n                        "
+                    )
+                  ]
+                )
+              ])
+            }),
+            0
+          )
         ])
       ]),
       _vm._v(" "),
-      _vm._l(_vm.details, function(detail) {
-        return _c("div", { key: detail.id, staticClass: "row" }, [
-          _c("div", { staticClass: "col-xs-3" }, [
-            _c("div", { staticClass: "box box-success" }, [
-              _vm._m(0, true),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("input", {
-                    staticClass: "form-check-input",
-                    attrs: {
-                      checked: "checked",
-                      type: "checkbox",
-                      value: "",
-                      id: "defaultCheck1"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "form-check-label",
-                      attrs: { for: "defaultCheck1" }
-                    },
-                    [
-                      _vm._v(
-                        "\n                              " +
-                          _vm._s(detail.violation_details) +
-                          "\n                          "
-                      )
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ]),
+      _c("div", { staticClass: "col-xs-3" }, [
+        _c("div", { staticClass: "box box-success" }, [
+          _vm._m(1),
           _vm._v(" "),
-          _c("div", { staticClass: "col-xs-3" }, [
-            _c("div", { staticClass: "box box-success" }, [
-              _vm._m(1, true),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-body" }, [
-                _c("div", { staticClass: "form-group" }, [
+          _c(
+            "div",
+            { staticClass: "box-body" },
+            _vm._l(_vm.violations, function(violation) {
+              return _c(
+                "div",
+                { key: violation.id, staticClass: "form-group" },
+                [
                   _c("input", {
                     staticClass: "form-check-input",
-                    attrs: {
-                      checked: "checked",
-                      type: "checkbox",
-                      value: "",
-                      id: "defaultCheck1"
+                    attrs: { type: "checkbox", value: "" },
+                    domProps: {
+                      checked: violation.id === _vm.details[0].violation_id
                     }
                   }),
                   _vm._v(" "),
@@ -65663,21 +65694,21 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                              " +
-                          _vm._s(detail.remarks_desc) +
-                          "\n                          "
+                        "\n                            " +
+                          _vm._s(violation.violation_details) +
+                          "\n                        "
                       )
                     ]
                   )
-                ])
-              ])
-            ])
-          ])
+                ]
+              )
+            }),
+            0
+          )
         ])
-      })
-    ],
-    2
-  )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -65685,7 +65716,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Violations")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Remarks")])
     ])
   },
   function() {
@@ -65693,7 +65724,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box-header" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Remarks")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Violations")])
     ])
   }
 ]

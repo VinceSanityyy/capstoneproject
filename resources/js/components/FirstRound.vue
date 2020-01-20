@@ -11,32 +11,33 @@
                 </div>
             </div>
         </div>
-        <div class="row" v-for="detail in details" :key="detail.id">
-            <div class="col-xs-3">
-                <div class="box box-success">
-                    <div class="box-header">
-                        <h3 class="box-title">Violations</h3>
-                    </div>
-                    <div class="box-body">
-                        <div class="form-group">
-                            <input class="form-check-input" checked="checked" type="checkbox" value="" id="defaultCheck1">
-                            <label class="form-check-label" for="defaultCheck1">
-                                {{detail.violation_details}}
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row">
             <div class="col-xs-3">
                 <div class="box box-success">
                     <div class="box-header">
                         <h3 class="box-title">Remarks</h3>
                     </div>
                     <div class="box-body">
-                        <div class="form-group">
-                            <input class="form-check-input" checked="checked" type="checkbox" value="" id="defaultCheck1">
+                        <div class="form-group" v-for="remark in remarks" :key="remark.id">
+                                                               
+                            <input class="form-check-input" :checked="remark.id === details[0].remarks_id" type="checkbox" value="">
                             <label class="form-check-label" for="defaultCheck1">
-                                {{detail.remarks_desc}}
+                                {{remark.remarks_desc}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3" >
+                <div class="box box-success">
+                    <div class="box-header">
+                        <h3 class="box-title">Violations</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group" v-for="violation in violations" :key="violation.id">
+                            <input class="form-check-input" :checked="violation.id === details[0].violation_id"  type="checkbox" value="">
+                            <label  class="form-check-label" for="defaultCheck1">
+                                {{violation.violation_details}}
                             </label>
                         </div>
                     </div>
@@ -66,7 +67,9 @@
                     },
                     getRemarks() {
                         axios.get('getRemarks')
-                            .then((res) => {})
+                            .then((res) => {
+                                 this.remarks = res.data
+                            })
                     },
                     getRound() {
                         axios.get('getRound')
@@ -80,14 +83,15 @@
                                 this.details = res.data
                                 console.log(this.details)
                             })
-                    }
+                    },
+                   
             },
             created() {
                 this.schedule = this.$router.currentRoute.params
                 this.getRound()
                 this.getViolations()
-                this.getRemarks();
-                this.getDetails();
+                this.getRemarks()
+                this.getDetails()
                 console.log('Component mounted.')
             }
     }
