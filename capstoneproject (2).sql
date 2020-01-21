@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2020 at 04:05 PM
+-- Generation Time: Jan 21, 2020 at 05:06 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -44,9 +44,7 @@ CREATE TABLE `checkers` (
 --
 
 INSERT INTO `checkers` (`id`, `schedule_id`, `user_id`, `remarks_id`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 12, 'Round 1', '2020-01-19 16:00:00', NULL, NULL),
-(2, 1, 1, 12, 'Round 2', '2020-01-19 16:00:00', NULL, NULL),
-(3, 2, 1, 9, 'Round 1', '2020-01-19 16:00:00', NULL, NULL);
+(1, 1, 1, 2, 'Round 1 and 2 For sched 1', '2020-01-20 16:00:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -68,9 +66,8 @@ CREATE TABLE `checker_details` (
 --
 
 INSERT INTO `checker_details` (`id`, `round_id`, `violation_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, NULL, NULL, NULL),
-(2, 2, 1, NULL, NULL, NULL),
-(3, 3, 3, NULL, NULL, NULL);
+(4, 4, 1, NULL, NULL, NULL),
+(5, 5, 3, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -192,9 +189,8 @@ CREATE TABLE `rounds` (
 --
 
 INSERT INTO `rounds` (`id`, `checker_id`, `round_no`, `remarks_id`, `status`, `time_check`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 1, 12, '1', '12:30', NULL, NULL, NULL),
-(2, 2, 2, 12, '2', '12:30', NULL, NULL, NULL),
-(3, 3, 1, 4, 'Round 1 for schedule 2', '10:30', NULL, NULL, NULL);
+(4, 1, 1, 2, 'Round 1 Done', '10:30', '2020-01-20 16:00:00', NULL, NULL),
+(5, 1, 2, 1, 'Round 2 for sched 1', '12:30', '2020-01-20 16:00:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -437,13 +433,13 @@ ALTER TABLE `violations`
 -- AUTO_INCREMENT for table `checkers`
 --
 ALTER TABLE `checkers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `checker_details`
 --
 ALTER TABLE `checker_details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -467,7 +463,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `rounds`
 --
 ALTER TABLE `rounds`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `schedules`

@@ -16,15 +16,15 @@ class RoundController extends Controller
     {
         // tables needed rounds,checker,checker_details
 
-        $round = \DB::table('rounds')
-                ->select('rounds.*','checkers.*','checker_details.*','remarks.*','violations.*')
-                ->join('checkers','checkers.id','=','rounds.checker_id')
-                ->join('checker_details','rounds.id','=','checker_details.round_id')
-                ->join('remarks','remarks.id','=','rounds.remarks_id')
-                ->join('violations','violations.id','=','checker_details.violation_id')
-                ->get();
-        // dd($round);
-        return response()->json($round);
+        // $round = \DB::table('rounds')
+        //         ->select('rounds.*','checkers.*','checker_details.*','remarks.*','violations.*')
+        //         ->join('checkers','checkers.id','=','rounds.checker_id')
+        //         ->join('checker_details','rounds.id','=','checker_details.round_id')
+        //         ->join('remarks','remarks.id','=','rounds.remarks_id')
+        //         ->join('violations','violations.id','=','checker_details.violation_id')
+        //         ->get();
+        // // dd($round);
+        // return response()->json($round);
                 
     }
 

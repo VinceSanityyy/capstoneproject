@@ -88,10 +88,10 @@ class CheckerController extends Controller
         $scid = $request->id;
         $round = \DB::table('rounds')
         ->select('rounds.*','checkers.*','remarks.*','violations.*')
-        ->join('checkers','checkers.id','=','rounds.checker_id')
-        ->join('checker_details','rounds.id','=','checker_details.round_id')
-        ->join('remarks','remarks.id','=','rounds.remarks_id')
-        ->join('violations','violations.id','=','checker_details.violation_id')
+        ->leftJoin('checkers','checkers.id','=','rounds.checker_id')
+        ->leftJoin('checker_details','rounds.id','=','checker_details.round_id')
+        ->leftJoin('remarks','remarks.id','=','rounds.remarks_id')
+        ->leftJoin('violations','violations.id','=','checker_details.violation_id')
         ->where('checkers.schedule_id',$scid)
         ->where('rounds.round_no','=',1)
         ->distinct('rounds.remarks_id')
@@ -106,13 +106,14 @@ class CheckerController extends Controller
         $scid = $request->id;
         $round = \DB::table('rounds')
         ->select('rounds.*','checkers.*','remarks.*','violations.*')
-        ->join('checkers','checkers.id','=','rounds.checker_id')
-        ->join('checker_details','rounds.id','=','checker_details.round_id')
-        ->join('remarks','remarks.id','=','rounds.remarks_id')
-        ->join('violations','violations.id','=','checker_details.violation_id')
+        ->leftJoin('checkers','checkers.id','=','rounds.checker_id')
+        ->leftJoin('checker_details','rounds.id','=','checker_details.round_id')
+        ->leftJoin('remarks','remarks.id','=','rounds.remarks_id')
+        ->leftJoin('violations','violations.id','=','checker_details.violation_id')
         ->where('checkers.schedule_id',$scid)
         ->distinct('rounds.remarks_id')
         ->where('rounds.round_no','=', 2)
+        // ->toSql();
         ->get();
   
         return response()->json($round);
