@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    
+
+    public function getGraph(){
+        $ext = \DB::table('checkers')->distinct()->get();
+        $grouped = $ext->groupBy('schedule_id')->map(function($item, $key) {
+            return ['count' => collect($item)->count()];
+        });
+
+        return response()->json($grouped);
+    }
 }

@@ -19,7 +19,7 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group" v-for="remark in remarks" :key="remark.id">        
-                            <input class="form-check-input" :checked="remark.id === details[0].remarks_id" type="checkbox" value="">
+                             <input class="form-check-input" name="radio" :checked="remark.id === details[0].remarks_id" type="radio" value="">
                             <label class="form-check-label" for="defaultCheck1">
                                 {{remark.remarks_desc}}
                             </label>
@@ -31,6 +31,7 @@
                 <div class="box box-success">
                     <div class="box-header">
                         <h3 class="box-title">Violations</h3>
+                        
                     </div>
                     <div class="box-body">
                         <div class="form-group" v-for="violation in violations" :key="violation.id">

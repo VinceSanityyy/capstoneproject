@@ -64,4 +64,7 @@ Route::get('getRemarks','RemarksController@index');
 //Rounds
 Route::get('/getRound','RoundController@index');
 
+// Graph
+Route::get('/getGraph','HomeController@getGraph');
+
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

@@ -10,8 +10,15 @@ import swal from 'sweetalert2'
 
 import datePicker from 'vue-bootstrap-datetimepicker';
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+
+
+import Graph from './components/Graph.vue'
+import VueFusionCharts from 'vue-fusioncharts';
+import FusionCharts from 'fusioncharts';
+
 Vue.use(datePicker);
 Vue.use(VueRouter)
+Vue.use(VueFusionCharts, FusionCharts);
 
 
 Vue.component(HasError.name, HasError)
@@ -55,6 +62,7 @@ const router = new VueRouter({
   })
 
 Vue.component('teachers', require('./components/Teachers.vue').default);
+Vue.component('graph', require('./components/Graph.vue').default);
 
 const app = new Vue({
     el: '#app',
