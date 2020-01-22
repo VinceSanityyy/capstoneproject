@@ -1,4 +1,5 @@
 <template>
+    
     <div id="chart-container">
         <fusioncharts :type="type" :width="width" :height="height" :dataFormat="dataFormat"  :dataSource=" dataSource ">
             </fusioncharts>
@@ -18,17 +19,15 @@ export default {
     name: 'app',
     data() {
         return {
-            users: [],
-            type: "doughnut2d",
+            type: "line",
             renderAt: "chart-container",
-            width: "550",
+            width: "1000",
             height: "350",
             dataFormat: 'json',
             dataSource: {
                 chart: {
                     "caption": "Absences", "theme": "fusion"
-                }
-                ,
+                },
                 data: []
             },
         }
@@ -37,12 +36,9 @@ export default {
           getdata(){
            axios.get('/getGraph')
             .then(({data})=>{
-                for(let x in data){
-                    this.dataSource.data.push({
-                        "label": x,
-                        "value": data[x].count
-                    })
-                }
+                data.date.forEach(x => {
+                   this.dataSource.data.push(x);
+                });
             })
        }
     },

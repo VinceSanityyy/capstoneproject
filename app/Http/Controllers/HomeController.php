@@ -28,11 +28,25 @@ class HomeController extends Controller
     
 
     public function getGraph(){
-        $ext = \DB::table('checkers')->distinct()->get();
-        $grouped = $ext->groupBy('schedule_id')->map(function($item, $key) {
-            return ['count' => collect($item)->count()];
-        });
+        $ext = \DB::table('checkers')
+                ->where('remarks_id',2)
+                ->join('schedules','schedules.id','=','checkers.schedule_id')
+                ->join('teachers','schedules.teacher_id','=','teachers.id')
+                ->where('schedules.teacher_id',1)
+                ->count();
 
-        return response()->json($grouped);
+        $date = \DB::table('checkers')
+                ->where('remarks_id',2)
+                ->select(\DB::raw("COUNT(checkers.id) `value` "), \DB::raw("DATE_FORMAT(checkers.created_at, '%M %d, %Y') label "))
+                ->join('schedules','schedules.id','=','checkers.schedule_id')
+                ->join('teachers','schedules.teacher_id','=','teachers.id')
+                ->where('schedules.teacher_id',1)
+                ->groupBy('label')
+                ->get();        
+                
+        return response()->json([
+            'count' => $ext,
+            'date' => $date
+        ]);
     }
 }
