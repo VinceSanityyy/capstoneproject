@@ -33,8 +33,10 @@
                         <h3 class="box-title">Violations</h3>
                     </div>
                     <div class="box-body">
-                        <div class="form-group" v-for="violation in violations" :key="violation.id">
-                            <input class="form-check-input" :checked="violation.id === details[0].id"  type="checkbox" value="">
+                  <!-- <div class="form-group" v-for="violation in violations" :key="violation.id">
+                            <input class="form-check-input" :checked="violation.id === details[0].id"  type="checkbox" value=""> -->
+                        <div class="form-group" v-for="violation in computedViolations2" :key="violation.id">
+                            <input class="form-check-input" :checked="violation.checkboxIsTrue == true"   type="checkbox" value="">
                             <label  class="form-check-label" for="defaultCheck1">
                                 {{violation.violation_details}}
                             </label>
@@ -57,6 +59,29 @@
                     details: [],
                 }
             },
+
+            computed:{
+                computedViolations(){
+                    return this.violations.map(obj => {
+                            obj.checkboxIsTrue = false;
+                            return obj;
+                    });
+                },
+                computedViolations2(){
+                    return this.computedViolations.map(obj => {
+                            this.details.forEach(detail => {
+                                if(detail.id == obj.id){
+                                    obj.checkboxIsTrue = true;
+                                }
+                            });
+                            return obj;
+                    });
+                }
+           },
+
+
+
+
             methods: {
                 getViolations() {
                         axios.get('getViolations')
