@@ -10,6 +10,7 @@ import swal from 'sweetalert2'
 
 import datePicker from 'vue-bootstrap-datetimepicker';
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css';
+import Datepicker from 'vuejs-datepicker';
 
 
 import Graph from './components/Graph.vue'
@@ -68,6 +69,6 @@ const app = new Vue({
     el: '#app',
     router,
     components: {
-      datePicker
+      datePicker,
       }
 });

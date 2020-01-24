@@ -56,22 +56,7 @@
             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <div class="col-xs-12">
-          <div class="box box-danger">
-            <h3 class="box-title" style="text-align:center">Statistics</h3>
-            <div class="box-tools">
-              <div class="col-xs-12 form-group">
-                        <label>Select Teacher</label>
-                        <select class="form-control" name="teacher" v-model="teacher" >
-                            <option :value="teacher.id" v-for="teacher in teachers" :key="teacher.id">{{teacher.fullname}}</option>
-                        </select>
-                    </div>
-            </div>
-            <div class="box-body">
-                <graph></graph>
-            </div>
-          </div>
-        </div>
+      <graph></graph>
       </div>
 </template>
 
@@ -79,25 +64,15 @@
     export default {
       data(){
         return{
-          teachers:[],
-          teacher:''
+       
         }
       },
       methods:{
-          getTeachers(){
-               axios.get('getTeachers')
-                   .then((res)=>{
-                       this.teachers = res.data
-                       // this.sortData()
-                   })
-                   .catch((e)=>{
-                       console.log(e)
-                   })
-           },
+      
       },
         created() {
             console.log('Component mounted.')
-            this.getTeachers()
+        
         }
     }
 </script>

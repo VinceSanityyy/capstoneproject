@@ -7,16 +7,18 @@
               </div>
               <div class="box-body">
                <form action="">
-                   <div class="col-xs-3 form-group">
-                       <label for="">From: </label>
-                       <input type="date" name="" id="">
-                   </div>
-                       <div class="col-xs-3 form-group">
-                       <label for="">To: </label>
-                       <input type="date" name="" id="">
-                   </div>
-                   <button class="btn btn-info">Genarate</button>
+                   <div class="col-xs-4 form-group">
+                        <label>Start Date</label>
+                       <date-picker :config="options" ></date-picker>
+                    </div>
+                    <div class="col-xs-4 form-group">
+                        <label>End Date</label>
+                          <date-picker :config="options" ></date-picker>
+                    </div>
                </form>
+            </div>
+            <div class="box-footer">
+                  <button class="btn btn-info">Genarate Excel</button>
             </div>
            </div>
        </div>
@@ -25,6 +27,17 @@
 
 <script>
     export default {
+        data(){
+            return{
+                    date: new Date(),
+                    options: {
+                    format: 'd/MM/YYYY',
+                    useCurrent: false,
+                    showClear: true,
+                    showClose: true,
+                    },
+            }
+        },
         mounted() {
             console.log('Component mounted.')
         }

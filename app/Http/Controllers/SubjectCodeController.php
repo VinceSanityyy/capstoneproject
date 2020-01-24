@@ -14,7 +14,9 @@ class SubjectCodeController extends Controller
      */
     public function index()
     {
-        $subjectcodes = \DB::table('subject_codes')->where('deleted_at',null)->get();
+        $subjectcodes = \DB::table('subject_codes')
+                        ->where('deleted_at',null)
+                        ->get();           
         return response()->json($subjectcodes);
     }
 

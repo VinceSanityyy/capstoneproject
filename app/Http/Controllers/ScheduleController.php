@@ -49,9 +49,6 @@ class ScheduleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            // 'subject_code_id' => 'required',
-            // 'teacher_id' => 'required',
-            // 'room_id' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
             'schoolyr' => 'required',
@@ -72,18 +69,6 @@ class ScheduleController extends Controller
             'term' => $request["term"],
             'day' => $request["days"],
            ]);
-
-        // $schedules = \DB::table('schedules')->insert([
-        //     ['subject_code_id' => $request->subject],
-        //     ['teacher_id' => $request->teacher],
-        //     ['room_id' =>$request->room],
-        //     ['start_time' => $request->start_time],
-        //     ['end_time' => $request->end_time],
-        //     ['school_year' => $request->schoolyr],
-        //     ['semester' => $request->sem],
-        //     ['term' => $request->term],
-        //     ['day' => $request->days],
-        // ]);
     }
 
     /**

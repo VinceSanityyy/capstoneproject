@@ -48,7 +48,7 @@
                      </ul>
                     <a href="#"  @click="editFirstRound(schedule)" class="btn btn-primary btn-block">First Round</a>
                     <button  @click="editSecondRound(schedule)" class="btn btn-primary btn-block">Second Round</button>
-                    <button class="btn btn-info btn-block">Change </button>
+                    <button @click="editModal(schedule)"  data-toggle="modal" data-target="#exampleModal" class="btn btn-info btn-block">Set Overall Remarks</button>
                     <button class="btn btn-danger btn-block">Delete </button>
                   </div>
                   <!-- /.box-body -->
@@ -56,6 +56,34 @@
             </div>
          </div>
       </div>
+      <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Set Overall Remarks</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form @submit.prevent="setOverall()">
+      <div class="modal-body">
+          <div class="col-xs-12 form-group">
+                    <label>Select Remarks</label>
+                    <select class="form-control" name="remarks" v-model="form.overall">
+                        <option :value="remark.id" v-for="remark in remarks" :key="remark.id">{{remark.remarks_desc}}</option>
+                    </select>
+                </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button  type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- modal -->
    </div>
 </template>
 <script>
@@ -65,9 +93,13 @@
                teachers:[],
                subjectcodes:[],
                schedules:[],
+               remarks:[],
+               remark_id:'',
                 form: new Form({
+                        id:'',
                         start_time:'',
                         end_time:'',
+                        overall:'',
                     }),
                
                start_time: new Date(),
@@ -123,13 +155,37 @@
          },
           editSecondRound(data){
             this.$router.push({name:'editSecond',params: data})
-         }
+         },
+
+           setOverall(){
+            this.form.put('/setOverall/' + this.form.id)
+              .then(()=>{
+               swal.fire("Record Updated!", "", "success");
+                $('#exampleModal').modal('hide');
+                $(".modal-backdrop").remove();
+              })
+              .catch((e)=>{
+                console.log(e)
+              })
+          },
+         getRemarks(){
+            axios.get('/getRemarks')
+               .then((res)=>{
+                  this.remarks = res.data
+               })
+         },
+            editModal(schedule){
+            this.editmode = true
+            $('#exampleModal').modal('show')
+            this.form.fill(schedule)
+          },
        
        },
        created() {
            this.getTeachers();
            this.getSubjectCodes()
            this.getSchedules()
+           this.getRemarks()
            console.log('Component mounted.')
        }
    }

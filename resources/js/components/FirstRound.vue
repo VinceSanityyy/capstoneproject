@@ -6,8 +6,8 @@
                     <img :src="'img/'+schedule.image" alt="User profile picture" class="profile-user-img img-responsive img-circle" style="width:200px; height:200px">
                     <h3 class="profile-username text-center">Name: {{schedule.fullname}}</h3>
                     <p class="text-muted text-center"><b>Course: {{schedule.course}}</b></p>
-                    <button class="btn btn-primary btn-block">Save</button>
-                    <router-link to="/schedules" class="btn btn-info btn-block">Back</router-link>
+                    
+                    <router-link to="/schedules" class="btn btn-success btn-block">Back</router-link>
                 </div>
             </div>
         </div>

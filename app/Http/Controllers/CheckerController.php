@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Checker;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class CheckerController extends Controller
 {
@@ -94,6 +95,8 @@ class CheckerController extends Controller
         ->leftJoin('violations','violations.id','=','checker_details.violation_id')
         ->where('checkers.schedule_id',$scid)
         ->where('rounds.round_no','=',1)
+        ->where('checkers.created_at', Carbon::today())
+        // ->where('rounds.created_at', Carbon::today())
         ->distinct('rounds.remarks_id')
         // ->toSql();
         ->get();
@@ -111,6 +114,8 @@ class CheckerController extends Controller
         ->leftJoin('remarks','remarks.id','=','rounds.remarks_id')
         ->leftJoin('violations','violations.id','=','checker_details.violation_id')
         ->where('checkers.schedule_id',$scid)
+        ->where('checkers.created_at', Carbon::today())
+        // ->where('rounds.created_at', Carbon::today())
         ->distinct('rounds.remarks_id')
         ->where('rounds.round_no','=', 2)
         // ->toSql();
@@ -118,5 +123,22 @@ class CheckerController extends Controller
   
         return response()->json($round);
 
+    }
+
+    public function setOverall(Request $request,$id){
+        // \DB::table('checkers')
+        //     ->where('schedule_id', $scid)
+        //     ->where('created_at',Carbon::today())
+        //     ->limit(1)
+        //     ->update(array('remarks_id', '=', $request->overall));
+
+            Checker::find($id)
+            ->where('created_at', Carbon::today())
+            ->update([
+                'remarks_id'=>$request['overall'],
+            ]);
+
+        // dd($scid);
+        
     }
 }

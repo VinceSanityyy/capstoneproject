@@ -65,6 +65,9 @@ Route::get('getRemarks','RemarksController@index');
 Route::get('/getRound','RoundController@index');
 
 // Graph
-Route::get('/getGraph','HomeController@getGraph');
+Route::get('/getGraph/{id}','HomeController@getGraph');
+
+//setOverall
+Route::put('/setOverall/{id}','CheckerController@setOverall');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );
