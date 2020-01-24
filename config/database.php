@@ -62,13 +62,14 @@ return [
         //         PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
         //     ]) : [],
         // ],
+
         'mysql' => [
             'driver' => 'mysql',
-            'host' => 'db4free.net',
+            'host' => 'remotemysql.com',
             'port' => '3306',
-            'database' => 'checkers',
-            'username' => 'checkers_root',
-            'password' =>'12345678',
+            'database' => 'b0AtAUbxl2',
+            'username' => 'b0AtAUbxl2'
+            'password' =>'He1yE2whbv',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
