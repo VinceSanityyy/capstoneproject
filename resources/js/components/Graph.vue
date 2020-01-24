@@ -38,11 +38,14 @@
                 renderAt: "chart-container",
                 width: "1000",
                 height: "350",
+              
                 dataFormat: 'json',
                 dataSource: {
                     chart: {
-                        "caption": "Absences",
-                        "theme": "fusion"
+                        caption: "Absences",
+                        theme: "fusion",
+                        decimals: 0,
+                        showpercentvalues: "0",
                     },
                     data: []
                 },

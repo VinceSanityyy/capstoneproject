@@ -18,7 +18,12 @@
                </form>
             </div>
             <div class="box-footer">
-                  <button class="btn btn-info">Genarate Excel</button>
+                  <!-- <button  class="btn btn-info">Genarate Excel</button> -->
+                  <a type="button" href="/generate" >
+                    <button  class="btn btn-info">
+                        Generate Excel
+                    </button>
+                </a>
             </div>
            </div>
        </div>
@@ -38,8 +43,16 @@
                     },
             }
         },
-        mounted() {
+        created() {
             console.log('Component mounted.')
+        },
+        methods:{
+            generate(){
+                axios.get('/generate')
+                    .then((res)=>{
+                        console.log('asd')
+                    })
+            }
         }
     }
 </script>

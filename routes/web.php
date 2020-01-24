@@ -70,4 +70,7 @@ Route::get('/getGraph/{id}','HomeController@getGraph');
 //setOverall
 Route::put('/setOverall/{id}','CheckerController@setOverall');
 
+//generateReport
+Route::get('/generate','HomeController@generateReport');
+
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );
