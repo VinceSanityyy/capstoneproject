@@ -68,7 +68,7 @@ return [
             'host' => 'remotemysql.com',
             'port' => '3306',
             'database' => 'b0AtAUbxl2',
-            'username' => 'b0AtAUbxl2'
+            'username' => 'b0AtAUbxl2',
             'password' =>'He1yE2whbv',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
