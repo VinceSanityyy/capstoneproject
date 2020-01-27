@@ -336,13 +336,27 @@
         <li class="treeview" style="height: auto;">
           <router-link to="/subjectcodes" class="nav-link" > <i class="fa fa-book "></i>  <span>Subjects </span> </router-link>
         </li>
-
         <li class="treeview">
             <router-link to="/schedules" class="nav-link" > <i class="fa fa-calendar"></i>  <span>Schedules</span> </router-link>
         </li>
         <li class="treeview">
-            <router-link to="/attendancereport" class="nav-link" > <i class="fa fa-table "></i>  <span>Attendance Report</span> </router-link>
+            <a href="#">
+              <i class="fa fa-folder"></i> <span>Attendance</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+          <ul class="treeview-menu">
+            <li >
+              <router-link to="/checkers" class="nav-link" > <i class="fa fa-bars"></i>  <span>Attendance Check</span> </router-link>
+          </li>
+            <li >
+                <router-link to="/attendancereport" class="nav-link" > <i class="fa fa-table "></i>  <span>Attendance Report</span> </router-link>
+            </li>
+          </ul>
         </li>
+
+      
 
 
     <!-- /.sidebar -->

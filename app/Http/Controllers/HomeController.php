@@ -37,7 +37,10 @@ class HomeController extends Controller
                 ->join('schedules','schedules.id','=','checkers.schedule_id')
                 ->join('teachers','schedules.teacher_id','=','teachers.id')
                 ->where('schedules.teacher_id',$tid)
-                ->count();
+                // ->whereBetween('checkers.created_at',  Carbon::now()->startOfWeek())
+                // ->whereBetween('checkers.created_at',  Carbon::now()->endOfweek())
+                // ->count();
+                ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
 
         $date = \DB::table('checkers')
                 ->where('remarks_id',2)
@@ -46,9 +49,10 @@ class HomeController extends Controller
                 ->join('teachers','schedules.teacher_id','=','teachers.id')
                 ->where('schedules.teacher_id',$tid)
                 ->groupBy('label')
-                ->where('checkers.created_at', '>', Carbon::now()->startOfWeek())
-                ->where('checkers.created_at', '<', Carbon::now()->endOfweek())
-                ->get();        
+                // ->whereBetween('checkers.created_at',  Carbon::now()->startOfWeek())
+                // ->whereBetween('checkers.created_at',  Carbon::now()->endOfweek())
+                // ->get();        
+                ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
                 
         return response()->json([
             'count' => $ext,

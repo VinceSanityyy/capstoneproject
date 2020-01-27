@@ -53,6 +53,7 @@ const routes = [
     { path: '/viewTeacher', name: 'EDITTEACHER', component: require('./components/EditTeacher.vue').default },
     { path: '/firstRound', name: 'editFirst', component: require('./components/FirstRound.vue').default },
     { path: '/secondRound', name: 'editSecond', component: require('./components/SecondRound.vue').default },
+    { path: '/checkers', name: 'getCheckers', component: require('./components/AttendanceCheck.vue').default },
   ]
 
 

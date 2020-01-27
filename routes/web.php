@@ -70,6 +70,8 @@ Route::get('/getGraph/{id}','HomeController@getGraph');
 //setOverall
 Route::put('/setOverall/{id}','CheckerController@setOverall');
 
+Route::get('/getCheckers','CheckerController@getCheckers');
+
 //generateReport
 Route::get('/generate','HomeController@generateReport');
 

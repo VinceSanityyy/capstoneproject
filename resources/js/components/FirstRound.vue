@@ -7,7 +7,7 @@
                     <h3 class="profile-username text-center">Name: {{schedule.fullname}}</h3>
                     <p class="text-muted text-center"><b>Course: {{schedule.course}}</b></p>
                     
-                    <router-link to="/schedules" class="btn btn-success btn-block">Back</router-link>
+                    <router-link to="/checkers" class="btn btn-success btn-block">Back</router-link>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group" v-for="remark in remarks" :key="remark.id">    
-                            <input class="form-check-input" name="radio" :checked="remark.id === details[0].remarks_id" type="radio" value="">
+                            <input disabled class="form-check-input" name="radio" :checked="remark.id === details[0].remarks_id" type="radio" value="">
                             <label class="form-check-label">
                                 {{remark.remarks_desc}}
                             </label>
@@ -36,7 +36,7 @@
                   <!-- <div class="form-group" v-for="violation in violations" :key="violation.id">
                             <input class="form-check-input" :checked="violation.id === details[0].id"  type="checkbox" value=""> -->
                         <div class="form-group" v-for="violation in computedViolations2" :key="violation.id">
-                            <input class="form-check-input" :checked="violation.checkboxIsTrue == true"   type="checkbox" value="">
+                            <input disabled class="form-check-input" :checked="violation.checkboxIsTrue == true"   type="checkbox" value="">
                             <label  class="form-check-label" for="defaultCheck1">
                                 {{violation.violation_details}}
                             </label>
