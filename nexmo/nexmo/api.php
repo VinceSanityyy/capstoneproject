@@ -70,7 +70,7 @@ $query = mysqli_query($mysqli, "select * from rounds");
 }if($postjson["aksi"]=="getCheckerDetails"){
 
 
-$query = mysqli_query($mysqli, "select * from rounds");
+$query = mysqli_query($mysqli, "select * from checker_details");
     
     if($query){
        
