@@ -42,6 +42,7 @@ class TeacherController extends Controller
             'fullname' => 'required',
             'image' => 'required',
             'course' => 'required',
+            'contact' => 'required',
        
         ]);
 
@@ -58,6 +59,7 @@ class TeacherController extends Controller
              return Teacher::create([
                 'fullname' => $request['fullname'],
                 'course' => $request['course'],
+                'contact' => $request['contact'],
                 'image' => $name,
             ]);
         };
@@ -114,16 +116,10 @@ class TeacherController extends Controller
              if(file_exists($userPhoto)){
                 @unlink($userPhoto);
              }
-
-            // return Teacher::update([
-            //     'fullname' => $request['fullname'],
-            //     'course' => $request['course'],
-            //     'image' => $name,
-            // ]);
-           
         };
         $teacher->fullname = $request->fullname;
         $teacher->course = $request->course;
+        $teacher->course = $request->contact;
         $teacher->image = $name;
         $teacher->save($request->all());
     }

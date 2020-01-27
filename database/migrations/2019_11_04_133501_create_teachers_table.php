@@ -18,6 +18,7 @@ class CreateTeachersTable extends Migration
             $table->string('fullname');
             $table->longText('image')->nullable();
             $table->string('course');
+            
             $table->timestamps();
             $table->softDeletes();
         });

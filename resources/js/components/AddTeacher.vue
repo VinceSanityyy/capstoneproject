@@ -6,7 +6,6 @@
            </div>
            <div class="box-body">
                <form @submit.prevent = createTeacher>
-
                 <div class="col-xs-6 form-group">
                 <label>Name</label>
                 <input v-model="form.fullname" 
@@ -15,7 +14,6 @@
                 class="form-control" 
                 :class="{ 'is-invalid': form.errors.has('fullname')}">
                 </div>
-
                  <div class="col-xs-6 form-group">
                 <label>Course</label>
                 <input v-model="form.course" 
@@ -23,12 +21,18 @@
                 class="form-control"
                 :class="{ 'is-invalid': form.errors.has('course') }">
                 </div>
-
                 <div class="col-xs-6 form-group">
                 <label>Picture</label>
                 <input class="form-control" type="file" v-on:change="addImage">
                 </div>
-
+                <div class="col-xs-6 form-group">
+                <label>Contact Number</label>
+                <input v-model="form.contact" 
+                type="text" 
+                name="contact"
+                class="form-control" 
+                :class="{ 'is-invalid': form.errors.has('contact')}">
+                </div>
              <button type="submit" class="btn btn-block btn-success"> Submit</button>
              <router-link to="/teachers" class="btn btn-block btn-danger">Back</router-link>
                </form>
@@ -41,7 +45,6 @@
 </template>
 
 <script>
-  
     export default {
         data(){
             return{
@@ -50,6 +53,7 @@
                     fullname: '',
                     image: '',
                     course:'',
+                    contact:''
                 })
             }
         },
@@ -57,8 +61,6 @@
             createTeacher(){
                 this.form.post('/addTeacher')
                     .then((data)=>{
-                        // console.log(data)
-                        // alert('created')
                          swal.fire("Record Created!", "", "success");
                         this.$router.push({path: '/teachers'})
                     })
@@ -66,7 +68,6 @@
                         console.log(e)
                     })
             },
-
             addImage(e){
                 let file = e.target.files[0]
                 // console.log(file)
@@ -84,7 +85,6 @@
             }
         },
         created() {
-          
             console.log('Component mounted.')
         }
     }

@@ -37,7 +37,7 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -100,9 +100,19 @@ class ScheduleController extends Controller
      * @param  \App\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Schedule $schedule)
+    public function update(Request $request, Schedule $schedule, $id)
     {
-        //
+        $schedule = Schedule::findOrFail($id);
+        $schedule->subject_code_id = $request->subject;
+        $schedule->teacher_id = $request->teacher;
+        $schedule->room_id = $request->room;
+        $schedule->start_time = $request->start_time;
+        $schedule->end_time = $request->end_time;
+        $schedule->school_year = $request->schoolyr;
+        $schedule->semester = $request->sem;
+        $schedule->term = $request->term;
+        $schedule->day = $request->days;
+        $schedule->update($request->all());
     }
 
     /**
@@ -111,9 +121,10 @@ class ScheduleController extends Controller
      * @param  \App\Schedule  $schedule
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Schedule $schedule)
+    public function destroy(Schedule $schedule,$id)
     {
-        //
+        // $sched_id = Schedule::findOrFail($id);
+        // $sched_id->delete();
     }
 
     public function filterSchedule(Request $request){

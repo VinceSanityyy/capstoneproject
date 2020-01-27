@@ -7,6 +7,7 @@
                <img :src="'img/'+teachers.image" alt="User profile picture"  class="profile-user-img img-responsive img-circle" style="width:200px; height:200px"> 
                <h3 class="profile-username text-center">Name: {{teachers.fullname}}</h3>
                <p class="text-muted text-center"><b>Course: {{teachers.course}}</b></p>
+                <p class="text-muted text-center"><b>Contact No: {{teachers.contact}}</b></p>
             </div>
          </div>
       </div>
@@ -36,6 +37,14 @@
                     <label>Picture</label>
                     <input class="form-control" type="file" v-on:change="addImage">
                   </div>
+                    <div class="col-xs-6 form-group">
+                <label>Contact Number</label>
+                <input v-model="form.contact" 
+                type="text" 
+                name="contact"
+                class="form-control" 
+                :class="{ 'is-invalid': form.errors.has('contact')}">
+                </div>
                   <button type="submit" class="btn btn-block btn-success"> Submit</button>
                   <router-link to="/teachers" class="btn btn-block btn-danger">Back</router-link>
                </form>

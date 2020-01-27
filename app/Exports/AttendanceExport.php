@@ -18,8 +18,9 @@ class AttendanceExport implements FromCollection
                 ->join('teachers','schedules.teacher_id','=','teachers.id')
                 ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
                 ->join('remarks','remarks.id','=','checkers.remarks_id')
-                ->where('checkers.created_at', '>', Carbon::now()->startOfWeek())
-                ->where('checkers.created_at', '<', Carbon::now()->endOfweek())
+                // ->where('checkers.created_at', '>', Carbon::now()->startOfWeek())
+                // ->where('checkers.created_at', '<', Carbon::now()->endOfweek())
+                ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
                 ->select('teachers.fullname','subject_codes.subject_description','remarks.remarks_desc','checkers.created_at')
                 ->get(); 
 

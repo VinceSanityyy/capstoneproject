@@ -49,6 +49,7 @@ Route::delete('/deleteSubjectCode/{id}','SubjectCodeController@destroy');
 //Schedules
 Route::get('/getSchedules','ScheduleController@index');
 Route::post('/addSchedules','ScheduleController@store');
+Route::put('/updateSchedule/{id}','ScheduleController@update');
 
 Route::get('/getDetails/{id}','CheckerController@getScheduleRound');
 Route::get('/getDetailsTwo/{id}','CheckerController@getScheduleRoundTwo');
