@@ -13,7 +13,7 @@ require_once "vendor/autoload.php";
 
 
 
-$basic  = new \Nexmo\Client\Credentials\Basic('1127315e', 'N1SlhTWDthXJhxzq');
+$basic  = new \Nexmo\Client\Credentials\Basic('046acced', 'NhbbuyZAxEA9IRAz');
 $client = new \Nexmo\Client($basic);
 
 $postjson = json_decode(file_get_contents('php://input'), true);
