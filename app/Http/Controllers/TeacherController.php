@@ -139,5 +139,13 @@ class TeacherController extends Controller
         return ['message' => 'Record Deleted'];
     }
 
+    public function countTeachers(){
+        
+        $teachers = \DB::table('teachers')
+                    ->where('teachers.deleted_at','=',null)
+                    ->count();
+        return response()->json($teachers);
+    }
+
 
 }

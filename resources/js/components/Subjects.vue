@@ -11,12 +11,12 @@
           <table class="table table-hover">
               <tbody>
                   <tr>
-                      <th>ID</th>
+                      <!-- <th>ID</th> -->
                       <th>Subject Name</th>
                       <th>Actions</th>
                   </tr>
                   <tr v-for="subject in subjects" :key="subject.id">
-                      <td>{{subject.id}}</td>
+                      <!-- <td>{{subject.id}}</td> -->
                       <td>{{subject.subject_name}}</td>
                       <td>
                             <a href="#"  data-toggle="modal" data-target="#exampleModal" @click="editModal(subject)">

@@ -76,4 +76,9 @@ Route::get('/getCheckers','CheckerController@getCheckers');
 //generateReport
 Route::get('/generate','HomeController@generateReport');
 
+
+//Count
+Route::get('/countTeachers','TeacherController@countTeachers');
+Route::get('/countSubjects','SubjectCodeController@countSubjects');
+
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

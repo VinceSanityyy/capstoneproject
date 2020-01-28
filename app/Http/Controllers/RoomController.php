@@ -40,7 +40,7 @@ class RoomController extends Controller
     public function store(Request $request)
     {
       $this->validate($request, [
-      'room_desc' => 'required',
+      'room_desc' =>  ['required', 'unique:rooms'],
       'bldg' => 'required',
 
      ]);

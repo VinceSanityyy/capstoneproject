@@ -12,14 +12,14 @@
                 <table id="myTable" class="table table-hover">
                     <tbody>
                         <tr>
-                            <th>ID</th>
+                            <!-- <th>ID</th> -->
                             <th>Picture</th>
                             <th>Name</th>
                             <th>Course</th>
                             <th>Actions</th>
                         </tr>
                         <tr v-for="teacher in teachers" :key="teacher.id">
-                            <td>{{teacher.id}}</td>
+                            <!-- <td>{{teacher.id}}</td> -->
                             <td><img  :src="'img/'+teacher.image" class="img-rounded"  height="42" width="42"/></td>
                              <td>{{teacher.fullname}}</td>
                             <td>{{teacher.course}}</td>                

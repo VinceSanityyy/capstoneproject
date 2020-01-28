@@ -11,13 +11,13 @@
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th>Room ID</th>
+                            <!-- <th>Room ID</th> -->
                             <th>Room Name</th>
                             <th>Building</th>
                             <th>Actions</th>
                         </tr>
                         <tr v-for="room in rooms" :key="room.id">
-                            <td>{{room.id}}</td>
+                            <!-- <td>{{room.id}}</td> -->
                             <td>{{room.room_desc}}</td>
                             <td>{{room.bldg}}</td>
                             <td>

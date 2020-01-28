@@ -11,13 +11,13 @@
           <table class="table table-hover">
               <tbody>
                   <tr>
-                      <th>ID</th>
+                      <!-- <th>ID</th> -->
                       <th>Subject Code</th>
                        <th>Subject Description</th>
                       <th>Actions</th>
                   </tr>
                   <tr v-for="subjectcode in subjectcodes" :key="subjectcode.id">
-                      <td>{{subjectcode.id}}</td>
+                      <!-- <td>{{subjectcode.id}}</td> -->
                       <td>{{subjectcode.subject_code}}</td>
                        <td>{{subjectcode.subject_description}}</td>
                       <td>

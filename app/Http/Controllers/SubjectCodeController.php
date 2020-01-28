@@ -39,7 +39,7 @@ class SubjectCodeController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'subject_code' => 'required',
+            'subject_code' =>  ['required', 'unique:subject_codes'],
             'subject_description' => 'required',
            ]);
            return SubjectCode::create([
@@ -97,5 +97,14 @@ class SubjectCodeController extends Controller
     {
         $subjectcode = SubjectCode::findOrFail($id);
         $subjectcode->delete();
+    }
+
+    public function countSubjects(){
+
+        $subjectcodes = \DB::table('subject_codes')
+        ->where('deleted_at',null)
+        ->count();     
+
+        return response()->json($subjectcodes);
     }
 }
