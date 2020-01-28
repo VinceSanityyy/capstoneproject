@@ -119,7 +119,7 @@ class TeacherController extends Controller
         };
         $teacher->fullname = $request->fullname;
         $teacher->course = $request->course;
-        $teacher->course = $request->contact;
+        $teacher->contact = $request->contact;
         $teacher->image = $name;
         $teacher->save($request->all());
     }
