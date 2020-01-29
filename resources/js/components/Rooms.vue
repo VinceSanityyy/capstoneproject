@@ -5,19 +5,20 @@
                 <h3 class="box-title">Rooms List</h3>
                 <div class="box-tools">
                     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">Add new<i class="fa fa-plus"></i></button>
+                    <button class="btn btn-info pull-right" data-toggle="modal" data-target="#exampleModal2">Import <i class="fa fa-book"></i></button>
                 </div>
             </div>
             <div class="box-body table-responsive no-padding">
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <!-- <th>Room ID</th> -->
+                            
                             <th>Room Name</th>
                             <th>Building</th>
                             <th>Actions</th>
                         </tr>
                         <tr v-for="room in rooms" :key="room.id">
-                            <!-- <td>{{room.id}}</td> -->
+                        
                             <td>{{room.room_desc}}</td>
                             <td>{{room.bldg}}</td>
                             <td>
@@ -31,6 +32,7 @@
                         </tr>
                     </tbody>
                 </table>
+                 
             </div>
         </div>
         <!-- Modal -->
@@ -78,91 +80,146 @@
               </div>
             </div>
           </div>
+          <!-- Modal -->
+
+          <!-- import modal -->
+          <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">Import CSV</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                  <form @submit.prevent="importRoom()">
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label>Select CSV</label>
+                      <input
+                        @change ="loadCSV"
+                        type="file"
+                        id="file"
+                        name="file"
+                      />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Import</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
     </div>
 </template>
 
 <script>
-    export default {
-      data(){
-        return{
-          editmode: false,
-          rooms: [],
-          form: new Form({
-            id:'',
-            room_desc:'',
-            bldg:'',
-          })
-        }
-      },
-        methods:{
-          getRooms(){
-              axios.get('/getRooms')
-                  .then((res)=>{
-                    this.rooms = res.data
-                  })
-                  .catch((e)=>{
-                    console.log(e)
-                  })
-          },
-          newModal(){
-            this.editmode = false
-            this.form.reset()
-            $('#exampleModal').modal('show')
-          },
-          createRoom(){
-            this.form.post('/addRoom')
-              .then(({data})=>{
-                swal.fire("Record Created!", "", "success");
-                $('#exampleModal').modal('hide');
-                $(".modal-backdrop").remove();
-                this.getRooms()
-                console.log(data)
-              })
-          },
-          editModal(room){
-            this.editmode = true
-            this.form.reset()
-            $('#exampleModal').modal('show')
-            this.form.fill(room)
-          },
-          updateRoom(){
-            this.form.put('/updateRoom/' + this.form.id)
-              .then(()=>{
-                  swal.fire("Record Updated!", "", "success");
-                $('#exampleModal').modal('hide');
-                $(".modal-backdrop").remove();
-                this.getRooms()
-              })
-              .catch((e)=>{
-                console.log(e)
-              })
-          },
-          deleteRoom(id){
-             swal.fire({
-            title: "Are you sure?",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
-             }).then(result => {
-              //send delete request
-              if (result.value) {
-              this.form.delete('deleteRoom/' +id)
-                .then(()=>{
-                    swal.fire("Deleted!", "", "success");
-                    this.getRooms()
-                })
-                .catch(()=>{
-                    swal.fire("Something went wrong.", "", "warning");
-                });
-              }
-          });
-          }
-        },
-        created() {
-            this.getRooms()
-            console.log('Component mounted.')
-        },
-    }
-</script>
+	export default {
+		data() {
+			return {
+        rooms:[],
+        template:'',
+				form: new Form({
+					id: '',
+					room_desc: '',
+          bldg: '',
+				})
+			}
+		},
+		methods: {
+			getRooms() {
+				axios.get('/getRooms')
+					.then((res) => {
+						this.rooms = res.data
+					})
+					.catch((e) => {
+						console.log(e)
+					})
+			},
+			newModal() {
+				this.editmode = false
+				this.form.reset()
+				$('#exampleModal').modal('show')
+			},
+			createRoom() {
+				this.form.post('/addRoom')
+					.then(({
+						data
+					}) => {
+						swal.fire("Record Created!", "", "success");
+						$('#exampleModal').modal('hide');
+						$(".modal-backdrop").remove();
+						this.getRooms()
+						console.log(data)
+					})
+			},
+			editModal(room) {
+				this.editmode = true
+				this.form.reset()
+				$('#exampleModal').modal('show')
+				this.form.fill(room)
+			},
+			updateRoom() {
+				this.form.put('/updateRoom/' + this.form.id)
+					.then(() => {
+						swal.fire("Record Updated!", "", "success");
+						$('#exampleModal').modal('hide');
+						$(".modal-backdrop").remove();
+						this.getRooms()
+					})
+					.catch((e) => {
+						console.log(e)
+					})
+			},
+			deleteRoom(id) {
+				swal.fire({
+					title: "Are you sure?",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#3085d6",
+					cancelButtonColor: "#d33",
+					confirmButtonText: "Yes, delete it!"
+				}).then(result => {
+					//send delete request
+					if (result.value) {
+						this.form.delete('deleteRoom/' + id)
+							.then(() => {
+								swal.fire("Deleted!", "", "success");
+								this.getRooms()
+							})
+							.catch(() => {
+								swal.fire("Something went wrong.", "", "warning");
+							});
+					}
+				});
+			},
+			importRoom() {
+				axios.post('/importRoom')
+					.then(() => {
+						console.log('imported')
+					})
+			},
+			loadCSV(e) {
+			 const formData = new FormData();
+       const file = e.target.files[0];
+       formData.append('template', file);
+       axios.post('/importRoom', formData)
+            .then(response => {
+                swal.fire("Records Imported!", "", "success");
+                $('#exampleModal2').modal('hide');
+						    $(".modal-backdrop").remove();
+								this.getRooms()
+            })
+            .catch(error => {
+                   swal.fire("Something went wrong.", "", "warning");
+            });
+			}
+		},
+		created() {
+			this.getRooms()
+			console.log('Component mounted.')
+		},
+	} 
+  </script>

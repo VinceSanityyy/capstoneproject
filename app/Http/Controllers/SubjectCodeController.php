@@ -107,4 +107,32 @@ class SubjectCodeController extends Controller
 
         return response()->json($subjectcodes);
     }
+
+
+    public function import(Request $request){
+        if($request->hasFile('template')){
+            $path = $request->file('template')->getRealPath();
+            $data = \Excel::load($path)->get();
+           
+            if($data->count() > 0){
+                $rows = $data->toArray();
+                foreach ($rows as $row) {
+                    $inserts[]=[
+                        'subject_code' => $row['subject_code'],
+                        'subject_description' => $row['subject_description'],
+                    ];
+                }
+            }
+            $chuncked = array_chunk($inserts, 10);
+            if(empty($inserts)){
+                dd('Request data does not have any files to import.');  
+            }
+            else {
+                foreach($chuncked as $inserts){
+                    \DB::table('subject_codes')->insert($inserts);
+                 }
+                dd('record inserted');  
+            }
+        }
+    }
 }

@@ -78,10 +78,6 @@
                     });
                 }
            },
-
-
-
-
             methods: {
                 getViolations() {
                         axios.get('getViolations')

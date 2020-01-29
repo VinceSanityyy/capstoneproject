@@ -17,6 +17,7 @@ import Graph from './components/Graph.vue'
 import VueFusionCharts from 'vue-fusioncharts';
 import FusionCharts from 'fusioncharts';
 
+
 Vue.use(datePicker);
 Vue.use(VueRouter)
 Vue.use(VueFusionCharts, FusionCharts);
@@ -54,6 +55,7 @@ const routes = [
     { path: '/firstRound', name: 'editFirst', component: require('./components/FirstRound.vue').default },
     { path: '/secondRound', name: 'editSecond', component: require('./components/SecondRound.vue').default },
     { path: '/checkers', name: 'getCheckers', component: require('./components/AttendanceCheck.vue').default },
+    { path: '/teacherRecords', name: 'getTeacherRecords', component: require('./components/teacherRecord.vue').default },
   ]
 
 

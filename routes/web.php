@@ -39,6 +39,7 @@ Route::get('/getTeachers','TeacherController@index');
 Route::post('/addTeacher','TeacherController@store');
 Route::put('/editTeacher/{id}','TeacherController@update');
 Route::delete('/deleteTeacher/{id}','TeacherController@destroy');
+Route::get('/getTeacherPersonal','TeacherController@getTeacherPersonal');
 
 //Subject Codes
 Route::get('/getSubjectCodes','SubjectCodeController@index');
@@ -80,5 +81,9 @@ Route::get('/generate','HomeController@generateReport');
 //Count
 Route::get('/countTeachers','TeacherController@countTeachers');
 Route::get('/countSubjects','SubjectCodeController@countSubjects');
+
+//Imports
+Route::post('/importRoom','RoomController@import');
+Route::post('/importSubject','SubjectCodeController@import');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

@@ -315,14 +315,10 @@
           <p>{{ Auth::user()->name }} </p>
         </div>
       </div>
-      <!-- search form -->
-
-
-
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
+    
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigation</li>
+        @if(Auth::user()->id === 1)
         <li class="treeview">
             <router-link to="/dashboard" class="nav-link" > <i class="fa fa-dashboard "></i>  <span>Dashboard</span> </router-link>
         </li>
@@ -354,6 +350,12 @@
                 <router-link to="/attendancereport" class="nav-link" > <i class="fa fa-table "></i>  <span>Attendance Report</span> </router-link>
             </li>
           </ul>
+          @endif
+          @if(Auth::user()->id != 1)
+          <li >
+            <router-link to="/teacherRecords" class="nav-link" > <i class="fa fa-book "></i>  <span>Search Records</span> </router-link>
+        </li>
+          @endif
         </li>
 
       
