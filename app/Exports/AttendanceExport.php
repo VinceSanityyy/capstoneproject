@@ -3,7 +3,7 @@
 namespace App\Exports;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromCollection;
-
+use Illuminate\Http\Request;
 class AttendanceExport implements FromCollection
 {
     /**

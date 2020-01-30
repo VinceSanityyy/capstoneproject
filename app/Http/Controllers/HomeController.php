@@ -61,35 +61,30 @@ class HomeController extends Controller
     }
 
 
-    public function generateReport(){
+    public function generateReport(Request $request){
         
-        return Excel::download(new AttendanceExport, 'users.xlsx');
+        $data = \DB::table('checkers')
+        ->where('remarks_id',2)
+        ->join('schedules','schedules.id','=','checkers.schedule_id')
+        ->join('teachers','schedules.teacher_id','=','teachers.id')
+        ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
+        ->join('remarks','remarks.id','=','checkers.remarks_id')
+        ->whereDate('checkers.created_at', '>=', $request->from)
+        ->whereDate('checkers.created_at', '<=', $request->to)
+        // ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+        ->select('teachers.fullname','subject_codes.subject_description','remarks.remarks_desc')
+        ->get()->toArray(); 
 
-        // $ext = \DB::table('checkers')
-        // ->join('schedules','schedules.id','=','checkers.schedule_id')
-        // ->join('teachers','schedules.teacher_id','=','teachers.id')
-        // ->count();
-
-        // $date = \DB::table('checkers')
-        // // ->where('remarks_id',2)
-        // ->select(\DB::raw("COUNT(checkers.id) `value` "), \DB::raw("DATE_FORMAT(checkers.created_at, '%M %d, %Y') date "))
-        // ->join('schedules','schedules.id','=','checkers.schedule_id')
-        // ->join('teachers','schedules.teacher_id','=','teachers.id')
-        // ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
-        // ->join('remarks','remarks.id','=','checkers.remarks_id')
-        // ->groupBy('date')
-        // ->where('checkers.created_at', '>', Carbon::now()->startOfWeek())
-        // ->where('checkers.created_at', '<', Carbon::now()->endOfweek())
-        // // ->select('teachers.fullname','subject_codes.subject_description','remarks.remarks_desc','checkers.created_at') 
-        // ->get(); 
-
-        //  dd($date);
-
-        // return response()->json([
-        //     'count' => $ext,
-        //     'date' => $date
-        // ]);
+        $data= json_decode( json_encode($data), true);
         
     
+        return \Excel::create('reports', function($excel) use ($data) {
+            $excel->sheet('reports', function($sheet) use ($data)
+            {
+                $sheet->fromArray($data);
+            });
+        })->export('csv');
+
+        
     }
 }

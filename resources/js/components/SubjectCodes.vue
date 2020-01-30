@@ -17,7 +17,7 @@
                        <th>Subject Description</th>
                       <th>Actions</th>
                   </tr>
-                  <tr v-for="subjectcode in subjectcodes" :key="subjectcode.id">
+                  <tr v-for="subjectcode in subjectcodes.data" :key="subjectcode.id">
                       <!-- <td>{{subjectcode.id}}</td> -->
                       <td>{{subjectcode.subject_code}}</td>
                        <td>{{subjectcode.subject_description}}</td>
@@ -32,7 +32,9 @@
                   </tr>
               </tbody>
           </table>
+        
       </div>
+         <pagination :data="subjectcodes" @pagination-change-page="getSubjectCodes"></pagination>
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -117,7 +119,7 @@
 		data() {
 			return {
 				editmode: false,
-				subjectcodes: [],
+				subjectcodes: {},
 				form: new Form({
 					id: '',
 					subject_code: '',
@@ -126,15 +128,22 @@
 			}
 		},
 		methods: {
-			getSubjectCodes() {
-				axios.get('/getSubjectCodes')
-					.then((res) => {
-						this.subjectcodes = res.data
-						// console.log(res)
-					})
-					.catch((e) => {
-						console.log(e)
-					})
+			getSubjectCodes(page) {
+				// axios.get('/getSubjectCodes')
+				// 	.then((res) => {
+				// 		this.subjectcodes = res.data
+				// 		// console.log(res)
+				// 	})
+				// 	.catch((e) => {
+				// 		console.log(e)
+        // 	})
+           if (typeof page === 'undefined') {
+                    page = 1;
+                }
+           axios.get('/getSubjectCodes?page=' + page)
+                   .then(data => {
+                        this.subjectcodes = data.data;
+                    });
 			},
 			newModal() {
 				this.editmode = false

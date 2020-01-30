@@ -17,6 +17,8 @@ import Graph from './components/Graph.vue'
 import VueFusionCharts from 'vue-fusioncharts';
 import FusionCharts from 'fusioncharts';
 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 
 Vue.use(datePicker);
 Vue.use(VueRouter)

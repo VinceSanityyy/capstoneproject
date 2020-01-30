@@ -9,21 +9,44 @@
                <form action="">
                    <div class="col-xs-4 form-group">
                         <label>Start Date</label>
-                       <date-picker :config="options" ></date-picker>
+                       <date-picker name="from" id="from" v-model="from" :config="options" ></date-picker>
                     </div>
                     <div class="col-xs-4 form-group">
                         <label>End Date</label>
-                          <date-picker :config="options" ></date-picker>
+                          <date-picker name="to" id="to" v-model="to" :config="options" ></date-picker>
                     </div>
                </form>
             </div>
             <div class="box-footer">
-                  <!-- <button  class="btn btn-info">Genarate Excel</button> -->
-                  <a type="button" href="/generate" >
+                  <a type="button" @click="generate()" >
                     <button  class="btn btn-info">
                         Show Report
                     </button>
                 </a>
+            </div>
+           </div>
+       </div>
+       <div class="col-xs-12">
+           <div class="box box-info">
+            <div class="box-body">
+                     <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <th>Subject</th>
+                            <th>Remarks</th>
+                            <th>Date</th>
+                        </tr>
+                        <tr v-for="result in results" :key="result.id">
+                            <td>{{result.fullname}}</td>
+                            <td>{{result.subject_description}}</td>
+                            <td>{{result.remarks_desc}}</td>
+                            <td>{{result.created_at}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             </div>
            </div>
        </div>
@@ -34,13 +57,20 @@
     export default {
         data(){
             return{
-                    date: new Date(),
+                    results:[],
+                    from: new Date(),
                     options: {
-                    format: 'd/MM/YYYY',
-                    useCurrent: false,
+                    format: 'YYYY-MM-DD',
                     showClear: true,
                     showClose: true,
                     },
+
+                    to: new Date(),
+                    options: {
+                    format: 'YYYY-MM-DD',
+                    showClear: true,
+                    showClose: true,
+                    } 
             }
         },
         created() {
@@ -48,9 +78,11 @@
         },
         methods:{
             generate(){
-                axios.get('/generate')
+                  let params = { from: this.from, to: this.to };
+                let paramString = new URLSearchParams(params);
+                axios.get(`/generatePersonal?${paramString.toString()}`)
                     .then((res)=>{
-                        console.log('asd')
+                        this.results = res.data
                     })
             }
         }

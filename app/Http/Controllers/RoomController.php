@@ -16,7 +16,7 @@ class RoomController extends Controller
     {
         $room = DB::table('rooms')
                 ->where('rooms.deleted_at',null)
-                ->get();
+                ->paginate(10);
         // dd($rooms);
         return response()->json($room);
     }

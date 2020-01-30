@@ -147,7 +147,7 @@ class TeacherController extends Controller
         return response()->json($teachers);
     }
 
-    public function getTeacherPersonal(){
+    public function getTeacherPersonal(Request $request){
 
         $teachers_name = \Auth::user()->name;
         $teacher_id = \DB::table('teachers')
@@ -156,7 +156,27 @@ class TeacherController extends Controller
                         ->first();
         
 
-        // $date = \DB::table('checkers')
+       
+
+        $date = \DB::table('checkers')
+            ->where('remarks_id',2)
+            ->join('schedules','schedules.id','=','checkers.schedule_id')
+            ->join('teachers','schedules.teacher_id','=','teachers.id')
+            ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
+            ->join('remarks','remarks.id','=','checkers.remarks_id')
+            ->where('schedules.teacher_id',$teacher_id->id)
+            ->whereDate('checkers.created_at', '>=', $request->from)
+            ->whereDate('checkers.created_at', '<=', $request->to)
+            ->select('teachers.fullname','subject_codes.subject_description','remarks.remarks_desc',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as created_at"))
+            ->get(); 
+
+      return response()->json($date);
+    }
+
+
+}
+
+ // $date = \DB::table('checkers')
         // ->where('remarks_id',2)
         // ->select(\DB::raw("COUNT(checkers.id) `value` "), \DB::raw("DATE_FORMAT(checkers.created_at, '%M %d, %Y') label "))
         // ->join('schedules','schedules.id','=','checkers.schedule_id')
@@ -167,27 +187,3 @@ class TeacherController extends Controller
         // // ->get();        
         // ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
         // ->get();
-
-        $date = \DB::table('checkers')
-            ->where('remarks_id',2)
-            ->join('schedules','schedules.id','=','checkers.schedule_id')
-            ->join('teachers','schedules.teacher_id','=','teachers.id')
-            ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
-            ->join('remarks','remarks.id','=','checkers.remarks_id')
-            ->where('schedules.teacher_id',$teacher_id->id)
-            // ->where('checkers.created_at', '>', Carbon::now()->startOfWeek())
-            // ->where('checkers.created_at', '<', Carbon::now()->endOfweek())
-            ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-            // ->select('teachers.fullname','subject_codes.subject_description','remarks.remarks_desc','checkers.created_at')
-            ->get(); 
-
-        dd($date);
-        // foreach($date as $d){
-        //     dd($d);
-        // }
-        // dd($date);
-        // return response()->json($date);
-    }
-
-
-}

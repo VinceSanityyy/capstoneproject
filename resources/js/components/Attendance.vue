@@ -9,17 +9,16 @@
                <form action="">
                    <div class="col-xs-4 form-group">
                         <label>Start Date</label>
-                       <date-picker :config="options" ></date-picker>
+                       <date-picker name="from" id="from" v-model="from" :config="options" ></date-picker>
                     </div>
                     <div class="col-xs-4 form-group">
                         <label>End Date</label>
-                          <date-picker :config="options" ></date-picker>
+                          <date-picker name="to" id="to" v-model="to" :config="options" ></date-picker>
                     </div>
                </form>
             </div>
             <div class="box-footer">
-                  <!-- <button  class="btn btn-info">Genarate Excel</button> -->
-                  <a type="button" href="/generate" >
+                  <a type="button" @click="generate()" >
                     <button  class="btn btn-info">
                         Generate Excel
                     </button>
@@ -34,13 +33,19 @@
     export default {
         data(){
             return{
-                    date: new Date(),
+                    from: new Date(),
                     options: {
-                    format: 'd/MM/YYYY',
-                    useCurrent: false,
+                    format: 'YYYY-MM-DD',
                     showClear: true,
                     showClose: true,
                     },
+
+                    to: new Date(),
+                    options: {
+                    format: 'YYYY-MM-DD',
+                    showClear: true,
+                    showClose: true,
+                    } 
             }
         },
         created() {
@@ -48,10 +53,9 @@
         },
         methods:{
             generate(){
-                axios.get('/generate')
-                    .then((res)=>{
-                        console.log('asd')
-                    })
+                let params = { from: this.from, to: this.to };
+                let paramString = new URLSearchParams(params);
+                window.open(`/generate?${paramString.toString()}`);
             }
         }
     }

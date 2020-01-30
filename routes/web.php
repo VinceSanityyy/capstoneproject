@@ -76,6 +76,7 @@ Route::get('/getCheckers','CheckerController@getCheckers');
 
 //generateReport
 Route::get('/generate','HomeController@generateReport');
+Route::get('/generatePersonal','TeacherController@getTeacherPersonal');
 
 
 //Count

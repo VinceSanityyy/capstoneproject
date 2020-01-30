@@ -16,7 +16,7 @@ class SubjectCodeController extends Controller
     {
         $subjectcodes = \DB::table('subject_codes')
                         ->where('deleted_at',null)
-                        ->get();           
+                        ->paginate(10);           
         return response()->json($subjectcodes);
     }
 

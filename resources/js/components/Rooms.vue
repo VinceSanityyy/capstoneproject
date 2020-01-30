@@ -17,8 +17,8 @@
                             <th>Building</th>
                             <th>Actions</th>
                         </tr>
-                        <tr v-for="room in rooms" :key="room.id">
-                        
+                        <tr v-for="room in rooms.data" :key="room.id">
+
                             <td>{{room.room_desc}}</td>
                             <td>{{room.bldg}}</td>
                             <td>
@@ -32,8 +32,9 @@
                         </tr>
                     </tbody>
                 </table>
-                 
+
             </div>
+            <pagination :data="rooms" @pagination-change-page="getRooms"></pagination>
         </div>
         <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -119,7 +120,7 @@
 	export default {
 		data() {
 			return {
-        rooms:[],
+        rooms:{},
         template:'',
 				form: new Form({
 					id: '',
@@ -129,14 +130,14 @@
 			}
 		},
 		methods: {
-			getRooms() {
-				axios.get('/getRooms')
-					.then((res) => {
-						this.rooms = res.data
-					})
-					.catch((e) => {
-						console.log(e)
-					})
+			getRooms(page) {
+          if (typeof page === 'undefined') {
+                    page = 1;
+                }
+           axios.get('/getRooms?page=' + page)
+                   .then(data => {
+                        this.rooms = data.data;
+                    });
 			},
 			newModal() {
 				this.editmode = false
