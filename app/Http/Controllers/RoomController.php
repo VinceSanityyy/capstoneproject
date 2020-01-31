@@ -21,6 +21,14 @@ class RoomController extends Controller
         return response()->json($room);
     }
 
+    public function getRooms(){
+        $room = DB::table('rooms')
+        ->where('rooms.deleted_at',null)
+        ->get();
+        // dd($rooms);
+        return response()->json($room);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

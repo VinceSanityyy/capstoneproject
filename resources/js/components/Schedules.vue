@@ -173,14 +173,13 @@
                 axios.get('getTeachers')
                     .then((res) => {
                         this.teachers = res.data
-                        // this.sortData()
                     })
                     .catch((e) => {
                         console.log(e)
                     })
             },
             getSubjectCodes() {
-                axios.get('/getSubjectCodes')
+                axios.get('/getSubjectCodesCheckbox')
                     .then((res) => {
                         this.subjectcodes = res.data
                         // console.log(res)
@@ -190,7 +189,7 @@
                     })
             },
             getRooms() {
-                axios.get('/getRooms')
+                axios.get('/getRoomsCheckbox')
                     .then((res) => {
                         this.rooms = res.data
                     })

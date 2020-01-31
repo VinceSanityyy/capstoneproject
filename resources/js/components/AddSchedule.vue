@@ -123,17 +123,16 @@
             },
             methods: {
                 getSubjectCodes() {
-                        axios.get('/getSubjectCodes')
+                        axios.get('/getSubjectCodesCheckbox')
                             .then((res) => {
                                 this.subjectcodes = res.data
-                                    // console.log(res)
                             })
                             .catch((e) => {
                                 console.log(e)
                             })
                     },
                     getRooms() {
-                        axios.get('/getRooms')
+                        axios.get('/getRoomsCheckbox')
                             .then((res) => {
                                 this.rooms = res.data
                             })

@@ -33,16 +33,31 @@
                 <table class="table table-hover">
                     <tbody>
                         <tr>
-                            <th>Name</th>
-                            <th>Subject</th>
-                            <th>Remarks</th>
                             <th>Date</th>
+                            <th>Title</th>
+                            <th>Room</th>
+                            <th>Time Start</th>
+                            <th>Time End</th>
+                            <th>Round Number</th>
+                            <th>Time Check</th>
+                            <th>Remarks</th>
+                            <th>Actions</th>
                         </tr>
                         <tr v-for="result in results" :key="result.id">
-                            <td>{{result.fullname}}</td>
-                            <td>{{result.subject_description}}</td>
-                            <td>{{result.remarks_desc}}</td>
                             <td>{{result.created_at}}</td>
+                            <td>{{result.subject_description}}</td>
+                            <td>{{result.room_desc}}</td>
+                            <td>{{result.start_time}}</td>
+                            <td>{{result.end_time}}</td>
+                            <td>{{result.round_no}}</td>
+                            <td>{{result.time_check}}</td>
+                            <td>{{result.remarks_desc}}</td>
+                            <td>
+                            <a href="#"  data-toggle="modal" data-target="#exampleModal" @click="editModal(result)">
+                             <i class="fa fa-edit"></i>
+                           </a>
+                            </td>
+                          
                         </tr>
                     </tbody>
                 </table>
@@ -50,6 +65,40 @@
             </div>
            </div>
        </div>
+               <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">Add Room</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                  <form @submit.prevent="addComment()">
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label>Comment</label>
+                      <input
+                        v-model="form.comment"
+                        type="text"
+                        name="comment"
+                        placeholder="Write Comment"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('comment') }"
+                      />
+                      <has-error :form="form" field="comment"></has-error>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
    </div>
 </template>
 
@@ -58,6 +107,12 @@
         data(){
             return{
                     results:[],
+
+                    form: new Form({
+                    checker_id: '',
+                    comment: 'comment',
+                    }),
+
                     from: new Date(),
                     options: {
                     format: 'YYYY-MM-DD',
@@ -70,7 +125,9 @@
                     format: 'YYYY-MM-DD',
                     showClear: true,
                     showClose: true,
-                    } 
+                    },
+
+                    
             }
         },
         created() {
@@ -78,13 +135,30 @@
         },
         methods:{
             generate(){
-                  let params = { from: this.from, to: this.to };
+                let params = { from: this.from, to: this.to };
                 let paramString = new URLSearchParams(params);
                 axios.get(`/generatePersonal?${paramString.toString()}`)
                     .then((res)=>{
                         this.results = res.data
                     })
-            }
+            },
+            addComment(){
+                this.form.post('/addComment')
+					.then(({
+						data
+					}) => {
+						swal.fire("Comment Submitted!", "", "success");
+						$('#exampleModal').modal('hide');
+						$(".modal-backdrop").remove();
+						console.log(data)
+					})
+            },
+            	editModal(result) {
+				this.editmode = true
+                this.form.reset()
+                this.form.fill(result)
+				$('#exampleModal').modal('show')
+			},
         }
     }
 </script>

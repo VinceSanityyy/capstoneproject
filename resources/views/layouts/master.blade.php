@@ -336,6 +336,9 @@
             <router-link to="/schedules" class="nav-link" > <i class="fa fa-calendar"></i>  <span>Schedules</span> </router-link>
         </li>
         <li class="treeview">
+          <router-link to="/comments" class="nav-link" > <i class="fa fa-pencil"></i>  <span>Comments</span> </router-link>
+      </li>
+        <li class="treeview">
             <a href="#">
               <i class="fa fa-folder"></i> <span>Attendance</span>
               <span class="pull-right-container">

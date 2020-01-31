@@ -160,16 +160,19 @@ class TeacherController extends Controller
 
         $date = \DB::table('checkers')
             // ->where('remarks_id',2)
+            ->join('rounds','rounds.checker_id','=','checkers.id')
             ->join('schedules','schedules.id','=','checkers.schedule_id')
+            ->join('rooms','schedules.room_id','=','rooms.id')
             ->join('teachers','schedules.teacher_id','=','teachers.id')
             ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
             ->join('remarks','remarks.id','=','checkers.remarks_id')
             ->where('schedules.teacher_id',$teacher_id->id)
             ->whereDate('checkers.created_at', '>=', $request->from)
             ->whereDate('checkers.created_at', '<=', $request->to)
-            ->select('teachers.fullname','subject_codes.subject_description','remarks.remarks_desc',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as created_at"))
+            ->select('schedules.*','rooms.*','rounds.*','teachers.fullname','subject_codes.subject_description','remarks.remarks_desc',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as created_at"))
             ->get(); 
 
+            // dd($date);
       return response()->json($date);
     }
 

@@ -26,7 +26,7 @@ Route::get('/getRooms','RoomController@index');
 Route::post('/addRoom','RoomController@store');
 Route::put('/updateRoom/{id}','RoomController@update');
 Route::delete('/deleteRoom/{id}','RoomController@destroy');
-
+Route::get('/getRoomsCheckbox','RoomController@getRooms');
 
 //Subjects
 Route::get('/getSubjects','SubjectController@index');
@@ -43,6 +43,7 @@ Route::get('/getTeacherPersonal','TeacherController@getTeacherPersonal');
 
 //Subject Codes
 Route::get('/getSubjectCodes','SubjectCodeController@index');
+Route::get('/getSubjectCodesCheckbox','SubjectCodeController@getSubjectCodes');
 Route::post('/addSubjectCode','SubjectCodeController@store');
 Route::put('/updateSubjectCode/{id}','SubjectCodeController@update');
 Route::delete('/deleteSubjectCode/{id}','SubjectCodeController@destroy');
@@ -86,5 +87,9 @@ Route::get('/countSubjects','SubjectCodeController@countSubjects');
 //Imports
 Route::post('/importRoom','RoomController@import');
 Route::post('/importSubject','SubjectCodeController@import');
+
+//comments
+Route::post('/addComment','CommentsController@store');
+Route::get('/getComments','CommentsController@index');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );
