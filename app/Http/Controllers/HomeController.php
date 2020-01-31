@@ -72,7 +72,7 @@ class HomeController extends Controller
         ->whereDate('checkers.created_at', '>=', $request->from)
         ->whereDate('checkers.created_at', '<=', $request->to)
         // ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-        ->select('teachers.fullname','subject_codes.subject_description','remarks.remarks_desc')
+        ->select('teachers.fullname','subject_codes.subject_description','remarks.remarks_desc',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as created_at"))
         ->get()->toArray(); 
 
         $data= json_decode( json_encode($data), true);
