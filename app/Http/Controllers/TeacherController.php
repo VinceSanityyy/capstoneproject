@@ -159,7 +159,7 @@ class TeacherController extends Controller
        
 
         $date = \DB::table('checkers')
-            ->where('remarks_id',2)
+            // ->where('remarks_id',2)
             ->join('schedules','schedules.id','=','checkers.schedule_id')
             ->join('teachers','schedules.teacher_id','=','teachers.id')
             ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
