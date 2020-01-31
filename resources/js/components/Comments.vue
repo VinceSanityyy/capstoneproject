@@ -10,12 +10,12 @@
                         <tr>
                             
                             <th>Teacher Name</th>
-                            <th>Checker Id</th>
+                            <th>Id Number</th>
                             <th>Comment</th>
                         </tr>
                         <tr v-for="comment in comments" :key="comment.id">
                             <td>{{comment.name}}</td>
-                            <td>{{comment.checker_id}}</td>
+                            <td>{{comment.id_number}}</td>
                             <td>{{comment.comment}}</td>
                         
                         </tr>
