@@ -9,7 +9,7 @@
                     <tbody>
                         <tr>
                             
-                            <th>User Id</th>
+                            <th>Teacher Name</th>
                             <th>Checker Id</th>
                             <th>Comment</th>
                         </tr>
