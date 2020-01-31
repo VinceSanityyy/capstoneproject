@@ -238,23 +238,19 @@ $query = mysqli_query($mysqli, "select * from schedules");
 //$json = '{"a":1,"b":2,"c":3,"d":4,"e":5}';
 
 $check = $postjson["check"];
-
-
-foreach($check as $k){
-$sched_id =  $k["sched_id"];
-$id =  $k["id"];
-$user_id =  $k["user_id"];
-$remarks_id =  $k["remarks_id"];
-$status =  $k["status"];
-$created_at =  $k["created_at"];
+	$sched_id =  $check["sched_id"];
+$id =  $check["id"];
+$user_id =  $check["user_id"];
+$remarks_id =  $check["remarks_id"];
+$status =  $check["status"];
+$created_at =  $check["created_at"];
 
 
 $updated_at =  '';
 
-		$query0 = mysqli_query($mysqli, "Truncate table checkers");
-		
-		//echo  "INSERT  INTO checkers VALUES($id,$sched_id,$user_id,$remarks_id,strval($status),strval($created_at),'','')";
-	 $query = mysqli_query($mysqli, "INSERT  INTO checkers VALUES($id,$sched_id,$user_id,$remarks_id,'$status','$created_at','','')");
+		//$query0 = mysqli_query($mysqli, "Truncate table checkers");
+		//echo  "INSERT  INTO checkers VALUES($id,$sched_id,$user_id,$remarks_id,'','','','')";
+	 $query = mysqli_query($mysqli, "INSERT INTO checkers VALUES($id,$sched_id,$user_id,$remarks_id,'$status','$created_at','','')");
         
         if($query){
             $result = json_encode(array('success'=>true,'msg'=>'Registered Successfully !'));
@@ -262,9 +258,10 @@ $updated_at =  '';
 		
         else{
             $result = json_encode(array('success'=>false,'msg'=>'Something went Wrong !'));
+			
         }  
    echo $result;
-}
+
 
 
 
@@ -279,21 +276,18 @@ $updated_at =  '';
 
 $round = $postjson["rounds"];
 
-
-foreach($round as $k){
-
-   $id =  $k["id"];
-   $checker_id =  $k["checker_id"];
-   $round_no =  $k["round_no"];
-   $remarks_id =  $k["remarks_id"];
-   $status =  $k["status"];
-   $time_check =  $k["time_check"];
-   $created_at =  $k["created_at"];
-    $updated_at =  $k["updated_at"];
+ $id =  $round["id"];
+   $checker_id =  $round["checker_id"];
+   $round_no =  $round["round_no"];
+   $remarks_id =  $round["remarks_id"];
+   $status =  $round["status"];
+   $time_check =  $round["time_check"];
+   $created_at =  $round["created_at"];
+    $updated_at =  $round["updated_at"];
 	
-		$query0 = mysqli_query($mysqli, "Truncate table rounds");
-		
-		echo  "INSERT  INTO rounds VALUES($id,$checker_id,$round_no,$remarks_id,'$status','$time_check','$created_at','','')";
+	
+	var_dump($round);
+	
 	 $query = mysqli_query($mysqli, "INSERT  INTO rounds VALUES($id,$checker_id,$round_no,$remarks_id,'$status','$time_check','$created_at','','')");
         
         if($query){
@@ -305,7 +299,6 @@ foreach($round as $k){
         }  
    echo $result;
 }
-}
 if($postjson["aksi"]=="forwardCD"){
 	
 	
@@ -313,19 +306,15 @@ if($postjson["aksi"]=="forwardCD"){
 
 $cd = $postjson["cd"];
 
-
-foreach($cd as $k){
-
-   $id =  $k["id"];
-   $round_id =  $k["round_id"];
-   $others_id =  $k["others_id"];
-   $created_at =  $k["created_at"];
-    $updated_at =  $k["updated_at"];
+   $id =  $cd["id"];
+   $round_id =  $cd["round_id"];
+   $others_id =  $cd["others_id"];
+   $created_at =  $cd["created_at"];
+    $updated_at =  $cd["updated_at"];
 	
-		$query0 = mysqli_query($mysqli, "Truncate table checker_details");
-		
-		echo  "INSERT  INTO checker_details VALUES($id,$round_id,$others_id,'$created_at','','')";
-	 $query = mysqli_query($mysqli, "INSERT  INTO checker_details VALUES($id,$round_id,$others_id,'$created_at','','')");
+
+var_dump($cd);
+ $query = mysqli_query($mysqli, "INSERT  INTO checker_details VALUES($id,$round_id,$others_id,'$created_at','','')");
         
         if($query){
             $result = json_encode(array('success'=>true,'msg'=>'Registered Successfully !'));
@@ -335,12 +324,6 @@ foreach($cd as $k){
             $result = json_encode(array('success'=>false,'msg'=>'Something went Wrong !'));
         }  
    echo $result;
-}
-
-
-
-
-
 
 	
 }
