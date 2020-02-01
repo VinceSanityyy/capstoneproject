@@ -28,7 +28,7 @@ Route::put('/updateRoom/{id}','RoomController@update');
 Route::delete('/deleteRoom/{id}','RoomController@destroy');
 Route::get('/getRoomsCheckbox','RoomController@getRooms');
 
-Route::get('/getRoomsDatatable','RoomCOntroller@getRoomsDatatables');
+Route::get('/getRoomsDatatable','RoomController@getRoomsDatatables');
 
 //Subjects
 Route::get('/getSubjects','SubjectController@index');
