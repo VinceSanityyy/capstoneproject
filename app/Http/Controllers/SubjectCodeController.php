@@ -27,6 +27,13 @@ class SubjectCodeController extends Controller
         return response()->json($subjectcodes);
     }
 
+    public function getSubjectCodesDatatables(){
+        $subjectcodes = \DB::table('subject_codes')
+        ->where('deleted_at',null)
+        ->get();           
+        return response()->json($subjectcodes);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -596,7 +596,10 @@
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 
-<link rel="stylesheet" href="{{asset('layout/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+{{-- <link rel="stylesheet" href="{{asset('layout/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}"> --}}
+<link rel="stylesheet" href="{{asset('layout/css/jquery.dataTables.css')}}">
+<link rel="stylesheet" href="{{asset('layout/css/jquery.dataTables.min.css')}}">
+
 <script src="{{asset('layout/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('layout/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 

@@ -8,16 +8,18 @@
                 </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
+            <div class="box-body">
                 <table id="myTable" class="table table-hover">
-                    <tbody>
-                        <tr>
+                    <thead>
+                         <tr>
                             <!-- <th>ID</th> -->
                             <th>Picture</th>
                             <th>Name</th>
                             <th>Course</th>
                             <th>Actions</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr v-for="teacher in teachers" :key="teacher.id">
                             <!-- <td>{{teacher.id}}</td> -->
                             <td><img  :src="'img/'+teacher.image" class="img-rounded"  height="42" width="42"/></td>
@@ -40,7 +42,7 @@
 
 
 <script>
-    // import datatables from 'datatables'
+    import datatables from 'datatables'
     export default {
       data(){
         return{
@@ -59,11 +61,17 @@
                 axios.get('getTeachers')
                     .then((res)=>{
                         this.teachers = res.data
+                        this.myTable()
                         // this.sortData()
                     })
                     .catch((e)=>{
                         console.log(e)
                     })
+            },
+             myTable(){
+                $(document).ready( function () {
+                    $('#myTable').DataTable();
+                });
             },
             editTeacher(data) {
                 this.$router.push({ name: 'EDITTEACHER', params: data})

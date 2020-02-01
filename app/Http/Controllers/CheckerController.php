@@ -13,7 +13,7 @@ class CheckerController extends Controller
         
         $scid = $request->id;
         $round = \DB::table('rounds')
-        ->select('rounds.*','checkers.*','remarks.*','violations.*')
+        ->select('rounds.*','checkers.remarks_id as cr','remarks.*','violations.*')
         ->leftJoin('checkers','checkers.id','=','rounds.checker_id')
         ->leftJoin('checker_details','rounds.id','=','checker_details.round_id')
         ->leftJoin('remarks','remarks.id','=','rounds.remarks_id')
@@ -32,7 +32,7 @@ class CheckerController extends Controller
         
         $scid = $request->id;
         $round = \DB::table('rounds')
-        ->select('rounds.*','checkers.*','remarks.*','violations.*')
+        ->select('rounds.*','checkers.remarks_id as cr','remarks.*','violations.*')
         ->leftJoin('checkers','checkers.id','=','rounds.checker_id')
         ->leftJoin('checker_details','rounds.id','=','checker_details.round_id')
         ->leftJoin('remarks','remarks.id','=','rounds.remarks_id')

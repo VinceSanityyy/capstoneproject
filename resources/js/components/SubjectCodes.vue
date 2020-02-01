@@ -8,16 +8,19 @@
          <button class="btn btn-info pull-right" data-toggle="modal" data-target="#exampleModal2">Import <i class="fa fa-book"></i></button>
         </div>
       </div>
-      <div class="box-body table-responsive no-padding">
-          <table class="table table-hover">
-              <tbody>
-                  <tr>
+      <div class="box-body">
+          <table class="table table-hover" id="myTable">
+            <thead>
+               <tr>
                       <!-- <th>ID</th> -->
                       <th>Subject Code</th>
                        <th>Subject Description</th>
                       <th>Actions</th>
                   </tr>
-                  <tr v-for="subjectcode in subjectcodes.data" :key="subjectcode.id">
+            </thead>
+              <tbody>
+                 
+                  <tr v-for="subjectcode in subjectcodesData" :key="subjectcode.id">
                       <!-- <td>{{subjectcode.id}}</td> -->
                       <td>{{subjectcode.subject_code}}</td>
                        <td>{{subjectcode.subject_description}}</td>
@@ -34,7 +37,7 @@
           </table>
         
       </div>
-         <pagination :data="subjectcodes" @pagination-change-page="getSubjectCodes"></pagination>
+         <!-- <pagination :data="subjectcodes" @pagination-change-page="getSubjectCodes"></pagination> -->
           <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -115,11 +118,13 @@
 </template>
 
 <script>
+import datatables from 'datatables'
 	export default {
 		data() {
 			return {
 				editmode: false,
-				subjectcodes: {},
+        subjectcodes: {},
+        subjectcodesData:[],
 				form: new Form({
 					id: '',
 					subject_code: '',
@@ -128,23 +133,30 @@
 			}
 		},
 		methods: {
-			getSubjectCodes(page) {
-				// axios.get('/getSubjectCodes')
-				// 	.then((res) => {
-				// 		this.subjectcodes = res.data
-				// 		// console.log(res)
-				// 	})
-				// 	.catch((e) => {
-				// 		console.log(e)
-        // 	})
-           if (typeof page === 'undefined') {
-                    page = 1;
-                }
-           axios.get('/getSubjectCodes?page=' + page)
-                   .then(data => {
-                        this.subjectcodes = data.data;
-                    });
-			},
+			// getSubjectCodes(page) {
+      //      if (typeof page === 'undefined') {
+      //               page = 1;
+      //           }
+      //      axios.get('/getSubjectCodes?page=' + page)
+      //              .then(data => {
+      //                   this.subjectcodes = data.data;
+      //               });
+      // },
+       myTable(){
+        $(document).ready( function () {
+              $('#myTable').DataTable();
+          });
+      },
+        getSubjectCodesDataTable(){
+           axios.get('/getSubjectCodesDatatable')
+                            .then((res) => {
+                                this.subjectcodesData = res.data
+                                this.myTable()
+                            })
+                            .catch((e) => {
+                                console.log(e)
+                            })
+      },
 			newModal() {
 				this.editmode = false
 				this.form.reset()
@@ -158,7 +170,7 @@
 						swal.fire("Subject Updated!", "", "success");
 						$('#exampleModal').modal('hide');
 						$(".modal-backdrop").remove();
-						this.getSubjectCodes()
+						this.getSubjectCodesDataTable()
 						console.log(data)
 					})
 			},
@@ -174,7 +186,7 @@
 						swal.fire("Subject Updated!", "", "success");
 						$('#exampleModal').modal('hide');
 						$(".modal-backdrop").remove();
-						this.getSubjectCodes()
+						this.getSubjectCodesDataTable()
 					})
 					.catch((e) => {
 						console.log(e)
@@ -193,12 +205,12 @@
 					if (result.value) {
 						this.form.delete('deleteSubjectCode/' + id)
 							.then(() => {
-								this.getSubjectCodes()
+								this.getSubjectCodesDataTable()
 								swal.fire("Deleted!", "", "success");
 							})
 							.catch(() => {
 								//temp rani
-								this.getSubjectCodes()
+								this.getSubjectCodesDataTable()
 								swal.fire("Deleted!", "", "success");
 							});
 
@@ -220,7 +232,7 @@
 						swal.fire("Records Imported!", "", "success");
 						$('#exampleModal2').modal('hide');
 						$(".modal-backdrop").remove();
-						this.getSubjectCodes()
+						this.getSubjectCodesDataTable()
 					})
 					.catch(error => {
 						swal.fire("Something went wrong.", "", "warning");
@@ -230,7 +242,7 @@
 		},
 		mounted() {
 			console.log('Component mounted.')
-			this.getSubjectCodes();
+			this.getSubjectCodesDataTable();
 		}
 	} 
   </script>

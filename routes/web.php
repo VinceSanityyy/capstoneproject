@@ -28,11 +28,14 @@ Route::put('/updateRoom/{id}','RoomController@update');
 Route::delete('/deleteRoom/{id}','RoomController@destroy');
 Route::get('/getRoomsCheckbox','RoomController@getRooms');
 
+Route::get('/getRoomsDatatable','RoomCOntroller@getRoomsDatatables');
+
 //Subjects
 Route::get('/getSubjects','SubjectController@index');
 Route::post('/addSubject','SubjectController@store');
 Route::put('/updateSubject/{id}','SubjectController@update');
 Route::delete('/deleteSubject/{id}','SubjectController@destroy');
+
 
 //Teachers
 Route::get('/getTeachers','TeacherController@index');
@@ -47,6 +50,8 @@ Route::get('/getSubjectCodesCheckbox','SubjectCodeController@getSubjectCodes');
 Route::post('/addSubjectCode','SubjectCodeController@store');
 Route::put('/updateSubjectCode/{id}','SubjectCodeController@update');
 Route::delete('/deleteSubjectCode/{id}','SubjectCodeController@destroy');
+
+Route::get('/getSubjectCodesDatatable','SubjectCodeController@getSubjectCodesDatatables');
 
 //Schedules
 Route::get('/getSchedules','ScheduleController@index');

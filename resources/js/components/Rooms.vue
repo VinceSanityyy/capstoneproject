@@ -3,22 +3,24 @@
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">Rooms List</h3>
+                 <!-- <input type="text" class="col-md-3 form-control" v-model="search"> -->
                 <div class="box-tools">
+                 
                     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">Add new<i class="fa fa-plus"></i></button>
                     <button class="btn btn-info pull-right" data-toggle="modal" data-target="#exampleModal2">Import <i class="fa fa-book"></i></button>
                 </div>
             </div>
-            <div class="box-body table-responsive no-padding">
-                <table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            
+            <div class="box-body">
+                <table class="table table-hover" id="myTable">
+                  <thead>
+                      <tr>
                             <th>Room Name</th>
                             <th>Building</th>
                             <th>Actions</th>
                         </tr>
-                        <tr v-for="room in rooms.data" :key="room.id">
-
+                  </thead>
+                    <tbody>
+                        <tr v-for="room in roomsData" :key="room.id">
                             <td>{{room.room_desc}}</td>
                             <td>{{room.bldg}}</td>
                             <td>
@@ -32,9 +34,8 @@
                         </tr>
                     </tbody>
                 </table>
-
             </div>
-            <pagination :data="rooms" @pagination-change-page="getRooms"></pagination>
+            <!-- <pagination :data="rooms" @pagination-change-page="getRooms"></pagination> -->
         </div>
         <!-- Modal -->
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -117,11 +118,14 @@
 </template>
 
 <script>
+import datatables from 'datatables'
 	export default {
 		data() {
 			return {
         rooms:{},
+        roomsData:[],
         template:'',
+        search:'',
 				form: new Form({
 					id: '',
 					room_desc: '',
@@ -130,15 +134,25 @@
 			}
 		},
 		methods: {
-			getRooms(page) {
-          if (typeof page === 'undefined') {
-                    page = 1;
-                }
-           axios.get('/getRooms?page=' + page)
-                   .then(data => {
-                        this.rooms = data.data;
-                    });
-			},
+			// getRooms(page) {
+      //     if (typeof page === 'undefined') {
+      //               page = 1;
+      //           }
+      //      axios.get('/getRooms?page=' + page)
+      //              .then(data => {
+      //                   this.rooms = data.data;
+      //               });
+      // },
+      getRoomsDataTable(){
+           axios.get('/getRoomsDatatable')
+                            .then((res) => {
+                                this.roomsData = res.data
+                                this.myTable()
+                            })
+                            .catch((e) => {
+                                console.log(e)
+                            })
+      },
 			newModal() {
 				this.editmode = false
 				this.form.reset()
@@ -152,7 +166,8 @@
 						swal.fire("Record Created!", "", "success");
 						$('#exampleModal').modal('hide');
 						$(".modal-backdrop").remove();
-						this.getRooms()
+            // this.getRooms()
+            	this.getRoomsDataTable()
 						console.log(data)
 					})
 			},
@@ -168,7 +183,7 @@
 						swal.fire("Record Updated!", "", "success");
 						$('#exampleModal').modal('hide');
 						$(".modal-backdrop").remove();
-						this.getRooms()
+						this.getRoomsDataTable()
 					})
 					.catch((e) => {
 						console.log(e)
@@ -188,7 +203,8 @@
 						this.form.delete('deleteRoom/' + id)
 							.then(() => {
 								swal.fire("Deleted!", "", "success");
-								this.getRooms()
+                // this.getRooms()
+                	this.getRoomsDataTable()
 							})
 							.catch(() => {
 								swal.fire("Something went wrong.", "", "warning");
@@ -211,16 +227,32 @@
                 swal.fire("Records Imported!", "", "success");
                 $('#exampleModal2').modal('hide');
 						    $(".modal-backdrop").remove();
-								this.getRooms()
+                // this.getRooms()
+                	this.getRoomsDataTable()
             })
             .catch(error => {
                    swal.fire("Something went wrong.", "", "warning");
             });
-			}
-		},
+      },
+      myTable(){
+        $(document).ready( function () {
+              $('#myTable').DataTable();
+          });
+      }
+    },
+    computed:{
+      filteredList() {
+      return this.rooms.filter(room => {
+        return room.room_desc.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
+    },
 		created() {
-			this.getRooms()
+      this.getRoomsDataTable()
+     
+			// this.getRooms()
 			console.log('Component mounted.')
-		},
+    },
+   
 	} 
   </script>
