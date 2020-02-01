@@ -8,5 +8,5 @@ class Comments extends Model
 {
     //
 
-    protected $fillable = ['user_id','checker_id','comment'];
+    protected $fillable = ['user_id','checker_id','comment','picture',];
 }

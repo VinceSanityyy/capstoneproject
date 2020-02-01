@@ -44,11 +44,23 @@ class CommentsController extends Controller
             'comment' => 'required',
       
            ]);
-           return Comments::create([
-            'comment' => $request['comment'],
-            'user_id' => $currentuserid,
-            'checker_id' => $request->checker_id
-           ]);
+           if($request->picture){
+            $name = time().'.'. explode('/', explode(':', substr($request->picture, 0, strpos
+             ($request->picture, ';'))) [1])[1];
+             \Image::make($request->picture)->save(public_path('img/').$name);
+
+            //  $request->merge(['image' => $name]);
+             $userPhoto = public_path('img/profile/');
+             if(file_exists($userPhoto)){
+                @unlink($userPhoto);
+             }
+             return Comments::create([
+                'comment' => $request['comment'],
+                'user_id' => $currentuserid,
+                'checker_id' => $request->checker_id,
+                'picture' => $name,
+            ]);
+        };
     }
 
     /**

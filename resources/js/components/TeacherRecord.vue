@@ -70,7 +70,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h4 class="modal-title" id="exampleModalLabel">Add Room</h4>
+                  <h4 class="modal-title" id="exampleModalLabel">Add Comment</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -89,6 +89,10 @@
                       />
                       <has-error :form="form" field="comment"></has-error>
                     </div>
+                     <div class="form-group">
+                      <label>Add Picture</label>
+                        <input class="form-control" type="file" v-on:change="addImage">
+                      </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,6 +114,7 @@
 
                     form: new Form({
                     checker_id: '',
+                    picture:'',
                     comment: 'comment',
                     }),
 
@@ -154,11 +159,24 @@
 					})
             },
             	editModal(result) {
-				this.editmode = true
+				        this.editmode = true
                 this.form.reset()
                 this.form.fill(result)
 				$('#exampleModal').modal('show')
-			},
+      },
+        addImage(e){
+                let file = e.target.files[0]
+                var reader = new FileReader()
+                if(file['size'] < 2111775){
+                    reader.onloadend =  (file)=>{
+                    this.form.picture = reader.result;
+                    }
+              reader.readAsDataURL(file);
+            }
+                else {
+                    console.log('File too large')
+                    }
+            }
         }
     }
 </script>
