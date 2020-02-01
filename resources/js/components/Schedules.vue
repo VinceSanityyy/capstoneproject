@@ -138,6 +138,7 @@
                 remarks: [],
                 remark_id: '',
                 rooms: [],
+                cid:'',
                 form: new Form({
                     id: '',
                     room: '',

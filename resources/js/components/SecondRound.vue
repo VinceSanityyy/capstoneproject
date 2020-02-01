@@ -101,7 +101,7 @@
                     })
             },
             getDetails(){
-                axios.get('getDetailsTwo/'+this.schedule.id)
+                axios.get('getDetailsTwo/'+this.schedule.cid)
                     .then((res)=>{
                         this.details = res.data
                         console.log(this.details)

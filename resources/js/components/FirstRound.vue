@@ -57,6 +57,7 @@
                     violations: [],
                     rounds: [],
                     details: [],
+                    cid:''
                 }
             },
 
@@ -98,7 +99,7 @@
                             })
                     },
                     getDetails() {
-                        axios.get('getDetails/' + this.schedule.id)
+                        axios.get('getDetails/' + this.schedule.cid)
                             .then((res) => {
                                 this.details = res.data
                                 console.log(this.details)
