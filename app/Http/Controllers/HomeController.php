@@ -62,9 +62,8 @@ class HomeController extends Controller
 
 
     public function generateReport(Request $request){
-        
         $data = \DB::table('checkers')
-        ->where('remarks_id',2)
+        // ->where('remarks_id',2)
         ->join('schedules','schedules.id','=','checkers.schedule_id')
         ->join('teachers','schedules.teacher_id','=','teachers.id')
         ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
@@ -86,5 +85,20 @@ class HomeController extends Controller
         })->export('csv');
 
         
+    }
+    public function previewReport(Request $request){
+        $data = \DB::table('checkers')
+        // ->where('remarks_id',2)
+        ->join('schedules','schedules.id','=','checkers.schedule_id')
+        ->join('teachers','schedules.teacher_id','=','teachers.id')
+        ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
+        ->join('remarks','remarks.id','=','checkers.remarks_id')
+        ->whereDate('checkers.created_at', '>=', $request->from)
+        ->whereDate('checkers.created_at', '<=', $request->to)
+        ->select('teachers.fullname as Name','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
+        ->get(); 
+
+        // dd($data);
+        return response()->json($data);
     }
 }

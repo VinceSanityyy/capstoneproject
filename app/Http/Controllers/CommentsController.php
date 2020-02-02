@@ -17,6 +17,11 @@ class CommentsController extends Controller
         $comments = \DB::table('comments')
                     ->join('users','users.id','comments.user_id')
                     ->join('checkers','checkers.id','comments.checker_id')
+                    ->join('schedules','schedules.id','=','checkers.schedule_id')
+                    ->join('rooms','schedules.room_id','=','rooms.id')
+                    ->join('remarks','remarks.id','=','checkers.remarks_id')
+                    ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
+                    ->select(\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as r"),'rooms.*','schedules.*','users.*','comments.*','subject_codes.*')
                     ->get();
         return response()->json($comments);
     }

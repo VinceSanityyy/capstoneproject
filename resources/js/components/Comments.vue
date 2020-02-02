@@ -10,6 +10,8 @@
                          <tr>
                             <th>Teacher Name</th>
                             <th>Id Number</th>
+                            <th>Subject</th>
+                            <th>Submitted On</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -17,9 +19,11 @@
                         <tr v-for="comment in comments" :key="comment.id">
                             <td>{{comment.name}}</td>
                             <td>{{comment.id_number}}</td>
+                            <td>{{comment.subject_description}}</td>
+                            <td>{{comment.r}}</td>
                             <td>
-                            <a href="#" data-toggle="modal" data-target="#editModal" @click="editModal(comment)">
-                             <i class="fa fa-eye"></i>
+                            <a class="button btn btn-info" href="#" data-toggle="modal" data-target="#editModal" @click="editModal(comment)">
+                           View Comment
                             </a>
                             </td>
                         </tr>

@@ -58,6 +58,8 @@ Route::get('/getSchedules','ScheduleController@index');
 Route::post('/addSchedules','ScheduleController@store');
 Route::put('/updateSchedule/{id}','ScheduleController@update');
 
+Route::get('/getSchedulesPaginate','ScheduleController@schedulePagination');
+
 Route::get('/getDetails/{id}','CheckerController@getScheduleRound');
 Route::get('/getDetailsTwo/{id}','CheckerController@getScheduleRoundTwo');
 
@@ -83,6 +85,7 @@ Route::get('/getCheckers','CheckerController@getCheckers');
 //generateReport
 Route::get('/generate','HomeController@generateReport');
 Route::get('/generatePersonal','TeacherController@getTeacherPersonal');
+Route::get('/preview','HomeController@previewReport');
 
 
 //Count

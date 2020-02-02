@@ -29,7 +29,7 @@
        <div class="col-xs-12">
            <div class="box box-info">
             <div class="box-body">
-                     <div class="box-body table-responsive no-padding">
+                     <div class="box-body">
                 <table class="table table-hover">
                     <tbody>
                         <tr>

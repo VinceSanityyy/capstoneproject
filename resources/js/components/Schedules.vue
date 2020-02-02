@@ -11,7 +11,7 @@
          </div>
          <div class="row" >
             <div class="col-md-4 " 
-               v-for="(schedule, index) in schedules" :key="index.id">
+               v-for="(schedule, index) in schedulesPagination.data" :key="index.id">
                <div class="box box-primary">
                   <div class="box-body box-profile">
                      <img class="profile-user-img img-responsive img-circle" :src="'img/'+schedule.image" style="max-width: 100%;height: 100px;"  alt="User profile picture">
@@ -38,6 +38,9 @@
                   </div>
                </div>
             </div>
+         </div>
+         <div class="box-foote">
+                <pagination :data="schedulesPagination" @pagination-change-page="getSchedulesPagination"></pagination>
          </div>
       </div>
       <!-- Modal -->
@@ -135,6 +138,7 @@
                 teachers: [],
                 subjectcodes: [],
                 schedules: [],
+                schedulesPagination:{},
                 remarks: [],
                 remark_id: '',
                 rooms: [],
@@ -170,6 +174,15 @@
             }
         },
         methods: {
+            getSchedulesPagination(page) {
+                if (typeof page === 'undefined') {
+                            page = 1;
+                        }
+                axios.get('/getSchedulesPaginate?page=' + page)
+                        .then(data => {
+                                this.schedulesPagination = data.data;
+                            });
+            },
             getTeachers() {
                 axios.get('getTeachers')
                     .then((res) => {
@@ -232,7 +245,7 @@
                         swal.fire("Record Updated!", "", "success");
                         $('#exampleModal').modal('hide');
                         $(".modal-backdrop").remove();
-                        this.getSchedules()
+                        this.getSchedulesPagination()
                     })
                     .catch((e) => {
                         console.log(e)
@@ -243,7 +256,8 @@
         created() {
             this.getTeachers();
             this.getSubjectCodes()
-            this.getSchedules()
+            // this.getSchedules()
+            this.getSchedulesPagination()
             this.getTeachers()
             this.getRooms()
             console.log('Component mounted.')
