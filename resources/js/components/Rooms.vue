@@ -215,7 +215,8 @@ import datatables from 'datatables'
 			importRoom() {
 				axios.post('/importRoom')
 					.then(() => {
-						console.log('imported')
+            console.log('imported')
+            	this.getRoomsDataTable()
 					})
 			},
 			loadCSV(e) {

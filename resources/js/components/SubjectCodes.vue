@@ -220,6 +220,7 @@ import datatables from 'datatables'
 			importSubject() {
 				axios.post('/importSubject')
 					.then(() => {
+            this.getSubjectCodesDataTable()
 						console.log('imported')
 					})
 			},
