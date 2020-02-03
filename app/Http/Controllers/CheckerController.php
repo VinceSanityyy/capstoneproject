@@ -20,7 +20,7 @@ class CheckerController extends Controller
         ->leftJoin('violations','violations.id','=','checker_details.violation_id')
         ->where('checkers.id',$scid)
         ->where('rounds.round_no','=',1)
-        ->where('checkers.created_at', Carbon::today())
+        ->whereDate('checkers.created_at', Carbon::today())
         ->distinct('rounds.remarks_id')
         // ->toSql();
         ->get();
@@ -39,7 +39,7 @@ class CheckerController extends Controller
         ->leftJoin('violations','violations.id','=','checker_details.violation_id')
         ->where('checkers.id',$scid)
         ->where('rounds.round_no','=', 2)
-        ->where('checkers.created_at', Carbon::today())
+        ->whereDate('checkers.created_at', Carbon::today())
         ->distinct('rounds.remarks_id')
         // ->toSql();
         ->get();
@@ -66,7 +66,7 @@ class CheckerController extends Controller
         ->join('teachers','teachers.id','=','schedules.teacher_id')
         ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
         ->join('rooms','schedules.room_id','rooms.id')
-        ->where('checkers.created_at', Carbon::today())
+        ->whereDate('checkers.created_at', Carbon::today())
         ->get();
 
         return response()->json($overall);
