@@ -248,7 +248,7 @@ $last_id=0;
 $updated_at =  '';
 
 
- $query = mysqli_query($mysqli, "INSERT INTO checkers VALUES(null,$sched_id,$user_id,$remarks_id,'$status','$created_at','','')");
+ $query = mysqli_query($mysqli, "INSERT INTO checkers VALUES(null,$sched_id,$user_id,$remarks_id,'$status','$created_at','$created_at','$created_at')");
 			$last_id = mysqli_insert_id($mysqli);
  
         if($query){
@@ -287,7 +287,7 @@ $result='';
    $created_at =  $r["created_at"];
     $updated_at =  $r["updated_at"];
 $last_id=array();	
- $query = mysqli_query($mysqli, "INSERT  INTO rounds VALUES(null,$check_id,$round_no,$remarks_id,'$status','$time_check','$created_at','','')");
+ $query = mysqli_query($mysqli, "INSERT  INTO rounds VALUES(null,$check_id,$round_no,$remarks_id,'$status','$time_check','$created_at','$created_at','$created_at')");
       
         if($query){
 			
@@ -322,7 +322,7 @@ foreach($cd1 as $cd){
    $created_at =  $cd["created_at"];
     $updated_at =  $cd["updated_at"];
 	
- $query = mysqli_query($mysqli, "INSERT  INTO checker_details VALUES(null,$round_id,$others_id,'$created_at','','')");
+ $query = mysqli_query($mysqli, "INSERT  INTO checker_details VALUES(null,$round_id,$others_id,'$created_at','$created_at','$created_at')");
         
         if($query){
             $result = json_encode(array('success'=>true,'msg'=>'Registered Successfully !'));
