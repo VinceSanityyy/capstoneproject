@@ -61,7 +61,7 @@ class CheckerController extends Controller
 
     public function getCheckers(){
         $overall = \DB::table('checkers')
-        ->select('checkers.id as cid','schedules.*','teachers.*','rooms.*','subject_codes.*')
+        ->select('checkers.id as cid',\DB::raw("DATE_FORMAT(checkers.created_at, '%h:%i %p') as time"),'schedules.*','teachers.*','rooms.*','subject_codes.*')
         ->join('schedules','schedules.id','=','checkers.schedule_id')
         ->join('teachers','teachers.id','=','schedules.teacher_id')
         ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
@@ -71,6 +71,15 @@ class CheckerController extends Controller
 
         return response()->json($overall);
         // dd($overall);
+    }
+
+
+    public function countCheckers(){
+        $count = \DB::table('checkers')
+                ->whereDate('created_at',Carbon::today())
+                ->count();
+
+        return response()->json($count);   
     }
 
     

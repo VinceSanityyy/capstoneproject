@@ -13,6 +13,10 @@
                   <img class="profile-user-img img-responsive img-circle" :src="'img/'+checker.image" style="max-width: 100%;height: 100px;"  alt="User profile picture">
                   <h3 class="profile-username text-center">{{checker.fullname}}</h3>
                   <p class="text-muted text-center">Department: {{checker.course}}</p>
+                  <div class="alert alert-success">
+                  <i class="icon fa fa-check text-center"></i>
+                  Time Checked: {{checker.time}}
+                  </div>
                   <ul class="list-group list-group-unbordered">
                      <li class="list-group-item">
                         <b>Subject Code</b> <a class="pull-right">{{checker.subject_code}}</a>

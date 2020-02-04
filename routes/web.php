@@ -91,6 +91,7 @@ Route::get('/preview','HomeController@previewReport');
 //Count
 Route::get('/countTeachers','TeacherController@countTeachers');
 Route::get('/countSubjects','SubjectCodeController@countSubjects');
+Route::get('/countCheckers','CheckerController@countCheckers');
 
 //Imports
 Route::post('/importRoom','RoomController@import');
