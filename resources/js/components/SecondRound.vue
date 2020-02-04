@@ -6,6 +6,10 @@
                     <img :src="'img/'+schedule.image" alt="User profile picture" class="profile-user-img img-responsive img-circle" style="width:200px; height:200px">
                     <h3 class="profile-username text-center">Name: {{schedule.fullname}}</h3>
                     <p class="text-muted text-center"><b>Course: {{schedule.course}}</b></p>
+                    <div class="alert alert-success alert-dismissible">
+                    <i class="icon fa fa-check"></i> 
+                    Time Checked: {{details[0].time_check}}
+                    </div>
                     <router-link to="/checkers" class="btn btn-success btn-block">Back</router-link>
                 </div>
             </div>

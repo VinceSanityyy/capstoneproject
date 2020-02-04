@@ -23,7 +23,7 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.use(datePicker);
 Vue.use(VueRouter)
 Vue.use(VueFusionCharts, FusionCharts);
-
+Vue.use(require('vue-moment'));
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
