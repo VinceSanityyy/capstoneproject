@@ -121,10 +121,61 @@ $query = mysqli_query($mysqli, "select * from teachers");
         }
         echo $result;
 	
+}if($postjson["aksi"]=="students"){
+
+
+$query = mysqli_query($mysqli, "select * from students WHERE STATUS='active'");
+    
+    if($query){
+       
+        $numrows = mysqli_num_rows($query);
+        if($numrows>0){ 
+            while($data = mysqli_fetch_array($query)){
+                $datauser[] = array(
+                    'id' => $data['id'],
+					'name' => $data['name'],	
+					'idnum' => $data['idnum'],
+					'pass' => $data['pass'],
+					'status' => $data['status'],
+					'created_at' => $data['created_at'],
+					'updated_at' => $data['updated_at'],
+					
+                );        
+            }     
+            $result = json_encode(array('success'=>true, 'result'=>$datauser));
+        }
+       
+        }
+        echo $result;
+	
 }
 
 
-if($postjson["aksi"]=="students"){
+
+if($postjson["aksi"]=="register"){
+	
+	$name = $postjson["name"];
+	$idnum = $postjson["idnum"];
+	$pass = $postjson["pass"];
+	$created_at = $postjson["created_at"];
+	$updated_at = $postjson["updated_at"];
+
+$query = mysqli_query($mysqli, "INSERT  INTO students VALUES(null,'$name','$idnum','$pass','$created_at','$updated_at','inactive')");
+    
+	if($query){
+       
+      $result = json_encode(array('success'=>true,'msg'=>'Registered Successfully !. Please wait for the confirmation of admin before signing in.'));
+	  
+        }else{
+			   $result = json_encode(array('success'=>false,'msg'=>'Failed !'));
+			    
+		}
+       echo $result;
+	
+}
+
+
+if($postjson["aksi"]=="students1"){
 
 
 $query = mysqli_query($mysqli, "select * from users where id <> 0");
