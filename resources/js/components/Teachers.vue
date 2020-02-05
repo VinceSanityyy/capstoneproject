@@ -138,7 +138,7 @@ export default {
 			axios.post('/importTeacher')
 				.then(() => {
 					console.log('imported')
-						this.myTable()
+						this.getTeachers()
 				})
 		},
 		loadCSV(e) {
@@ -151,7 +151,7 @@ export default {
 					$('#exampleModal2').modal('hide');
 					$(".modal-backdrop").remove();
 					// this.getRooms()
-						this.myTable()
+						this.getTeachers()
 				})
 				.catch(error => {
 					swal.fire("Something went wrong.", "", "warning");
