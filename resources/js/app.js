@@ -59,6 +59,9 @@ const routes = [
     { path: '/checkers', name: 'getCheckers', component: require('./components/AttendanceCheck.vue').default },
     { path: '/teacherRecords', name: 'getTeacherRecords', component: require('./components/teacherRecord.vue').default },
     { path: '/comments', component: require('./components/Comments.vue').default },
+    { path: '/checkers_list', component: require('./components/Checkers.vue').default },
+
+    { path: '/', component: require('./components/Dashboard.vue').default },
   ]
 
 

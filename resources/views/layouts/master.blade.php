@@ -57,6 +57,7 @@
 
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg">UMHRMDev</span>
+    
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -324,6 +325,9 @@
         <li class="treeview">
           <router-link to="/comments" class="nav-link" > <i class="fa fa-pencil"></i>  <span>Comments</span> </router-link>
       </li>
+      <li class="treeview">
+        <router-link to="/checkers_list" class="nav-link" > <i class="fa fa-user"></i>  <span>Checkers</span> </router-link>
+    </li>
         <li class="treeview">
             <a href="#">
               <i class="fa fa-folder"></i> <span>Attendance</span>

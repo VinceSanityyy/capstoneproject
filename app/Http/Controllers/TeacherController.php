@@ -40,11 +40,19 @@ class TeacherController extends Controller
     {
         $this->validate($request,[
             'fullname' => 'required',
-            'image' => 'required',
+            // 'image' => 'required',
             'course' => 'required',
             'contact' => 'required',
+            'id_number' =>  ['required', 'unique:teachers'],
        
         ]);
+
+        $attributes = [
+            'fullname' => $request['fullname'],
+            'course' => $request['course'],
+            'contact' => $request['contact'],
+            'id_number' => $request['id_number']
+        ];
 
         if($request->image){
             $name = time().'.'. explode('/', explode(':', substr($request->image, 0, strpos
@@ -56,13 +64,18 @@ class TeacherController extends Controller
              if(file_exists($userPhoto)){
                 @unlink($userPhoto);
              }
-             return Teacher::create([
-                'fullname' => $request['fullname'],
-                'course' => $request['course'],
-                'contact' => $request['contact'],
-                'image' => $name,
-            ]);
+             $attributes['image'] = $name;
+            
+            //  return Teacher::create([
+            //     'fullname' => $request['fullname'],
+            //     'course' => $request['course'],
+            //     'contact' => $request['contact'],
+            //     'id_number' => $request['id_number'],
+            //     'image' => $name,
+            // ]);
         };
+
+        Teacher::create($attributes);
 
       
     }
@@ -103,9 +116,9 @@ class TeacherController extends Controller
 
        
         $this->validate($request,[
-            'fullname' => 'required',
+            // 'fullname' => 'required',
             // 'image' => 'required',
-            'course' => 'required',
+            // 'course' => 'required',
         ]);
 
         if($request->image){
@@ -116,10 +129,15 @@ class TeacherController extends Controller
              if(file_exists($userPhoto)){
                 @unlink($userPhoto);
              }
+            //  $teacher->image = $name;
         };
+
+     
+
         $teacher->fullname = $request->fullname;
         $teacher->course = $request->course;
         $teacher->contact = $request->contact;
+        $teacher->id_number = $request->id_number;
         $teacher->image = $name;
         $teacher->save($request->all());
     }
@@ -177,16 +195,36 @@ class TeacherController extends Controller
     }
 
 
+    public function import(Request $request){
+        if($request->hasFile('template')){
+            $path = $request->file('template')->getRealPath();
+            $data = \Excel::load($path)->get();
+           
+            if($data->count() > 0){
+                $rows = $data->toArray();
+                foreach ($rows as $row) {
+                    $inserts[]=[
+                        'id_number' => $row['id_number'],
+                        'fullname' => $row['fullname'],
+                        'course' => $row['department'],
+                        'contact' => $row['contact'],
+                        'image' => 'UM.png',
+                    ];
+                }
+            }
+            $chuncked = array_chunk($inserts, 10);
+            if(empty($inserts)){
+                dd('Request data does not have any files to import.');  
+            }
+            else {
+                foreach($chuncked as $inserts){
+                    \DB::table('teachers')->insert($inserts);
+                 }
+                dd('record inserted');  
+            }
+        }
+    }
+
+
 }
 
- // $date = \DB::table('checkers')
-        // ->where('remarks_id',2)
-        // ->select(\DB::raw("COUNT(checkers.id) `value` "), \DB::raw("DATE_FORMAT(checkers.created_at, '%M %d, %Y') label "))
-        // ->join('schedules','schedules.id','=','checkers.schedule_id')
-        // ->join('teachers','schedules.teacher_id','=','teachers.id')
-        // ->where('schedules.teacher_id',$teacher_id)
-        // // ->whereBetween('checkers.created_at',  Carbon::now()->startOfWeek())
-        // // ->whereBetween('checkers.created_at',  Carbon::now()->endOfweek())
-        // // ->get();        
-        // ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-        // ->get();

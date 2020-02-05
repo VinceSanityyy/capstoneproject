@@ -38,13 +38,20 @@
                     <input class="form-control" type="file" v-on:change="addImage">
                   </div>
                     <div class="col-xs-6 form-group">
-                <label>Contact Number</label>
-                <input v-model="form.contact" 
-                type="text" 
-                name="contact"
-                class="form-control" 
-                :class="{ 'is-invalid': form.errors.has('contact')}">
-                </div>
+                     <label>Contact Number</label>
+                     <input v-model="form.contact" 
+                     type="text" 
+                     name="contact"
+                     class="form-control" 
+                     :class="{ 'is-invalid': form.errors.has('contact')}">
+                     </div>
+                  <div class="col-xs-6 form-group">
+                     <label>ID Number</label>
+                     <input v-model="form.id_number" 
+                        type="text" name="id_number"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('id_number') }">
+                  </div>
                   <button type="submit" class="btn btn-block btn-success"> Submit</button>
                   <router-link to="/teachers" class="btn btn-block btn-danger">Back</router-link>
                </form>
@@ -62,11 +69,14 @@
                    fullname: '',
                    image: '',
                    course:'',
+                   id_number:'',
+                   contact:''
                })
            }
        },
        created() {
            this.teachers = this.$router.currentRoute.params
+           this.form.fill(this.teachers)
          //   console.log(this.teachers.id)
          //   console.log(this.teachers)
        },

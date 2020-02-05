@@ -41,12 +41,14 @@
                   <tbody>
                      <tr>
                         <th>Teacher Name</th>
+                        <th>ID Number</th>
                         <th>Subject</th>
                         <th>Remarks</th>
                         <th>Date</th>
                      </tr>
                      <tr v-for="result in results" :key="result.id">
                         <td>{{result.Name}}</td>
+                        <td>{{result.ID}}</td>
                         <td>{{result.Subject}}</td>
                         <td>{{result.Remarks}}</td>
                         <td>{{result.Date}}</td>

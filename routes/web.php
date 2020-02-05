@@ -96,9 +96,15 @@ Route::get('/countCheckers','CheckerController@countCheckers');
 //Imports
 Route::post('/importRoom','RoomController@import');
 Route::post('/importSubject','SubjectCodeController@import');
+Route::post('/importTeacher','TeacherController@import');
 
 //comments
 Route::post('/addComment','CommentsController@store');
 Route::get('/getComments','CommentsController@index');
+
+//getStudents
+Route::get('/getStudents','HomeController@getStudents');
+Route::get('/getStudentCount','HomeController@getStudentCount');
+Route::put('/updateChecker/{id}','HomeController@updateChecker');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

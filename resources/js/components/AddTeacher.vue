@@ -15,7 +15,7 @@
                 :class="{ 'is-invalid': form.errors.has('fullname')}">
                 </div>
                  <div class="col-xs-6 form-group">
-                <label>Course</label>
+                <label>Department</label>
                 <input v-model="form.course" 
                 type="text" name="course"
                 class="form-control"
@@ -33,6 +33,13 @@
                 class="form-control" 
                 :class="{ 'is-invalid': form.errors.has('contact')}">
                 </div>
+                 <div class="col-xs-6 form-group">
+                     <label>ID Number</label>
+                     <input v-model="form.id_number" 
+                        type="text" name="id_number"
+                        class="form-control"
+                        :class="{ 'is-invalid': form.errors.has('id_number') }">
+                  </div>
              <button type="submit" class="btn btn-block btn-success"> Submit</button>
              <router-link to="/teachers" class="btn btn-block btn-danger">Back</router-link>
                </form>
@@ -53,7 +60,8 @@
                     fullname: '',
                     image: '',
                     course:'',
-                    contact:''
+                    contact:'',
+                    id_number:''
                 })
             }
         },

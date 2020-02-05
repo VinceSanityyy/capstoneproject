@@ -71,7 +71,7 @@ class HomeController extends Controller
         ->whereDate('checkers.created_at', '>=', $request->from)
         ->whereDate('checkers.created_at', '<=', $request->to)
         // ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-        ->select('teachers.fullname as Name','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
+        ->select('teachers.fullname as Name','teachers.id_number as ID','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
         ->get()->toArray(); 
 
         $data= json_decode( json_encode($data), true);
@@ -84,7 +84,6 @@ class HomeController extends Controller
             });
         })->export('csv');
 
-        
     }
     public function previewReport(Request $request){
         $data = \DB::table('checkers')
@@ -95,10 +94,39 @@ class HomeController extends Controller
         ->join('remarks','remarks.id','=','checkers.remarks_id')
         ->whereDate('checkers.created_at', '>=', $request->from)
         ->whereDate('checkers.created_at', '<=', $request->to)
-        ->select('teachers.fullname as Name','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
+        ->select('teachers.fullname as Name','teachers.id_number as ID','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
         ->get(); 
 
         // dd($data);
         return response()->json($data);
+    }
+
+    public function getStudents(){
+        $students = \DB::table('students')
+                    ->get();
+
+        return response()->json($students);
+    }
+
+    public function getStudentCount(){
+        $studentsCount = \DB::table('students')
+                    ->where('status','=','active')
+                    ->count();
+
+        return response()->json($studentsCount);
+    }
+
+    public function updateChecker(Request $request,$id)
+    {
+
+      $checkerId = \DB::table('students')
+                ->where('id','=',$request->id)
+                ->get();
+
+    //   $checkerId->status = $request->checker_status;  
+    
+      \DB::table('students')
+            ->where('id',$request->id)
+            ->update(['status' => $request->checker_status]);
     }
 }
