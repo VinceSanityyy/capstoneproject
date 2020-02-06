@@ -61,7 +61,7 @@ const routes = [
     { path: '/comments', component: require('./components/Comments.vue').default },
     { path: '/checkers_list', component: require('./components/Checkers.vue').default },
 
-    { path: '/', component: require('./components/Dashboard.vue').default },
+ 
   ]
 
 
