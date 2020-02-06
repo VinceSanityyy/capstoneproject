@@ -57,6 +57,7 @@ Route::get('/getSubjectCodesDatatable','SubjectCodeController@getSubjectCodesDat
 Route::get('/getSchedules','ScheduleController@index');
 Route::post('/addSchedules','ScheduleController@store');
 Route::put('/updateSchedule/{id}','ScheduleController@update');
+Route::delete('/deleteSchedule/{id}','ScheduleController@destroy');
 
 Route::get('/getSchedulesPaginate','ScheduleController@schedulePagination');
 

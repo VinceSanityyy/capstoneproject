@@ -35,6 +35,7 @@
                         </li>
                      </ul>
                      <button data-target="#exampleModal" @click="editModal(schedule)" type="button" class="btn btn-info btn-block" data-toggle="modal">Update</button>
+                    <button  @click="deleteSchedule(schedule.scid)" type="button" class="btn btn-danger btn-block">Delete</button>
                   </div>
                </div>
             </div>
@@ -57,25 +58,25 @@
                    <form @submit.prevent = updateSchedule>
                     <div class="col-xs-6 form-group">
                         <label>Select Teacher</label>
-                        <select class="form-control" name="teacher" v-model="form.teacher" :class="{ 'is-invalid': form.errors.has('teacher') }">
-                            <option :value="teacher.id" v-for="teacher in teachers" :key="teacher.id">{{teacher.fullname}} - {{teacher.course}}</option>
+                        <select class="form-control" name="teacher" v-model="form.teacher_id" :class="{ 'is-invalid': form.errors.has('teacher') }">
+                            <option :selected="form.teacher === teacher.id"   :value="teacher.id" v-for="teacher in teachers" :key="teacher.id">{{teacher.fullname}} - {{teacher.course}}</option>
                         </select>
                     </div>
                     <div class="col-xs-6 form-group">
                         <label>Subject</label>
-                        <select class="form-control" name="subject" v-model="form.subject" :class="{ 'is-invalid': form.errors.has('subject') }">
+                        <select class="form-control" name="subject" v-model="form.subject_code_id" :class="{ 'is-invalid': form.errors.has('subject') }">
                             <option :value="subjectcode.id" v-for="subjectcode in subjectcodes" :key="subjectcode.id">{{subjectcode.subject_code}} - {{subjectcode.subject_description}}</option>
                         </select>
                     </div>
                     <div class="col-xs-3 form-group">
                         <label>Room</label>
-                        <select class="form-control" name="room" v-model="form.room" :class="{ 'is-invalid': form.errors.has('room') }">
+                        <select class="form-control" name="room" v-model="form.room_id" :class="{ 'is-invalid': form.errors.has('room') }">
                             <option :value="room.id" v-for="room in rooms" :key="room.id">{{room.room_desc}} - {{room.bldg}}</option>
                         </select>
                     </div>
                     <div class="col-xs-3 form-group">
                         <label>Schedule days</label>
-                        <select class="form-control" name="day" v-model="form.days" :class="{ 'is-invalid': form.errors.has('days') }">
+                        <select class="form-control" name="day" v-model="form.day" :class="{ 'is-invalid': form.errors.has('day') }">
                             <option value="M-W-F">M-W-F</option>
                             <option value="T-TH">T-TH</option>
                              <option value="M-T-W-T-F">M-T-W-Th-F</option>
@@ -85,26 +86,26 @@
                     <div class="col-xs-2 form-group">
                         <label>Term</label>
                         <select class="form-control" name="term" v-model="form.term" :class="{ 'is-invalid': form.errors.has('term') }">
-                            <option value="2">First</option>
-                            <option value="1">Second</option>
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
                         </select>
                     </div>
                       <div class="col-xs-2 form-group">
                         <label>Semester</label>
-                        <select class="form-control" name="sem" v-model="form.sem" :class="{ 'is-invalid': form.errors.has('sem') }">
-                            <option value="2">First</option>
-                            <option value="1">Second</option>
+                        <select class="form-control" name="sem" v-model="form.semester  " :class="{ 'is-invalid': form.errors.has('sem') }">
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
                         </select>
                     </div>
                       <div class="col-xs-2 form-group">
                         <label>School Year</label>
                         <input
-                        v-model="form.schoolyr"
+                        v-model="form.school_year"
                         type="text"
                         name="schoolyr"
                         placeholder="School Year"
                         class="form-control"
-                        :class="{ 'is-invalid': form.errors.has('schoolyr') }"
+                        :class="{ 'is-invalid': form.errors.has('school_year') }"
                       />
                       <has-error :form="form" field="schoolyr"></has-error>
                     </div>
@@ -143,6 +144,7 @@
                 remark_id: '',
                 rooms: [],
                 cid:'',
+                
                 form: new Form({
                     id: '',
                     room: '',
@@ -150,10 +152,17 @@
                     subject: '',
                     days: '',
                     term: '',
-                    sem: '',
+                    semester: '',
                     start_time: '',
                     end_time: '',
-                    schoolyr: ''
+                    schoolyr: '',
+                    scid:'',
+
+                    teacher_id:'',
+                    room_id:'',
+                    subject_code_id:'',
+                    day:'',
+                    school_year:''
                 }),
 
                 start_time: new Date(),
@@ -172,6 +181,9 @@
                     showClose: true,
                 }
             }
+        },
+        computed:{
+           
         },
         methods: {
             getSchedulesPagination(page) {
@@ -235,12 +247,12 @@
             },
             editModal(schedule) {
                 this.editmode = true
-                this.form.reset()
                 $('#exampleModal').modal('show')
                 this.form.fill(schedule)
+                console.log(this.form)
             },
             updateSchedule() {
-                this.form.put('/updateSchedule/' + this.form.id)
+                this.form.put('/updateSchedule/' + this.form.scid)
                     .then(() => {
                         swal.fire("Record Updated!", "", "success");
                         $('#exampleModal').modal('hide');
@@ -251,6 +263,27 @@
                         console.log(e)
                     })
             },
+            deleteSchedule(scid){
+                	swal.fire({
+					title: "Are you sure?",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#3085d6",
+					cancelButtonColor: "#d33",
+					confirmButtonText: "Yes, delete it!"
+				}).then(result => {
+					if (result.value) {
+						this.form.delete('deleteSchedule/' + scid)
+							.then(() => {
+								swal.fire("Deleted!", "", "success");
+                	 this.getSchedulesPagination()
+							})
+							.catch(() => {
+								swal.fire("Something went wrong.", "", "warning");
+							});
+					}
+				});
+            }
         },
 
         created() {

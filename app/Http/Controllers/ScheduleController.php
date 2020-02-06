@@ -32,7 +32,7 @@ class ScheduleController extends Controller
 
     public function schedulePagination(){
         $schedules = \DB::table('schedules')
-        ->select('schedules.*','teachers.*','rooms.*','subject_codes.*')
+        ->select('schedules.*','schedules.id as scid','teachers.*','rooms.*','subject_codes.*')
         ->join('teachers','teachers.id','=','schedules.teacher_id')
         ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
         ->join('rooms','schedules.room_id','rooms.id')
@@ -116,6 +116,8 @@ class ScheduleController extends Controller
     public function update(Request $request, Schedule $schedule, $id)
     {
         $schedule = Schedule::findOrFail($id);
+
+        
         $schedule->subject_code_id = $request->subject;
         $schedule->teacher_id = $request->teacher;
         $schedule->room_id = $request->room;
@@ -136,8 +138,8 @@ class ScheduleController extends Controller
      */
     public function destroy(Schedule $schedule,$id)
     {
-        // $sched_id = Schedule::findOrFail($id);
-        // $sched_id->delete();
+        $sched_id = Schedule::findOrFail($id);
+        $sched_id->delete();
     }
 
     public function filterSchedule(Request $request){
