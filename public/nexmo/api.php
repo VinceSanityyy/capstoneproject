@@ -116,7 +116,9 @@ $query = mysqli_query($mysqli, "select * from teachers");
                 );        
             }     
             $result = json_encode(array('success'=>true, 'result'=>$datauser));
-        }
+        }else{
+			      $result = json_encode(array('success'=>false));
+		}
        
         }
         echo $result;
@@ -143,7 +145,9 @@ $query = mysqli_query($mysqli, "select * from students WHERE STATUS='active'");
                 );        
             }     
             $result = json_encode(array('success'=>true, 'result'=>$datauser));
-        }
+        }else{
+			      $result = json_encode(array('success'=>false));
+		}
        
         }
         echo $result;
@@ -206,7 +210,7 @@ $query = mysqli_query($mysqli, "select * from users where id <> 0");
 
 $query = mysqli_query($mysqli, "select * from rooms");
     
-    if($query){
+    if($query){	
        
         $numrows = mysqli_num_rows($query);
         if($numrows>0){ 
@@ -246,7 +250,9 @@ $query = mysqli_query($mysqli, "select * from subject_codes");
                 );        
             }     
             $result = json_encode(array('success'=>true, 'result'=>$datauser));
-        }
+        }else{
+			      $result = json_encode(array('success'=>false));
+		}
        
         }
         echo $result;
@@ -278,7 +284,9 @@ $query = mysqli_query($mysqli, "select * from schedules");
                 );        
             }     
             $result = json_encode(array('success'=>true, 'result'=>$datauser));
-        }
+        }else{
+			      $result = json_encode(array('success'=>false));
+		}
        
         }
         echo $result;
@@ -307,7 +315,8 @@ $updated_at =  '';
         }
 		
         else{
-            $result = json_encode(array('success'=>false,'msg'=>'Something went Wrong !','checkid'=>$last_id));
+           // $result = json_encode(array('success'=>false,'msg'=>'Something went Wrong !','checkid'=>$last_id));
+echo("Error description: " . $mysqli -> error);
 			
         }  
 		echo $result;
@@ -324,6 +333,10 @@ $round = $postjson["rounds"];
 
 $check_id = $postjson["check_id"];
 $count=0;
+
+	
+	//var_dump($round[$x]);
+
 
 foreach($round as $r){
 
