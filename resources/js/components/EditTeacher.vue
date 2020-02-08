@@ -6,7 +6,7 @@
             <div class="box-body box-profile">
                <img :src="'img/'+teachers.image" alt="User profile picture"  class="profile-user-img img-responsive img-circle" style="width:200px; height:200px"> 
                <h3 class="profile-username text-center">Name: {{teachers.fullname}}</h3>
-               <p class="text-muted text-center"><b>Course: {{teachers.course}}</b></p>
+               <p class="text-muted text-center"><b>Department: {{teachers.course}}</b></p>
                 <p class="text-muted text-center"><b>Contact No: {{teachers.contact}}</b></p>
             </div>
          </div>
@@ -27,7 +27,7 @@
                         :class="{ 'is-invalid': form.errors.has('fullname')}">
                   </div>
                   <div class="col-xs-6 form-group">
-                     <label>Course</label>
+                     <label>Department</label>
                      <input v-model="form.course" 
                         type="text" name="course"
                         class="form-control"
