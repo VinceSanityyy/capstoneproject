@@ -155,7 +155,7 @@
                             .then(({data})=>{
                                 swal.fire("Schedule Added!", "", "success");
                                 // this.$router.push('/schedules');
-                                 this.$route.router.go('/schedules');
+                                this.$router.push({path: '/schedules'})
                             })
                              console.log(this.form)
                     }
