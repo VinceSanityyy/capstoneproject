@@ -371,9 +371,9 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.13
+      {{-- <b>Version</b> 2.4.13 --}}
     </div>
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">LaravelSPA</a>.</strong> All rights
+    <strong>Copyright &copy; 2020-2021 <a href="https://adminlte.io">UMHRMDev</a>.</strong> All rights
     reserved.
   </footer>
 

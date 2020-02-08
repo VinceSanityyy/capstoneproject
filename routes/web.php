@@ -79,7 +79,7 @@ Route::get('/getRound','RoundController@index');
 Route::get('/getGraph/{id}','HomeController@getGraph');
 
 //setOverall
-Route::put('/setOverall/{id}','CheckerController@setOverall');
+Route::put('/setOverall/{cid}','CheckerController@setOverall');
 
 Route::get('/getCheckers','CheckerController@getCheckers');
 

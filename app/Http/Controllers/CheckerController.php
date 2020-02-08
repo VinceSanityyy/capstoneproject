@@ -48,15 +48,17 @@ class CheckerController extends Controller
 
     }
 
-    public function setOverall(Request $request,$id){
+    public function setOverall(Request $request){
       
             $checker_id = $request->cid;
             \DB::table('checkers')
-            ->where('created_at', Carbon::today())
+            // ->where('created_at', Carbon::today())
             ->where('checkers.id',$checker_id)
             ->update([
                 'remarks_id'=>$request['overall'],
             ]);
+        
+
     }
 
     public function getCheckers(){

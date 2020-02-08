@@ -77,7 +77,7 @@
 				checkers: [],
             remarks: [],
 				form: new Form({
-					id: '',
+					
                     overall: '',
                     cid: '',
 				}),
