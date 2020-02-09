@@ -69,8 +69,9 @@
             createTeacher(){
                 this.form.post('/addTeacher')
                     .then((data)=>{
+                         this.$router.push({path: '/teachers'})
                          swal.fire("Record Created!", "", "success");
-                        this.$router.push({path: '/teachers'})
+                       
                     })
                     .catch((e)=>{
                         console.log(e)

@@ -84,6 +84,7 @@
           editTeacher(){
               this.form.put('/editTeacher/' +this.teachers.id)
                   .then(()=> {
+                      this.$router.push({path: '/teachers'})
                      console.log(this.teachers.id)
                         swal.fire("User Updated!", "", "success");
                   })
