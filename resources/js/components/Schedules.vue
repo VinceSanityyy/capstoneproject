@@ -79,7 +79,7 @@
                         <select class="form-control" name="day" v-model="form.day" :class="{ 'is-invalid': form.errors.has('day') }">
                             <option value="M-W-F">M-W-F</option>
                             <option value="T-TH">T-TH</option>
-                             <option value="M-T-W-T-F">M-T-W-Th-F</option>
+                             <option value="M-T-W-Th-F">M-T-W-Th-F</option>
                             <option value="SAT">SAT</option>
                         </select>
                     </div>
@@ -261,6 +261,10 @@
                     })
                     .catch((e) => {
                         console.log(e)
+                        swal.fire("Record Exist", "", "warning");
+                        $('#exampleModal').modal('hide');
+                        $(".modal-backdrop").remove();
+                        this.getSchedulesPagination()
                     })
             },
             deleteSchedule(scid){

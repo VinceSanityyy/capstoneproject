@@ -39,15 +39,15 @@
                     <div class="col-xs-2 form-group">
                         <label>Term</label>
                         <select class="form-control" name="term" v-model="form.term" :class="{ 'is-invalid': form.errors.has('term') }">
-                            <option value="2">First</option>
-                            <option value="1">Second</option>
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
                         </select>
                     </div>
                       <div class="col-xs-2 form-group">
                         <label>Semester</label>
                         <select class="form-control" name="sem" v-model="form.sem" :class="{ 'is-invalid': form.errors.has('sem') }">
-                            <option value="2">First</option>
-                            <option value="1">Second</option>
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
                         </select>
                     </div>
                       <div class="col-xs-2 form-group">
@@ -156,7 +156,11 @@
                                 swal.fire("Schedule Added!", "", "success");
                                   this.$router.push({path: '/schedules'})        
                             })
-                             console.log(this.form)
+                            .catch((e)=>{
+                                  console.log(e)
+                                    swal.fire("Record Exist", "", "warning");
+                            })
+                           
                     }
             },
             created() {
