@@ -12,11 +12,13 @@ header("Content-Type: application/json; charset=utf-8");
 require_once "vendor/autoload.php";
 
 
-
-$basic  = new \Nexmo\Client\Credentials\Basic('046acced', 'NhbbuyZAxEA9IRAz');
+$basic  = new \Nexmo\Client\Credentials\Basic('c78fec6c', 'MEb5g5bMPsaBe0KV');
 $client = new \Nexmo\Client($basic);
 
 $postjson = json_decode(file_get_contents('php://input'), true);
+
+
+
 
 
 

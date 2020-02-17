@@ -260,7 +260,7 @@ $query = mysqli_query($mysqli, "select * from subject_codes");
 }if($postjson["aksi"]=="schedules"){
 
 
-$query = mysqli_query($mysqli, "select * from schedules");
+$query = mysqli_query($mysqli, "select * from schedules where deleted_at is NULL");
 
     if($query){
        
