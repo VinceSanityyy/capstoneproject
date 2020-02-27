@@ -57,7 +57,7 @@ const routes = [
     { path: '/firstRound', name: 'editFirst', component: require('./components/FirstRound.vue').default },
     { path: '/secondRound', name: 'editSecond', component: require('./components/SecondRound.vue').default },
     { path: '/checkers', name: 'getCheckers', component: require('./components/AttendanceCheck.vue').default },
-    { path: '/teacherRecords', name: 'getTeacherRecords', component: require('./components/teacherRecord.vue').default },
+    { path: '/teacherRecords', name: 'getTeacherRecords', component: require('./components/TeacherRecord.vue').default },
     { path: '/comments', component: require('./components/Comments.vue').default },
     { path: '/checkers_list', component: require('./components/Checkers.vue').default },
 
