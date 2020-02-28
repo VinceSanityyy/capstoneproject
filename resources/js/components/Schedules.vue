@@ -260,7 +260,7 @@
                         this.getSchedulesPagination()
                     })
                     .catch((e) => {
-                        console.log(e)
+                        // console.log(e)
                         swal.fire("Record Exist", "", "warning");
                         $('#exampleModal').modal('hide');
                         $(".modal-backdrop").remove();

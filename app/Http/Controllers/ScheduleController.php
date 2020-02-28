@@ -73,8 +73,8 @@ class ScheduleController extends Controller
            $validate = Schedule::where('subject_code_id',$request->subject)
            ->where('teacher_id',$request->teacher)
            ->where('room_id',$request->room)
-           ->whereBetween('start_time',[$request->start_time, $request->end_time])
-           ->whereBetween('end_time',[$request->start_time, $request->end_time])
+           ->where('start_time',$request->start_time)
+           ->where('end_time',$request->end_time)
         //    ->where('end_time',$request->end_time)
            ->where('school_year',$request->schoolyr)
            ->where('day',$request->days)
@@ -82,7 +82,7 @@ class ScheduleController extends Controller
            ->where('semester',$request->sem)
            ->count();
 
-           if($validate == 1){
+           if($validate >= 1){
             throw new \ErrorException('Record Exist');
             } else{
                 return Schedule::create([
@@ -137,10 +137,10 @@ class ScheduleController extends Controller
         $validate = Schedule::where('subject_code_id',$request->subject_code_id)
                         ->where('teacher_id',$request->teacher_id)
                         ->where('room_id',$request->room_id)
-                        // ->where('start_time',$request->start_time)
-                        // ->where('end_time',$request->end_time)
-                        ->whereBetween('start_time',[$request->start_time, $request->end_time])
-                        ->whereBetween('end_time',[$request->start_time, $request->end_time])
+                        ->where('start_time',$request->start_time)
+                        ->where('end_time',$request->end_time)
+                        // ->whereBetween('start_time',[$request->start_time, $request->end_time])
+                        // ->whereBetween('end_time',[$request->start_time, $request->end_time])
                         ->where('school_year',$request->school_year)
                         ->where('day',$request->day)
                         ->where('term',$request->term)
@@ -148,7 +148,7 @@ class ScheduleController extends Controller
                         ->count();
         // dd($request->all());
         // dd($validate);
-        if($validate == 1){
+        if($validate >= 1){
                 throw new \ErrorException('Record Exist');
               dd('exist');
         } else{
