@@ -60,6 +60,30 @@ class HomeController extends Controller
         ]);
     }
 
+    public function getViolationsGraph(Request $request,$id){
+        $tid = $request->id;
+
+        $violation = \DB::table('checker_details')
+                        ->join('rounds','rounds.id','=','checker_details.round_id')
+                        ->join('checkers','checkers.id','=','rounds.checker_id')
+                        ->join('schedules','schedules.id','=','checkers.schedule_id')
+                        ->join('teachers','schedules.teacher_id','=','teachers.id')
+                        ->join('violations','violations.id','=','checker_details.violation_id')
+                        ->where('schedules.teacher_id',$tid)
+                        ->select(\DB::raw("COUNT('violations.violation_details') as value"),
+                        'violations.violation_details as label')
+                        ->groupBy('violations.violation_details')
+                        ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+                        ->get();
+
+        
+        return response()->json($violation);
+        // $violation = json_encode($violation);
+        // dd($violation[0]['violation_details']);
+        // dd($violation);
+       
+    }
+
 
     public function generateReport(Request $request){
         $data = \DB::table('checkers')

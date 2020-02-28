@@ -108,4 +108,8 @@ Route::get('/getStudents','HomeController@getStudents');
 Route::get('/getStudentCount','HomeController@getStudentCount');
 Route::put('/updateChecker/{id}','HomeController@updateChecker');
 
+
+// getViolationsGraph
+Route::get('/violationsGraph/{id}','HomeController@getViolationsGraph');
+
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );
