@@ -9,16 +9,6 @@
                   <option :value="teacher.id" v-for="teacher in teachers" :key="teacher.id">{{teacher.fullname}}</option>
                </select>
             </div>
-            <div class="col-md-6">
-               <div class="box box-danger">
-                  <div class="box-header with-border">
-                     <h3 style="text-align:center" class="box-title">Violations</h3>
-                  </div>
-                  <div  align="left" id="chart-container">
-                     <fusioncharts :type="chart2.type" :width="chart2.width" :height="chart2.height" :dataFormat="chart2.dataFormat" :dataSource="chart2.dataSource ">
-                     </fusioncharts>
-                  </div>
-               </div>
             </div>
              <div class="col-md-6">
                <div class="box box-danger">
@@ -31,6 +21,16 @@
                   </div>
                </div>
             </div>
+            <div class="col-md-6">
+               <div class="box box-danger">
+                  <div class="box-header with-border">
+                     <h3 style="text-align:center" class="box-title">Violations</h3>
+                  </div>
+                  <div  align="left" id="chart-container">
+                     <fusioncharts :type="chart2.type" :width="chart2.width" :height="chart2.height" :dataFormat="chart2.dataFormat" :dataSource="chart2.dataSource ">
+                     </fusioncharts>
+                  </div>
+               </div>
          </div>
       </div>
    </div>
