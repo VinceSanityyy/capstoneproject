@@ -9,7 +9,6 @@
                   <option :value="teacher.id" v-for="teacher in teachers" :key="teacher.id">{{teacher.fullname}}</option>
                </select>
             </div>
-            </div>
              <div class="col-md-6">
                <div class="box box-danger">
                   <div class="box-header with-border">
@@ -31,6 +30,7 @@
                      </fusioncharts>
                   </div>
                </div>
+            </div>
          </div>
       </div>
    </div>
