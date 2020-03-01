@@ -112,4 +112,7 @@ Route::put('/updateChecker/{id}','HomeController@updateChecker');
 // getViolationsGraph
 Route::get('/violationsGraph/{id}','HomeController@getViolationsGraph');
 
+// filterPending
+Route::get('/filterPending','CheckerController@filterCheckers');
+
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

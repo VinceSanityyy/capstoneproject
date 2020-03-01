@@ -56,6 +56,7 @@ class CheckerController extends Controller
             ->where('checkers.id',$checker_id)
             ->update([
                 'remarks_id'=>$request['overall'],
+                'status' => 'CHECKED',
             ]);
         
 
@@ -63,12 +64,31 @@ class CheckerController extends Controller
 
     public function getCheckers(){
         $overall = \DB::table('checkers')
-        ->select('checkers.id as cid',\DB::raw("DATE_FORMAT(checkers.created_at, '%h:%i %p') as time"),'schedules.*','teachers.*','rooms.*','subject_codes.*')
+        ->select('checkers.id as cid',\DB::raw("DATE_FORMAT(checkers.created_at, '%h:%i %p') as time"),'schedules.*','teachers.*','rooms.*','subject_codes.*','checkers.status')
         ->join('schedules','schedules.id','=','checkers.schedule_id')
         ->join('teachers','teachers.id','=','schedules.teacher_id')
         ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
         ->join('rooms','schedules.room_id','rooms.id')
         ->whereDate('checkers.created_at', Carbon::today())
+        ->get();
+
+        return response()->json($overall);
+        // dd($overall);
+    }
+
+    public function filterCheckers(Request $request){
+        $from = $request->from;
+        $to = $request->to;
+
+        $overall = \DB::table('checkers')
+        ->select('checkers.id as cid',\DB::raw("DATE_FORMAT(checkers.created_at, '%h:%i %p') as time"),'schedules.*','teachers.*','rooms.*','subject_codes.*','checkers.status')
+        ->join('schedules','schedules.id','=','checkers.schedule_id')
+        ->join('teachers','teachers.id','=','schedules.teacher_id')
+        ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
+        ->join('rooms','schedules.room_id','rooms.id')
+        ->whereDate('checkers.created_at', Carbon::today())
+        ->where('schedules.start_time',$from)
+        ->where('schedules.end_time',$to)
         ->get();
 
         return response()->json($overall);

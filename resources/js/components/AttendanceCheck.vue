@@ -1,19 +1,41 @@
 <template>
    <div class="col-xs-12">
-      <div class="box">
+      <div class="box box-danger">
          <div class="box-header">
             <h3 class="box-title">Pending Records</h3>
             <br>
+         </div>
+         <div class="box-body">
+               <div class="col-md-12">
+                        <div class="col-md-4 form-group">
+                        <label>From</label>
+                          <date-picker name="date" id="date" v-model="from" :config="opt" ></date-picker>
+                          </div>
+                          <div class="col-md-4 form-group">
+                        <label>To</label>
+                          <date-picker name="date" id="date" v-model="to" :config="opt" ></date-picker>
+                          </div>
+                        <div class="col-md-2 form-group">
+                        <!-- <label>To</label> -->
+                        <br>
+                        <button @click="filterByTime" class="btn btn-primary btn-block">Apply Filter</button>
+                        </div>
+                        <div class="col-md-2 form-group">
+                        <!-- <label>To</label> -->
+                        <br>
+                        <button @click="getCheckers" class="btn btn-primary btn-block">Clear Filters</button>
+                          </div>
+                    </div>
          </div>
       </div>
       <div class="row">
          <div class="col-md-4"  v-for="(checker, index) in checkers" :key="index.cid">
             <div class="box box-primary">
                <div class="box-body box-profile">
+                  <span v-if="checker.status == 'CHECKED'" class="label label-success">Checked for today</span>
                   <img class="profile-user-img img-responsive img-circle" :src="'img/'+checker.image" style="max-width: 100%;height: 100px;"  alt="User profile picture">
                   <h3 class="profile-username text-center">{{checker.fullname}}</h3>
                   <p class="text-muted text-center">Department: {{checker.course}}</p>
-                  
                   <ul class="list-group list-group-unbordered">
                      <li class="list-group-item">
                         <b>Subject Code</b> <a class="pull-right">{{checker.subject_code}}</a>
@@ -81,6 +103,20 @@
                     overall: '',
                     cid: '',
 				}),
+
+              from: new Date(),
+                opt:{
+                    showClear: true,
+                    useCurrent: false,
+                    format: 'h:mm A'
+                },
+
+               to: new Date(),
+                opt:{
+                    showClear: true,
+                    useCurrent: false,
+                    format: 'h:mm A'
+                },
 			}
 		},
 		methods: {
@@ -105,7 +141,15 @@
 					name: 'editSecond',
 					params: data
 				})
-			},
+         },
+         filterByTime(){
+              let params = { from: this.from, to: this.to };
+              let paramString = new URLSearchParams(params);
+                axios.get(`/filterPending?${paramString.toString()}`)
+                    .then((res)=>{
+                        this.checkers = res.data
+                    })
+         },
 			setOverall() {
 				this.form.put('/setOverall/' + this.form.cid)
 					.then(() => {
@@ -113,6 +157,7 @@
 						$('#exampleModal').modal('hide');
                         $(".modal-backdrop").remove();
                         console.log(this.form)
+                        this.getCheckers()
 					})
 					.catch((e) => {
 						console.log(e)
