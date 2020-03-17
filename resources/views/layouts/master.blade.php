@@ -319,6 +319,9 @@
         <li class="treeview" style="height: auto;">
           <router-link to="/subjectcodes" class="nav-link" > <i class="fa fa-book "></i>  <span>Subjects </span> </router-link>
         </li>
+        <li >
+          <router-link to="/departments" class="nav-link" > <i class="fa fa-pencil"></i>  <span>Departments</span> </router-link>
+      </li>
         <li class="treeview">
             <router-link to="/schedules" class="nav-link" > <i class="fa fa-calendar"></i>  <span>Schedules</span> </router-link>
         </li>

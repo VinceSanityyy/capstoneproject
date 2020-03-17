@@ -18,7 +18,6 @@ class CreateTeachersTable extends Migration
             $table->string('fullname');
             $table->string('image')->nullable()->default('UM.png');
             $table->string('course');
-            
             $table->timestamps();
             $table->softDeletes();
         });

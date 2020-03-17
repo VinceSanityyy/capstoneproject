@@ -115,4 +115,9 @@ Route::get('/violationsGraph/{id}','HomeController@getViolationsGraph');
 // filterPending
 Route::get('/filterPending','CheckerController@filterCheckers');
 
+//departments
+Route::get('/getDepartments','DepartmentController@index');
+Route::post('/addDepartment','DepartmentController@store');
+Route::delete('/deleteDepartment/{department_id}','DepartmentController@destroy');
+
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );
