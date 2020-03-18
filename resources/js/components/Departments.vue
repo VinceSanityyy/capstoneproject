@@ -38,12 +38,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add department</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Department</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form @submit.prevent = "createDepartment">
+            <form @submit.prevent ="editmode ? updateDepartment() : createDepartment()">
             <div class="modal-body">
                <div class="form-group">
                       <label>Department Code</label>
@@ -132,6 +132,17 @@ import datatables from 'datatables'
                 this.form.reset()
                 $('#exampleModal').modal('show');
                 this.form.fill(department)
+            },
+            updateDepartment(){
+                this.form.put('/updateDepartment/' + this.department_id)
+                    .then(()=>{
+                        swal.fire('Updated!','','success')
+                        $('#exampleModal').modal('hide');
+                        $(".modal-backdrop").remove();
+                        this.getDepartments()
+                    }).catch((e)=>{
+                        console.log(e);
+                    })
             },
             deleteDepartment(department_id){
                 swal.fire({

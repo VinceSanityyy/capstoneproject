@@ -38,6 +38,12 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         $department = new Department;
+
+        $this->validate($request, [
+            'department_name' => 'required',
+            'department_name' => 'required'
+           ]);
+        
         $department->department_code = $request->department_code;
         $department->department_name = $request->department_name;
         $department->save();
@@ -72,9 +78,14 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, Department $department, $department_id)
     {
-        //
+        $departments = Department::find($request->department_id);
+        $this->validate($request, [
+            'department_name' => 'required',
+            'department_name' => 'required'
+           ]);
+        $departments->update($request->all());
     }
 
     /**
