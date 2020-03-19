@@ -16,6 +16,7 @@ class TeacherController extends Controller
     {
         $teachers = \DB::table('teachers')
                     ->where('teachers.deleted_at','=',null)
+                    ->join('departments','departments.department_id','=','teachers.department_id')
                     ->get();
         return response()->json($teachers);
     }
@@ -41,7 +42,7 @@ class TeacherController extends Controller
         $this->validate($request,[
             'fullname' => 'required',
             // 'image' => 'required',
-            'course' => 'required',
+            'selected' => 'required',
             'contact' => 'required',
             'id_number' =>  ['required', 'unique:teachers'],
        
@@ -49,9 +50,10 @@ class TeacherController extends Controller
 
         $attributes = [
             'fullname' => $request['fullname'],
-            'course' => $request['course'],
+            'department_id' => $request['selected']['id'],
             'contact' => $request['contact'],
-            'id_number' => $request['id_number']
+            'id_number' => $request['id_number'],
+            'course' => $request['selected']['label'],
         ];
 
         if($request->image){
@@ -74,7 +76,7 @@ class TeacherController extends Controller
             //     'image' => $name,
             // ]);
         };
-
+        // dd($attributes);
         Teacher::create($attributes);
 
       
@@ -135,10 +137,13 @@ class TeacherController extends Controller
      
 
         $teacher->fullname = $request->fullname;
-        $teacher->course = $request->course;
+        $teacher->course = $request->selected['label'];
+        $teacher->department_id = $request->selected['id'];
         $teacher->contact = $request->contact;
         $teacher->id_number = $request->id_number;
         $teacher->image = $name;
+
+        // dd($teacher);
         $teacher->save($request->all());
     }
 

@@ -18,7 +18,9 @@
                  <div class="col-xs-6 form-group">
                 <label>Department</label>
                 <v-select :options="departments"
-                v-model="form.selected"/>
+                v-model="form.selected"
+                :required="!form.selected"
+                />
                 </div>
 
                 <div class="col-xs-6 form-group">
@@ -63,7 +65,6 @@ import 'vue-select/dist/vue-select.css';
                 form: new Form({
                     fullname: '',
                     image: '',
-                    course:'',
                     contact:'',
                     id_number:'',
                     selected:''

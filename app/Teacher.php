@@ -9,7 +9,7 @@ class Teacher extends Model
 
   use SoftDeletes;
     protected $fillable =[
-      'id','fullname','image','course','contact','id_number',
+      'id','fullname','image','course','contact','id_number','department_id',
     ];
 
     // public function subjects(){

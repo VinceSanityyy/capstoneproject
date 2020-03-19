@@ -28,10 +28,10 @@
                   </div>
                   <div class="col-xs-6 form-group">
                      <label>Department</label>
-                     <input v-model="form.course" 
-                        type="text" name="course"
-                        class="form-control"
-                        :class="{ 'is-invalid': form.errors.has('course') }">
+                     <v-select :options="departments"
+                        v-model="form.selected"
+                        :required="!form.selected"
+                        />
                   </div>
                   <div class="col-xs-6 form-group">
                     <label>Picture</label>
@@ -65,20 +65,24 @@
        data() {
            return {
            teachers: [],
+           departments:[],
                form: new Form({
                    fullname: '',
                    image: '',
-                   course:'',
+                   selected:'',
                    id_number:'',
-                   contact:''
+                   contact:'',
+                  
                })
            }
        },
        created() {
+
            this.teachers = this.$router.currentRoute.params
            this.form.fill(this.teachers)
+           this.getDepartmentsCombo();
          //   console.log(this.teachers.id)
-         //   console.log(this.teachers)
+           console.log(this.teachers)
        },
        methods:{
           editTeacher(){
@@ -107,6 +111,12 @@
                 else {
                     console.log('File too large')
                     }
+            },
+              getDepartmentsCombo(){
+                axios.get('/getDepartmentsCombo')
+                    .then((res)=>{
+                        this.departments = res.data
+                    })
             }
        }
    
