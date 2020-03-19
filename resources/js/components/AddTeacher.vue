@@ -14,13 +14,13 @@
                 class="form-control" 
                 :class="{ 'is-invalid': form.errors.has('fullname')}">
                 </div>
+
                  <div class="col-xs-6 form-group">
                 <label>Department</label>
-                <input v-model="form.course" 
-                type="text" name="course"
-                class="form-control"
-                :class="{ 'is-invalid': form.errors.has('course') }">
+                <v-select :options="departments"
+                v-model="form.selected"/>
                 </div>
+
                 <div class="col-xs-6 form-group">
                 <label>Picture</label>
                 <input class="form-control" type="file" v-on:change="addImage">
@@ -52,16 +52,21 @@
 </template>
 
 <script>
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+import 'vue-select/dist/vue-select.css';
     export default {
         data(){
             return{
+                departments:[],
                 editmode: false,
                 form: new Form({
                     fullname: '',
                     image: '',
                     course:'',
                     contact:'',
-                    id_number:''
+                    id_number:'',
+                    selected:''
                 })
             }
         },
@@ -91,9 +96,16 @@
                 else {
                     console.log('File too large')
                     }
+            },
+            getDepartmentsCombo(){
+                axios.get('/getDepartmentsCombo')
+                    .then((res)=>{
+                        this.departments = res.data
+                    })
             }
         },
         created() {
+            this.getDepartmentsCombo();
             console.log('Component mounted.')
         }
     }

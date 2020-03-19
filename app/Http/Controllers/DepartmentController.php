@@ -100,4 +100,14 @@ class DepartmentController extends Controller
         $department = Department::findOrFail($department_id);
         $department->delete();
     }
+
+    public function getDepartmentsCombo(){
+        $departments = \DB::table('departments')
+                    ->where('deleted_at',null)
+                    ->select(\DB::raw('CONCAT(department_name," - ", department_code) AS label'),
+                    'department_id as id')
+                    ->get();
+                    
+        return response()->json($departments);
+    }
 }
