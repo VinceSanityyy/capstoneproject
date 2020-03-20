@@ -62,15 +62,22 @@
                       />
                       <has-error :form="form" field="schoolyr"></has-error>
                     </div>
-                    <div class="col-xs-5 form-group">
+                    <div class="col-xs-4 form-group">
                         <label>Start Time</label>
                         <date-picker   name="start_time" v-model="form.start_time" :config="options" :class="{ 'is-invalid': form.errors.has('start_time') }"></date-picker>
                          <has-error :form="form" field="start_time"></has-error>
                     </div>
-                    <div class="col-xs-5 form-group">
+                    <div class="col-xs-4 form-group">
                         <label>End Time</label>
                           <date-picker   name="end_time" v-model="form.end_time" :config="options" :class="{ 'is-invalid': form.errors.has('end_time') }" ></date-picker>
                      <has-error :form="form" field="end_time"></has-error>
+                    </div>
+                    <div class="col-xs-4 form-group">
+                        <label for="">Assigned Checker</label>
+                         <v-select :options="students"
+                            v-model="form.selected"
+                            :required="!form.selected"
+                            />
                     </div>
                      
                       <button type="submit" class="btn btn-block btn-info"> Create</button>
@@ -83,8 +90,9 @@
 </template>
 
 <script>
-  
-
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+import 'vue-select/dist/vue-select.css';
     export default {
         
         data() {
@@ -98,12 +106,13 @@
                         sem:'',
                         start_time:'',
                         end_time:'',
-                        schoolyr:''
+                        schoolyr:'',
+                        selected:''
                     }),
                     subjectcodes: [],
                     teachers: [],
                     rooms: [],
-
+                    students:[],
                     start_time: new Date(),
                     options: {
                     format: 'h:mm A',
@@ -161,9 +170,16 @@
                                     swal.fire("Record Exist", "", "warning");
                             })
                            
+                    },
+                    getStudentSchedule(){
+                        axios.get('/getStudentSchedule')
+                            .then((res)=>{
+                            this.students = res.data
+                        })
                     }
             },
             created() {
+                this.getStudentSchedule()
                 this.getSubjectCodes()
                 this.getTeachers()
                 this.getRooms()

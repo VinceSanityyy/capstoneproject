@@ -132,9 +132,11 @@
 </template>
 
 <script >
+
     export default {
         data() {
             return {
+               
                 editmode: false,
                 teachers: [],
                 subjectcodes: [],
@@ -287,10 +289,11 @@
 							});
 					}
 				});
-            }
+            },
         },
 
         created() {
+           
             this.getTeachers();
             this.getSubjectCodes()
             // this.getSchedules()

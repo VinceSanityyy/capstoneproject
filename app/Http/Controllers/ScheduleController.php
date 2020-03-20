@@ -196,5 +196,12 @@ class ScheduleController extends Controller
         ->get();
     }
 
+    public function getStudentScheduleCombo(){
+        $students = \DB::table('students')
+                ->select(\DB::raw('CONCAT(name," - ", idnum) AS label'),'id as id')
+                ->get();
+        return response()->json($students);
+    }
+
  
 }
