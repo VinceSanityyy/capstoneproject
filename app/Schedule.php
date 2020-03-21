@@ -17,5 +17,6 @@ class Schedule extends Model
         'semester',
         'term',
         'day',
+        'student_id',
     ];
 }

@@ -44,6 +44,7 @@ Route::put('/editTeacher/{id}','TeacherController@update');
 Route::delete('/deleteTeacher/{id}','TeacherController@destroy');
 Route::get('/getTeacherPersonal','TeacherController@getTeacherPersonal');
 
+
 //Subject Codes
 Route::get('/getSubjectCodes','SubjectCodeController@index');
 Route::get('/getSubjectCodesCheckbox','SubjectCodeController@getSubjectCodes');
@@ -64,6 +65,10 @@ Route::get('/getSchedulesPaginate','ScheduleController@schedulePagination');
 
 Route::get('/getDetails/{id}','CheckerController@getScheduleRound');
 Route::get('/getDetailsTwo/{id}','CheckerController@getScheduleRoundTwo');
+
+Route::get('/getTeachersCombo','ScheduleController@getTeachersScheduleCombo');
+Route::get('/getSubjectsCombo','ScheduleController@getSubjectsScheduleCombo');
+Route::get('/getRoomsCombo','ScheduleController@getRoomsScheduleCombo');
 
 //Filter
 Route::get('filterSchedule','ScheduleController@filterSchedule');

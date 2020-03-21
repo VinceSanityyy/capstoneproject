@@ -68,11 +68,15 @@ class ScheduleController extends Controller
             'sem' => 'required',
             'term' => 'required',
             'days' => 'required',
+            'student' => 'required',
+            'subject' => 'required',
+            'room' => 'required',
+            'teacher' => 'required'
            ]);
 
            $validate = Schedule::where('subject_code_id',$request->subject)
-           ->where('teacher_id',$request->teacher)
-           ->where('room_id',$request->room)
+           ->where('teacher_id',$request['teacher']['id'])
+           ->where('room_id',$request['room']['id'])
            ->where('start_time',$request->start_time)
            ->where('end_time',$request->end_time)
         //    ->where('end_time',$request->end_time)
@@ -86,15 +90,16 @@ class ScheduleController extends Controller
             throw new \ErrorException('Record Exist');
             } else{
                 return Schedule::create([
-                    'subject_code_id' => $request["subject"],
-                    'teacher_id' => $request["teacher"],
-                    'room_id' =>$request["room"],
+                    'subject_code_id' => $request["subject"]['id'],
+                    'teacher_id' => $request["teacher"]['id'],
+                    'room_id' =>$request["room"]['id'],
                     'start_time' => $request["start_time"],
                     'end_time' => $request["end_time"],
                     'school_year' => $request["schoolyr"],
                     'semester' => $request["sem"],
                     'term' => $request["term"],
                     'day' => $request["days"],
+                    'student_id' => $request["student"]['id'],
                    ]);
             }
         
@@ -203,5 +208,28 @@ class ScheduleController extends Controller
         return response()->json($students);
     }
 
+    public function getTeachersScheduleCombo(){
+        $teachers = \DB::table('teachers')
+                    ->select(\DB::raw('CONCAT(fullname," - ", id_number) as label'),'id as id')
+                    ->where('deleted_at',null)
+                    ->get();
+        return response()->json($teachers);
+    }
+
+    public function getSubjectsScheduleCombo(){
+        $subjects = \DB::table('subject_codes')
+                    ->select(\DB::raw('CONCAT(subject_code," - " ,subject_description) as label'),'id as id')
+                    ->where('deleted_at',null)
+                    ->get();
+        return response()->json($subjects);
+    }
+
+    public function getRoomsScheduleCombo(){
+        $rooms = \DB::table('rooms')
+                    ->select('room_desc as label','id as id')
+                    ->where('deleted_at',null)
+                    ->get();
+        return response()->json($rooms);
+    }
  
 }

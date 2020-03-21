@@ -11,21 +11,24 @@
                     <form @submit.prevent = createSchedule>
                     <div class="col-xs-6 form-group">
                         <label>Select Teacher</label>
-                        <select class="form-control" name="teacher" v-model="form.teacher" :class="{ 'is-invalid': form.errors.has('teacher') }">
-                            <option :value="teacher.id" v-for="teacher in teachers" :key="teacher.id">{{teacher.fullname}} - {{teacher.course}}</option>
-                        </select>
+                        <v-select :options="teachers"
+                            v-model="form.teacher"
+                            :required="!form.teacher"
+                            />
                     </div>
                     <div class="col-xs-6 form-group">
                         <label>Subject</label>
-                        <select class="form-control" name="subject" v-model="form.subject" :class="{ 'is-invalid': form.errors.has('subject') }">
-                            <option :value="subjectcode.id" v-for="subjectcode in subjectcodes" :key="subjectcode.id">{{subjectcode.subject_code}} - {{subjectcode.subject_description}}</option>
-                        </select>
+                       <v-select :options="subjectcodes"
+                            v-model="form.subject"
+                            :required="!form.subject"
+                            />
                     </div>
                     <div class="col-xs-3 form-group">
                         <label>Room</label>
-                        <select class="form-control" name="room" v-model="form.room" :class="{ 'is-invalid': form.errors.has('room') }">
-                            <option :value="room.id" v-for="room in rooms" :key="room.id">{{room.room_desc}} - {{room.bldg}}</option>
-                        </select>
+                          <v-select :options="rooms"
+                            v-model="form.room"
+                            :required="!form.room"
+                            />
                     </div>
                     <div class="col-xs-3 form-group">
                         <label>Schedule days</label>
@@ -75,8 +78,8 @@
                     <div class="col-xs-4 form-group">
                         <label for="">Assigned Checker</label>
                          <v-select :options="students"
-                            v-model="form.selected"
-                            :required="!form.selected"
+                            v-model="form.student"
+                            :required="!form.student"
                             />
                     </div>
                      
@@ -107,7 +110,7 @@ import 'vue-select/dist/vue-select.css';
                         start_time:'',
                         end_time:'',
                         schoolyr:'',
-                        selected:''
+                        student:''
                     }),
                     subjectcodes: [],
                     teachers: [],
@@ -132,7 +135,7 @@ import 'vue-select/dist/vue-select.css';
             },
             methods: {
                 getSubjectCodes() {
-                        axios.get('/getSubjectCodesCheckbox')
+                        axios.get('/getSubjectsCombo')
                             .then((res) => {
                                 this.subjectcodes = res.data
                             })
@@ -141,7 +144,7 @@ import 'vue-select/dist/vue-select.css';
                             })
                     },
                     getRooms() {
-                        axios.get('/getRoomsCheckbox')
+                        axios.get('/getRoomsCombo')
                             .then((res) => {
                                 this.rooms = res.data
                             })
@@ -150,7 +153,7 @@ import 'vue-select/dist/vue-select.css';
                             })
                     },
                     getTeachers() {
-                        axios.get('getTeachers')
+                        axios.get('/getTeachersCombo')
                             .then((res) => {
                                 this.teachers = res.data
                                     // this.sortData()
