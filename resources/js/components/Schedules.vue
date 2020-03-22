@@ -46,7 +46,7 @@
       </div>
       <!-- Modal -->
       <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-lg" style=" width: 1000px;">
          <div class="modal-content">
             <div class="modal-header">
                   <h4 class="modal-title" id="exampleModalLabel">Update Schedule</h4>
@@ -58,30 +58,36 @@
                    <form @submit.prevent = updateSchedule>
                     <div class="col-xs-6 form-group">
                         <label>Select Teacher</label>
-                        <select class="form-control" name="teacher" v-model="form.teacher_id" :class="{ 'is-invalid': form.errors.has('teacher') }">
-                            <option :selected="form.teacher === teacher.id"   :value="teacher.id" v-for="teacher in teachers" :key="teacher.id">{{teacher.fullname}} - {{teacher.course}}</option>
-                        </select>
+                        <v-select :options="teachers"
+                            v-model="form.teacher"
+                            :required="!form.teacher"
+                            />
                     </div>
                     <div class="col-xs-6 form-group">
                         <label>Subject</label>
-                        <select class="form-control" name="subject" v-model="form.subject_code_id" :class="{ 'is-invalid': form.errors.has('subject') }">
-                            <option :value="subjectcode.id" v-for="subjectcode in subjectcodes" :key="subjectcode.id">{{subjectcode.subject_code}} - {{subjectcode.subject_description}}</option>
-                        </select>
+                         <v-select :options="subjectcodes"
+                            v-model="form.subject"
+                            :required="!form.subject"
+                            />
                     </div>
-                    <div class="col-xs-3 form-group">
+                    <div class="col-xs-2 form-group">
                         <label>Room</label>
-                        <select class="form-control" name="room" v-model="form.room_id" :class="{ 'is-invalid': form.errors.has('room') }">
-                            <option :value="room.id" v-for="room in rooms" :key="room.id">{{room.room_desc}} - {{room.bldg}}</option>
-                        </select>
+                          <v-select :options="rooms"
+                            v-model="form.room"
+                            :required="!form.room"
+                        />
                     </div>
-                    <div class="col-xs-3 form-group">
+                    <div class="col-xs-4 form-group form-check">
                         <label>Schedule days</label>
-                        <select class="form-control" name="day" v-model="form.day" :class="{ 'is-invalid': form.errors.has('day') }">
-                            <option value="M-W-F">M-W-F</option>
-                            <option value="T-TH">T-TH</option>
-                             <option value="M-T-W-Th-F">M-T-W-Th-F</option>
-                            <option value="SAT">SAT</option>
-                        </select>
+                         <br>
+                         
+                        <span v-for="weekday in weekdays" :key="weekday.id" >
+                             <input class="form-check-input" type="checkbox" :value="weekday.value" v-model="form.day">
+                            <span>
+                                <label for="checkbox">{{ weekday.name }}</label>
+                                &nbsp;
+                            </span> 
+                        </span>
                     </div>
                     <div class="col-xs-2 form-group">
                         <label>Term</label>
@@ -132,7 +138,9 @@
 </template>
 
 <script >
-
+import vSelect from 'vue-select'
+Vue.component('v-select', vSelect)
+import 'vue-select/dist/vue-select.css';
     export default {
         data() {
             return {
@@ -146,6 +154,14 @@
                 remark_id: '',
                 rooms: [],
                 cid:'',
+                weekdays:[
+                    { 'id': 1, "name": 'Mon','value':'M'},
+                    { 'id': 2, "name":'Tue','value':'T'},
+                    { 'id': 3, "name":'Wed','value':'W'},
+                    { 'id': 4, "name":'Thu','value':'Th'},
+                    { 'id': 5, "name":'Fri','value':'F'},
+                    { 'id': 6, "name":'Sat','value':'S'}
+                ],
                 
                 form: new Form({
                     id: '',
@@ -163,7 +179,7 @@
                     teacher_id:'',
                     room_id:'',
                     subject_code_id:'',
-                    day:'',
+                    day:[],
                     school_year:''
                 }),
 
@@ -198,7 +214,7 @@
                             });
             },
             getTeachers() {
-                axios.get('getTeachers')
+                axios.get('getTeachersCombo')
                     .then((res) => {
                         this.teachers = res.data
                     })
@@ -207,7 +223,7 @@
                     })
             },
             getSubjectCodes() {
-                axios.get('/getSubjectCodesCheckbox')
+                axios.get('/getSubjectsCombo')
                     .then((res) => {
                         this.subjectcodes = res.data
                         // console.log(res)
@@ -217,7 +233,7 @@
                     })
             },
             getRooms() {
-                axios.get('/getRoomsCheckbox')
+                axios.get('/getRoomsCombo')
                     .then((res) => {
                         this.rooms = res.data
                     })
