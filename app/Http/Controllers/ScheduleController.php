@@ -74,6 +74,11 @@ class ScheduleController extends Controller
             'teacher' => 'required'
            ]);
 
+        //    dd($request['days']('value'));
+           $arr = json_encode($request->days);
+           $arr = str_replace(['"', '[', ']'], [''], $arr);
+           $arr = str_replace(',','-',$arr);
+
            $validate = Schedule::where('subject_code_id',$request->subject)
            ->where('teacher_id',$request['teacher']['id'])
            ->where('room_id',$request['room']['id'])
@@ -81,7 +86,7 @@ class ScheduleController extends Controller
            ->where('end_time',$request->end_time)
         //    ->where('end_time',$request->end_time)
            ->where('school_year',$request->schoolyr)
-           ->where('day',$request->days)
+           ->where('day',$arr)
            ->where('term',$request->term)
            ->where('semester',$request->sem)
            ->count();
@@ -98,7 +103,7 @@ class ScheduleController extends Controller
                     'school_year' => $request["schoolyr"],
                     'semester' => $request["sem"],
                     'term' => $request["term"],
-                    'day' => $request["days"],
+                    'day' => $arr,
                     'student_id' => $request["student"]['id'],
                    ]);
             }

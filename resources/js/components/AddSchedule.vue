@@ -23,21 +23,32 @@
                             :required="!form.subject"
                             />
                     </div>
-                    <div class="col-xs-3 form-group">
+                    <div class="col-xs-2 form-group">
                         <label>Room</label>
                           <v-select :options="rooms"
                             v-model="form.room"
                             :required="!form.room"
                             />
                     </div>
-                    <div class="col-xs-3 form-group">
-                        <label>Schedule days</label>
-                        <select class="form-control" name="day" v-model="form.days" :class="{ 'is-invalid': form.errors.has('days') }">
+                    <div class="col-xs-4 form-group form-check">
+                        <label  >Schedule days</label>
+                        <!-- <select class="form-control" name="day" v-model="form.days" :class="{ 'is-invalid': form.errors.has('days') }">
                             <option value="M-W-F">M-W-F</option>
                             <option value="T-Th">T-TH</option>
                              <option value="M-T-W-Th-F">M-T-W-Th-F</option>
                             <option value="S">SAT</option>
-                        </select>
+                        </select> -->
+                        <br>
+                         
+                        <span v-for="weekday in weekdays" :key="weekday.id" >
+                             <input class="form-check-input" type="checkbox" :value="weekday.value" v-model="form.days">
+                            <span>
+                                <label for="checkbox">{{ weekday.name }}</label>
+                                &nbsp;
+                            </span> 
+                        </span>
+                        
+                       
                     </div>
                     <div class="col-xs-2 form-group">
                         <label>Term</label>
@@ -104,18 +115,27 @@ import 'vue-select/dist/vue-select.css';
                         room: '',
                         teacher: '',
                         subject: '',
-                        days: '',
+                        days: [],
                         term:'',
                         sem:'',
                         start_time:'',
                         end_time:'',
                         schoolyr:'',
-                        student:''
+                        student:'',
+                        
                     }),
                     subjectcodes: [],
                     teachers: [],
                     rooms: [],
                     students:[],
+                    weekdays:[
+                    { 'id': 1, "name": 'Mon','value':'M'},
+                    { 'id': 2, "name":'Tue','value':'T'},
+                    { 'id': 3, "name":'Wed','value':'W'},
+                    { 'id': 4, "name":'Thu','value':'Th'},
+                    { 'id': 5, "name":'Fri','value':'F'},
+                    { 'id': 6, "name":'Sat','value':'S'}
+                    ],
                     start_time: new Date(),
                     options: {
                     format: 'h:mm A',
