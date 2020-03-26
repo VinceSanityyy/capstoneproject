@@ -144,7 +144,6 @@ import 'vue-select/dist/vue-select.css';
     export default {
         data() {
             return {
-               
                 editmode: false,
                 teachers: [],
                 subjectcodes: [],
@@ -201,7 +200,7 @@ import 'vue-select/dist/vue-select.css';
             }
         },
         computed:{
-           
+          
         },
         methods: {
             getSchedulesPagination(page) {
@@ -306,17 +305,18 @@ import 'vue-select/dist/vue-select.css';
 					}
 				});
             },
+           
         },
 
         created() {
-           
+            
             this.getTeachers();
             this.getSubjectCodes()
             // this.getSchedules()
             this.getSchedulesPagination()
             this.getTeachers()
             this.getRooms()
-            console.log('Component mounted.')
+            
         }
     } 
 </script>

@@ -345,6 +345,9 @@
             <li >
                 <router-link to="/attendancereport" class="nav-link" > <i class="fa fa-table "></i>  <span>Attendance Report</span> </router-link>
             </li>
+            <li >
+              <router-link to="/additionals" class="nav-link" > <i class="fa fa-plus "></i>  <span>Additional Reports</span> </router-link>
+          </li>
           </ul>
           @endif
           @if(Auth::user()->id != 1)
