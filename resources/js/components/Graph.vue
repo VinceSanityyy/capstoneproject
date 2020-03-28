@@ -5,9 +5,13 @@
          <div class="box-body">
             <div class="col-xs-12 form-group">
                <label>Select Teacher</label>
-               <select @change="getdata(),getViolationsData()" class="form-control" name="teacher" v-model="teacher">
+               <v-select :options="teachers"
+                            v-model="teacher"
+                            @input="onChange($event)"         
+                />
+               <!-- <select @change="getdata(),getViolationsData()" class="form-control" name="teacher" v-model="teacher">
                   <option :value="teacher.id" v-for="teacher in teachers" :key="teacher.id">{{teacher.fullname}}</option>
-               </select>
+               </select> -->
             </div>
              <div class="col-md-6">
                <div class="box box-danger">
@@ -86,7 +90,7 @@
         methods: {
             getTeachers() {
 
-                    axios.get('getTeachers')
+                    axios.get('getTeachersCombo')
                         .then((res) => {
                             this.teachers = res.data
                         })
@@ -97,7 +101,7 @@
                 },
                 getdata() {
                     let self = this
-                    axios.get('/getGraph/' + self.teacher)
+                    axios.get('/getGraph/' + self.teacher.id)
                         .then(({
                             data
                         }) => {
@@ -110,7 +114,7 @@
                 },
                 getViolationsData(){
                     let self = this
-                    axios.get('/violationsGraph/' + self.teacher)
+                    axios.get('/violationsGraph/' + self.teacher.id)
                       .then((res)=>{
                           console.log(res)
                           self.chart2.dataSource.data = []
@@ -118,6 +122,10 @@
                               this.chart2.dataSource.data.push(val)
                           })
                       })
+                },
+                onChange(event) {
+                    this.getViolationsData()
+                    this.getdata()
                 }
         },
         created: function() {
