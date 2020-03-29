@@ -92,10 +92,11 @@ class HomeController extends Controller
         ->join('teachers','schedules.teacher_id','=','teachers.id')
         ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
         ->join('remarks','remarks.id','=','checkers.remarks_id')
+        ->join('departments','departments.department_id','=','teachers.department_id')
         ->whereDate('checkers.created_at', '>=', $request->from)
         ->whereDate('checkers.created_at', '<=', $request->to)
         // ->whereBetween('checkers.created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
-        ->select('teachers.fullname as Name','teachers.id_number as ID','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
+        ->select('teachers.fullname as Name','teachers.id_number as ID','departments.department_name as Department','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
         ->get()->toArray(); 
 
         $data= json_decode( json_encode($data), true);
@@ -116,9 +117,10 @@ class HomeController extends Controller
         ->join('teachers','schedules.teacher_id','=','teachers.id')
         ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
         ->join('remarks','remarks.id','=','checkers.remarks_id')
+        ->join('departments','departments.department_id','=','teachers.department_id')
         ->whereDate('checkers.created_at', '>=', $request->from)
         ->whereDate('checkers.created_at', '<=', $request->to)
-        ->select('teachers.fullname as Name','teachers.id_number as ID','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
+        ->select('departments.department_name as Department','teachers.fullname as Name','teachers.id_number as ID','subject_codes.subject_description as Subject','remarks.remarks_desc as Remarks',\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as Date"))
         ->get(); 
 
         // dd($data);
