@@ -61,11 +61,14 @@
          </div>
       </div>
       <div class="col-xs-12">
+          <div class="box box-warning">
+              <div class="box-header">
+                  <h3 class="box-title">Other Details</h3>
+              </div>
+              <div class="box-body">
+                     <div class="col-md-6">
           <div class="box box-danger">
               <div class="box-header">
-                  <h3 class="box-title">
-                      Other Details
-                  </h3>
               </div>
               <div class="box-header with-border">
                      <h3 style="text-align:center" class="box-title">Department Absences Overview</h3>
@@ -78,6 +81,27 @@
                         :dataSource="departmentChart.dataSource ">
                         </fusioncharts>
                   </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <div class="box box-danger">
+              <div class="box-header">
+              </div>
+              <div class="box-header with-border">
+                     <h3 style="text-align:center" class="box-title">Department Absences Overview</h3>
+                </div>
+              <div class="box-body">
+                  <div id="department-chart">
+                      <fusioncharts :type="departmentChart.type" 
+                        :width="departmentChart.width" 
+                        :height="departmentChart.height" :dataFormat="departmentChart.dataFormat" 
+                        :dataSource="departmentChart.dataSource ">
+                        </fusioncharts>
+                  </div>
+              </div>
+          </div>
+      </div>
               </div>
           </div>
       </div>
