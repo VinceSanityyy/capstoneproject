@@ -59,7 +59,6 @@ class HomeController extends Controller
             'date' => $date
         ]);
     }
-
     public function getViolationsGraph(Request $request,$id){
         $tid = $request->id;
 
@@ -81,7 +80,23 @@ class HomeController extends Controller
         // $violation = json_encode($violation);
         // dd($violation[0]['violation_details']);
         // dd($violation);
-       
+    }
+
+    public function generateDepartmentAbsent(Request $request){
+        $department = \DB::table('checkers')
+                    ->join('schedules','schedules.id','=','checkers.schedule_id')
+                    ->join('teachers','schedules.teacher_id','=','teachers.id')
+                    ->join('departments','departments.department_id','=','teachers.department_id')
+                    ->join('remarks','remarks.id','=','checkers.remarks_id')
+                    ->select('departments.department_name as label',\DB::raw("COUNT('checkers.remarks_id') as value"))
+                    ->where('checkers.remarks_id',2)
+                    ->whereDate('checkers.created_at', '>=', $request->from)
+                    ->whereDate('checkers.created_at', '<=', $request->to)
+                    ->groupBy('departments.department_name')
+                    ->get();
+        
+        // dd($department);
+        return response()->json($department);
     }
 
 

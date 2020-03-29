@@ -23,7 +23,7 @@
                         Generate Excel from Preview
                     </button>
                 </a>
-                  <a type="button" @click="preview()" >
+                  <a type="button" @click="preview(),departmentAbsent()" >
                     <button  class="btn btn-info">
                       Preview Result
                     </button>
@@ -60,10 +60,37 @@
             </div>
          </div>
       </div>
+      <div class="col-xs-12">
+          <div class="box box-danger">
+              <div class="box-header">
+                  <h3 class="box-title">
+                      Other Details
+                  </h3>
+              </div>
+              <div class="box-header with-border">
+                     <h3 style="text-align:center" class="box-title">Department Absences Overview</h3>
+                </div>
+              <div class="box-body">
+                  <div id="department-chart">
+                      <fusioncharts :type="departmentChart.type" 
+                        :width="departmentChart.width" 
+                        :height="departmentChart.height" :dataFormat="departmentChart.dataFormat" 
+                        :dataSource="departmentChart.dataSource ">
+                        </fusioncharts>
+                  </div>
+              </div>
+          </div>
+      </div>
    </div>
 </template>
 
 <script>
+import Vue from 'vue';
+import VueFusionCharts from 'vue-fusioncharts';
+import FusionCharts from 'fusioncharts';
+import Column2D from 'fusioncharts/fusioncharts.charts';
+import FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+Vue.use(VueFusionCharts, FusionCharts, Column2D, FusionTheme);
     export default {
         data(){
             return{
@@ -80,8 +107,23 @@
                     showClear: true,
                     showClose: true,
                     },
-                    
-                    results:[]
+                    results:[],
+                    departmentAbsences:[],
+                    departmentViolations:[],
+
+                    departmentChart:{
+                        type: 'doughnut2d',
+                        renderAt:'department-chart',
+                        width:'500',
+                        height:'300',
+                        dataFormat:'json',
+                        dataSource:{
+                            chart:{
+                                theme:'fusion',
+                            },
+                            data:[]
+                        }
+                    }
             }
         },
         created() {
@@ -101,6 +143,18 @@
                         this.results = res.data
                     })
             },
+            departmentAbsent(){
+                let params = { from: this.from, to: this.to };
+                let paramString = new URLSearchParams(params);
+                axios.get(`/generateDepartmentAbsent?${paramString.toString()}`)
+                    .then((res)=>{
+                        console.log(res)
+                        this.departmentChart.dataSource.data=[]
+                        res.data.forEach(val=>{
+                            this.departmentChart.dataSource.data.push(val)
+                        })
+                    })
+            }
         }
     }
 </script>

@@ -128,4 +128,7 @@ Route::put('/updateDepartment/{department_id}','DepartmentController@update');
 Route::delete('/deleteDepartment/{department_id}','DepartmentController@destroy');
 Route::get('/getDepartmentsCombo','DepartmentController@getDepartmentsCombo');
 
+//department Absent
+Route::get('/generateDepartmentAbsent','HomeController@generateDepartmentAbsent');
+
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );
