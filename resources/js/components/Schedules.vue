@@ -82,7 +82,7 @@
                          <br>
                          
                         <span v-for="weekday in weekdays" :key="weekday.id" >
-                             <input class="form-check-input" type="checkbox" :value="weekday.value" v-model="form.day">
+                             <input class="form-check-input" type="checkbox" :value="weekday.value" v-model="day">
                             <span>
                                 <label for="checkbox">{{ weekday.name }}</label>
                                 &nbsp;
@@ -161,13 +161,12 @@ import 'vue-select/dist/vue-select.css';
                     { 'id': 5, "name":'Fri','value':'F'},
                     { 'id': 6, "name":'Sat','value':'S'}
                 ],
-                
+                day:[],
                 form: new Form({
                     id: '',
                     room: '',
                     teacher: '',
                     subject: '',
-                    days: '',
                     term: '',
                     semester: '',
                     start_time: '',
@@ -181,7 +180,6 @@ import 'vue-select/dist/vue-select.css';
                     day:[],
                     school_year:''
                 }),
-
                 start_time: new Date(),
                 options: {
                     format: 'h:mm A',
@@ -189,7 +187,6 @@ import 'vue-select/dist/vue-select.css';
                     showClear: true,
                     showClose: true,
                 },
-
                 end_time: new Date(),
                 options: {
                     format: 'h:mm A',
@@ -269,7 +266,8 @@ import 'vue-select/dist/vue-select.css';
                 console.log(this.form)
             },
             updateSchedule() {
-                this.form.put('/updateSchedule/' + this.form.scid)
+                let params = {day: this.day}
+                this.form.put(`/updateSchedule?${paramString.toString()}/` + this.form.scid)
                     .then(() => {
                         swal.fire("Record Updated!", "", "success");
                         $('#exampleModal').modal('hide');
