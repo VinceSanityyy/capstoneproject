@@ -130,5 +130,7 @@ Route::get('/getDepartmentsCombo','DepartmentController@getDepartmentsCombo');
 
 //department Absent
 Route::get('/generateDepartmentAbsent','HomeController@generateDepartmentAbsent');
+//departmet Violation
+Route::get('/generateDepartmentViolation','HomeController@generateDepartmentViolation');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z]+)?' );

@@ -23,7 +23,7 @@
                         Generate Excel from Preview
                     </button>
                 </a>
-                  <a type="button" @click="preview(),departmentAbsent()" >
+                  <a type="button" @click="preview(),departmentAbsent(),departmentViolation()" >
                     <button  class="btn btn-info">
                       Preview Result
                     </button>
@@ -89,14 +89,14 @@
               <div class="box-header">
               </div>
               <div class="box-header with-border">
-                     <h3 style="text-align:center" class="box-title">Department Absences Overview</h3>
+                     <h3 style="text-align:center" class="box-title">Department Violations Overview</h3>
                 </div>
               <div class="box-body">
-                  <div id="department-chart">
-                      <fusioncharts :type="departmentChart.type" 
-                        :width="departmentChart.width" 
-                        :height="departmentChart.height" :dataFormat="departmentChart.dataFormat" 
-                        :dataSource="departmentChart.dataSource ">
+                  <div id="department-chart-violations">
+                      <fusioncharts :type="departmentViolationChart.type" 
+                        :width="departmentViolationChart.width" 
+                        :height="departmentViolationChart.height" :dataFormat="departmentViolationChart.dataFormat" 
+                        :dataSource="departmentViolationChart.dataSource ">
                         </fusioncharts>
                   </div>
               </div>
@@ -144,6 +144,23 @@ Vue.use(VueFusionCharts, FusionCharts, Column2D, FusionTheme);
                         dataSource:{
                             chart:{
                                 theme:'fusion',
+                                exportenabled: '1',
+                                exportfilename: 'Department Absent',
+                            },
+                            data:[]
+                        }
+                    },
+                    departmentViolationChart:{
+                        type: 'column2d',
+                        renderAt:'department-chart-violation',
+                        width:'500',
+                        height:'300',
+                        dataFormat:'json',
+                        dataSource:{
+                            chart:{
+                                theme:'fusion',
+                                exportenabled: '1',
+                                exportfilename: 'Department Violations',
                             },
                             data:[]
                         }
@@ -176,6 +193,18 @@ Vue.use(VueFusionCharts, FusionCharts, Column2D, FusionTheme);
                         this.departmentChart.dataSource.data=[]
                         res.data.forEach(val=>{
                             this.departmentChart.dataSource.data.push(val)
+                        })
+                    })
+            },
+            departmentViolation(){
+                let params = { from: this.from, to: this.to };
+                let paramString = new URLSearchParams(params);
+                axios.get(`/generateDepartmentViolation?${paramString.toString()}`)
+                    .then((res)=>{
+                        console.log(res)
+                        this.departmentViolationChart.dataSource.data=[]
+                        res.data.forEach(val=>{
+                            this.departmentViolationChart.dataSource.data.push(val)
                         })
                     })
             }

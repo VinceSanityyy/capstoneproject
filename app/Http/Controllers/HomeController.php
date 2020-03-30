@@ -82,6 +82,26 @@ class HomeController extends Controller
         // dd($violation);
     }
 
+    public function generateDepartmentViolation(Request $request){
+        $violation = \DB::table('checker_details')
+                    ->join('rounds','rounds.id','=','checker_details.round_id')
+                    ->join('checkers','checkers.id','=','rounds.checker_id')
+                    ->join('schedules','schedules.id','=','checkers.schedule_id')
+                    ->join('teachers','schedules.teacher_id','=','teachers.id')
+                    ->join('departments','departments.department_id','=','teachers.department_id')
+                    ->join('violations','violations.id','=','checker_details.violation_id')
+                    ->select('departments.department_name as label',\DB::raw("COUNT('violations.violation_details')as value"))
+                    ->whereDate('checkers.created_at', '>=', $request->from)
+                    ->whereDate('checkers.created_at', '<=', $request->to)
+                    ->groupBy('departments.department_name')
+                    ->get();
+
+        // dd($violation);
+        return response()->json($violation);
+    }
+    
+
+
     public function generateDepartmentAbsent(Request $request){
         $department = \DB::table('checkers')
                     ->join('schedules','schedules.id','=','checkers.schedule_id')

@@ -65,6 +65,8 @@
                         theme: "fusion",
                         decimals: 0,
                         showpercentvalues: "0",
+                        exportenabled: '1',
+                        exportfilename: 'Violations',
                         },
                     data: []
                     },
@@ -81,6 +83,8 @@
                         theme: "fusion",
                         decimals: 2,
                         showpercentvalues: 1,
+                        exportenabled: '1',
+                        exportfilename: 'Absent',
                         },
                     data: []
                     },
