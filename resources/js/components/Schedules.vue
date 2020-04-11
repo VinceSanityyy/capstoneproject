@@ -161,7 +161,7 @@ import 'vue-select/dist/vue-select.css';
                 sc_code:{},
                 teacher:'',
                 checker_id:{},
-                student_id:{},
+                student_id:"",
                 editmode: false,
                 teachers: [],
                 students:[],
@@ -290,9 +290,8 @@ import 'vue-select/dist/vue-select.css';
                 this.sc_code = [
                     { 'id': schedule.subject_code_id, "label": schedule.subject_code +' - '+ schedule.subject_description}
                 ]
-                this.student_id = [
-                    { 'id': schedule.student_id, "label": schedule.name}
-                ]
+                this.student_id = { 'id': schedule.student_id, "label": schedule.name}
+                
 
                 // console.log(tid)
                 this.editmode = true
