@@ -52,6 +52,9 @@
                      <li class="list-group-item">
                         <b>Time</b> <a class="pull-right">{{checker.start_time}} - {{checker.end_time}}</a>
                      </li>
+                     <li class="list-group-item">
+                        <b>Checked By:</b> <a class="pull-right">{{checker.name}}</a>
+                     </li>
                   </ul>
                   <a href="#"  @click="editFirstRound(checker)" class="btn btn-primary btn-block">View First Round</a>
                   <button  @click="editSecondRound(checker)" class="btn btn-primary btn-block">View Second Round</button>

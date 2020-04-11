@@ -15,10 +15,11 @@ class ScheduleController extends Controller
     public function index()
     {
         $schedules = \DB::table('schedules')
-        ->select('schedules.*','teachers.*','rooms.*','subject_codes.*')
+        ->select('schedules.*','teachers.*','rooms.*','subject_codes.*','students.name')
         ->join('teachers','teachers.id','=','schedules.teacher_id')
         ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
         ->join('rooms','schedules.room_id','rooms.id')
+        ->join('students','students.id','=','schedules.student_id')
         ->where('schedules.deleted_at',null)
         ->latest('schedules.created_at')
         
@@ -32,10 +33,11 @@ class ScheduleController extends Controller
 
     public function schedulePagination(){
         $schedules = \DB::table('schedules')
-        ->select('schedules.*','schedules.id as scid','teachers.*','rooms.*','subject_codes.*')
+        ->select('schedules.*','schedules.id as scid','teachers.*','rooms.*','subject_codes.*','students.name')
         ->join('teachers','teachers.id','=','schedules.teacher_id')
         ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
         ->join('rooms','schedules.room_id','rooms.id')
+        ->join('students','students.id','=','schedules.student_id')
         ->where('schedules.deleted_at',null)
         ->latest('schedules.created_at')
         ->paginate(6);
@@ -74,11 +76,11 @@ class ScheduleController extends Controller
             'teacher' => 'required'
            ]);
 
-        //    dd($request['days']('value'));
-           $arr = json_encode($request->days);
-           $arr = str_replace(['"', '[', ']'], [''], $arr);
-           $arr = str_replace(',','-',$arr);
-
+        //    dd($request['days']);
+        //    $arr = json_encode($request->days);
+        //    $arr = str_replace(['"', '[', ']'], [''], $arr);
+        //    $arr = str_replace(',','-',$arr);
+           $days = implode(",", $request->days);
            $validate = Schedule::where('subject_code_id',$request->subject)
            ->where('teacher_id',$request['teacher']['id'])
            ->where('room_id',$request['room']['id'])
@@ -86,7 +88,7 @@ class ScheduleController extends Controller
            ->where('end_time',$request->end_time)
         //    ->where('end_time',$request->end_time)
            ->where('school_year',$request->schoolyr)
-           ->where('day',$arr)
+           ->where('day',$request->days)
            ->where('term',$request->term)
            ->where('semester',$request->sem)
            ->count();
@@ -103,7 +105,7 @@ class ScheduleController extends Controller
                     'school_year' => $request["schoolyr"],
                     'semester' => $request["sem"],
                     'term' => $request["term"],
-                    'day' => $arr,
+                    'day' => $days,
                     'student_id' => $request["student"]['id'],
                    ]);
             }
@@ -156,7 +158,7 @@ class ScheduleController extends Controller
                         ->where('term',$request->term)
                         ->where('semester',$request->semester)
                         ->count();
-        // dd($request->all());
+        dd($request->all());
         // dd($validate);
         if($validate >= 1){
                 throw new \ErrorException('Record Exist');

@@ -33,6 +33,9 @@
                         <li class="list-group-item">
                            <b>Time</b> <a class="pull-right">{{schedule.start_time}} - {{schedule.end_time}}</a>
                         </li>
+                           <li class="list-group-item">
+                           <b>Assigned Checker</b> <a class="pull-right">{{schedule.name}}</a>
+                        </li>
                      </ul>
                      <button data-target="#exampleModal" @click="editModal(schedule)" type="button" class="btn btn-info btn-block" data-toggle="modal">Update</button>
                     <button  @click="deleteSchedule(schedule.scid)" type="button" class="btn btn-danger btn-block">Delete</button>
@@ -55,12 +58,14 @@
                   </button>
                 </div>
                 <div class="modal-body">
+                     <!-- :reduce="country => country.code" label="country" -->
                    <form @submit.prevent = updateSchedule>
                     <div class="col-xs-6 form-group">
                         <label>Select Teacher</label>
                         <v-select :options="teachers"
-                            v-model="form.teacher"
+                            v-model="tid"
                             :required="!form.teacher"
+                            :value = "tid"
                             />
                     </div>
                     <div class="col-xs-6 form-group">
@@ -125,7 +130,7 @@
                           <date-picker   name="end_time" v-model="form.end_time" :config="options" :class="{ 'is-invalid': form.errors.has('end_time') }" ></date-picker>
                      <has-error :form="form" field="end_time"></has-error>
                     </div>
-                     
+                    
                       <button type="submit" class="btn btn-block btn-info"> Update</button>
                      <button type="submit" data-dismiss="modal" class="btn btn-block btn-danger"> Close</button>
                     </form>
@@ -144,6 +149,8 @@ import 'vue-select/dist/vue-select.css';
     export default {
         data() {
             return {
+                tid:{},
+                teacher:'',
                 editmode: false,
                 teachers: [],
                 subjectcodes: [],
@@ -173,7 +180,7 @@ import 'vue-select/dist/vue-select.css';
                     end_time: '',
                     schoolyr: '',
                     scid:'',
-
+                    tid:{},
                     teacher_id:'',
                     room_id:'',
                     subject_code_id:'',
@@ -260,6 +267,11 @@ import 'vue-select/dist/vue-select.css';
                 })
             },
             editModal(schedule) {
+                
+                this.tid = [
+                    { 'id': schedule.teacher_id, "label": schedule.fullname +' - '+ schedule.id_number},
+                ]
+                // console.log(tid)
                 this.editmode = true
                 $('#exampleModal').modal('show')
                 this.form.fill(schedule)
@@ -267,7 +279,9 @@ import 'vue-select/dist/vue-select.css';
             },
             updateSchedule() {
                 let params = {day: this.day}
-                this.form.put(`/updateSchedule?${paramString.toString()}/` + this.form.scid)
+                axios.put('/updateSchedule/' + this.form.scid,{
+                    tid: this.tid
+                })
                     .then(() => {
                         swal.fire("Record Updated!", "", "success");
                         $('#exampleModal').modal('hide');
