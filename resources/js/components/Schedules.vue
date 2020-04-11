@@ -134,6 +134,7 @@
                         <label for="">Assigned Checker</label>
                          <v-select :options="students"
                             v-model="student_id"
+                            @input="setSelected"
                             :required="!form.student"
                             />
                     </div>
@@ -156,12 +157,12 @@ import 'vue-select/dist/vue-select.css';
     export default {
         data() {
             return {
-                tid:{},
-                room_id:{},
-                sc_code:{},
+                tid:'',
+                room_id:'',
+                sc_code:'',
                 teacher:'',
                 checker_id:{},
-                student_id:{},
+                student_id:'',
                 editmode: false,
                 teachers: [],
                 students:[],
@@ -229,6 +230,9 @@ import 'vue-select/dist/vue-select.css';
                                 this.schedulesPagination = data.data;
                             });
             },
+            setSelected(value){
+
+            },
             getTeachers() {
                 axios.get('getTeachersCombo')
                     .then((res) => {
@@ -281,20 +285,20 @@ import 'vue-select/dist/vue-select.css';
             },
             editModal(schedule) {
                 console.log(schedule)
-                this.tid = [
+                this.tid = 
                     { 'id': schedule.teacher_id, "label": schedule.fullname +' - '+ schedule.id_number},
-                ]
-                this.room_id = [
+                
+                this.room_id = 
                     {'id': schedule.room_id, 'label': schedule.room_desc}
-                ]
-                this.sc_code = [
+                
+                this.sc_code = 
                     { 'id': schedule.subject_code_id, "label": schedule.subject_code +' - '+ schedule.subject_description}
-                ]
-                this.student_id = [
+                
+                this.student_id = 
                     { 'id': schedule.student_id, "label": schedule.name}
-                ]
+                
 
-                // console.log(tid)
+                console.log(this.tid)
                 this.editmode = true
                 $('#exampleModal').modal('show')
                 this.form.fill(schedule)
@@ -303,16 +307,16 @@ import 'vue-select/dist/vue-select.css';
             updateSchedule() {
                 let params = {day: this.day}
                 axios.put('/updateSchedule/' + this.form.scid,{
-                    tid: this.tid,
-                    room_id:this.room_id,
+                    tid: this.tid.id,
+                    room_id:this.room_id.id,
                     start_time: this.form.start_time,
                     end_time: this.form.end_time,
                     day: this.day,
                     term: this.form.term,
                     semester: this.form.semester,
-                    subject_code_id: this.sc_code,
+                    subject_code_id: this.sc_code.id,
                     school_year: this.form.school_year,
-                    student_id: this.student_id
+                    student_id: this.student_id.id
 
                 })
                     .then(() => {

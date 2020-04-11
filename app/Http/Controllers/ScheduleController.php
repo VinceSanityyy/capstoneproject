@@ -149,31 +149,35 @@ class ScheduleController extends Controller
         $forlike = "((schedules.day like '%" . 
                         str_replace(",", "%') or (schedules.day like '%", 
                         str_replace(' ', '', $days)) . "%'))";
+       
 
         $validate = Schedule::whereRaw($forlike)
-                        ->where('subject_code_id',$request['subject_code_id'][0]['id'])
-                        ->where('teacher_id',$request['tid'][0]['id'])
-                        ->where('room_id',$request['room_id'][0]['id'])
-                        ->where('start_time','>',$request->start_time)
-                        ->where('end_time','<',$request->end_time)
+                        ->where('subject_code_id',$request->subject_code_id)
+                        ->where('teacher_id',$request->tid)
+                        ->where('room_id',$request->room_id)
+                        ->where('start_time','<',strtotime($request->end_time))
+                        ->where('end_time','>',strtotime($request->start_time))
                         ->where('school_year',$request->school_year)
                         // ->where('day',$request->day)
                         ->where('term',$request->term)
                         ->where('semester',$request->semester)
-                        ->count();
-
-        if($validate >= 1){
+                        ->where('student_id',$request->student_id)
+                        ->first();
+        dd($request->all());
+        dd($validate);
+        if(!empty($validate)){
                 throw new \ErrorException('Record Exist');
         } else{
-                $schedule->subject_code_id = $request['subject_code_id'][0]['id'];
-                $schedule->teacher_id = $request['tid'][0]['id'];
-                $schedule->room_id = $request['room_id'][0]['id'];
+                $schedule->subject_code_id = $request->subject_code_id;
+                $schedule->teacher_id = $request->tid;
+                $schedule->room_id = $request->room_id;
                 $schedule->start_time = $request->start_time;
                 $schedule->end_time = $request->end_time;
                 $schedule->school_year = $request->school_year;
                 $schedule->semester = $request->semester;
                 $schedule->term = $request->term;
                 $schedule->day = $days;
+                $schedule->student_id = $request->student_id;
                 $schedule->save();
         }
 
