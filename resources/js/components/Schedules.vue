@@ -71,14 +71,14 @@
                     <div class="col-xs-6 form-group">
                         <label>Subject</label>
                          <v-select :options="subjectcodes"
-                            v-model="form.subject"
+                            v-model="sc_code"
                             :required="!form.subject"
                             />
                     </div>
                     <div class="col-xs-2 form-group">
                         <label>Room</label>
                           <v-select :options="rooms"
-                            v-model="form.room"
+                            v-model="room_id"
                             :required="!form.room"
                         />
                     </div>
@@ -120,15 +120,22 @@
                       />
                       <has-error :form="form" field="schoolyr"></has-error>
                     </div>
-                    <div class="col-xs-5 form-group">
+                    <div class="col-xs-3 form-group">
                         <label>Start Time</label>
                         <date-picker   name="start_time" v-model="form.start_time" :config="options" :class="{ 'is-invalid': form.errors.has('start_time') }"></date-picker>
                          <has-error :form="form" field="start_time"></has-error>
                     </div>
-                    <div class="col-xs-5 form-group">
+                    <div class="col-xs-3 form-group">
                         <label>End Time</label>
                           <date-picker   name="end_time" v-model="form.end_time" :config="options" :class="{ 'is-invalid': form.errors.has('end_time') }" ></date-picker>
                      <has-error :form="form" field="end_time"></has-error>
+                    </div>
+                    <div class="col-xs-4 form-group">
+                        <label for="">Assigned Checker</label>
+                         <v-select :options="students"
+                            v-model="student_id"
+                            :required="!form.student"
+                            />
                     </div>
                     
                       <button type="submit" class="btn btn-block btn-info"> Update</button>
@@ -150,9 +157,14 @@ import 'vue-select/dist/vue-select.css';
         data() {
             return {
                 tid:{},
+                room_id:{},
+                sc_code:{},
                 teacher:'',
+                checker_id:{},
+                student_id:{},
                 editmode: false,
                 teachers: [],
+                students:[],
                 subjectcodes: [],
                 schedules: [],
                 schedulesPagination:{},
@@ -161,12 +173,12 @@ import 'vue-select/dist/vue-select.css';
                 rooms: [],
                 cid:'',
                 weekdays:[
-                    { 'id': 1, "name": 'Mon','value':'M'},
-                    { 'id': 2, "name":'Tue','value':'T'},
-                    { 'id': 3, "name":'Wed','value':'W'},
-                    { 'id': 4, "name":'Thu','value':'Th'},
-                    { 'id': 5, "name":'Fri','value':'F'},
-                    { 'id': 6, "name":'Sat','value':'S'}
+                    { 'id': 1, "name": 'Mon','value':'Mon'},
+                    { 'id': 2, "name":'Tue','value':'Tue'},
+                    { 'id': 3, "name":'Wed','value':'Wed'},
+                    { 'id': 4, "name":'Thu','value':'Thu'},
+                    { 'id': 5, "name":'Fri','value':'Fri'},
+                    { 'id': 6, "name":'Sat','value':'Sat'}
                 ],
                 day:[],
                 form: new Form({
@@ -185,7 +197,8 @@ import 'vue-select/dist/vue-select.css';
                     room_id:'',
                     subject_code_id:'',
                     day:[],
-                    school_year:''
+                    school_year:'',
+                   
                 }),
                 start_time: new Date(),
                 options: {
@@ -267,10 +280,20 @@ import 'vue-select/dist/vue-select.css';
                 })
             },
             editModal(schedule) {
-                
+                console.log(schedule)
                 this.tid = [
                     { 'id': schedule.teacher_id, "label": schedule.fullname +' - '+ schedule.id_number},
                 ]
+                this.room_id = [
+                    {'id': schedule.room_id, 'label': schedule.room_desc}
+                ]
+                this.sc_code = [
+                    { 'id': schedule.subject_code_id, "label": schedule.subject_code +' - '+ schedule.subject_description}
+                ]
+                this.student_id = [
+                    { 'id': schedule.student_id, "label": schedule.name}
+                ]
+
                 // console.log(tid)
                 this.editmode = true
                 $('#exampleModal').modal('show')
@@ -280,16 +303,27 @@ import 'vue-select/dist/vue-select.css';
             updateSchedule() {
                 let params = {day: this.day}
                 axios.put('/updateSchedule/' + this.form.scid,{
-                    tid: this.tid
+                    tid: this.tid,
+                    room_id:this.room_id,
+                    start_time: this.form.start_time,
+                    end_time: this.form.end_time,
+                    day: this.day,
+                    term: this.form.term,
+                    semester: this.form.semester,
+                    subject_code_id: this.sc_code,
+                    school_year: this.form.school_year,
+                    student_id: this.student_id
+
                 })
                     .then(() => {
                         swal.fire("Record Updated!", "", "success");
                         $('#exampleModal').modal('hide');
+                        $('#exampleModal').modal('close');
                         $(".modal-backdrop").remove();
                         this.getSchedulesPagination()
                     })
                     .catch((e) => {
-                        // console.log(e)
+                        console.log(e.status)
                         swal.fire("Record Exist", "", "warning");
                         $('#exampleModal').modal('hide');
                         $(".modal-backdrop").remove();
@@ -317,11 +351,17 @@ import 'vue-select/dist/vue-select.css';
 					}
 				});
             },
+            getStudentSchedule(){
+                        axios.get('/getStudentSchedule')
+                            .then((res)=>{
+                            this.students = res.data
+                    })
+            }
            
         },
 
         created() {
-            
+            this.getStudentSchedule()
             this.getTeachers();
             this.getSubjectCodes()
             // this.getSchedules()

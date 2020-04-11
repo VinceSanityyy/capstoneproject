@@ -145,26 +145,36 @@ class ScheduleController extends Controller
     public function update(Request $request, Schedule $schedule, $id)
     {
         $schedule = Schedule::findOrFail($id);
+        $days = implode(",", $request->day);
+        $forlike = "((schedules.day like '%" . 
+                        str_replace(",", "%') or (schedules.day like '%", 
+                        str_replace(' ', '', $days)) . "%'))";
 
-        $validate = Schedule::where('subject_code_id',$request->subject_code_id)
-                        ->where('teacher_id',$request->teacher_id)
-                        ->where('room_id',$request->room_id)
-                        ->where('start_time',$request->start_time)
-                        ->where('end_time',$request->end_time)
-                        // ->whereBetween('start_time',[$request->start_time, $request->end_time])
-                        // ->whereBetween('end_time',[$request->start_time, $request->end_time])
+        $validate = Schedule::whereRaw($forlike)
+                        ->where('subject_code_id',$request['subject_code_id'][0]['id'])
+                        ->where('teacher_id',$request['tid'][0]['id'])
+                        ->where('room_id',$request['room_id'][0]['id'])
+                        ->where('start_time','>',$request->start_time)
+                        ->where('end_time','<',$request->end_time)
                         ->where('school_year',$request->school_year)
-                        ->where('day',$request->day)
+                        // ->where('day',$request->day)
                         ->where('term',$request->term)
                         ->where('semester',$request->semester)
                         ->count();
-        dd($request->all());
-        // dd($validate);
+
         if($validate >= 1){
                 throw new \ErrorException('Record Exist');
-              dd('exist');
         } else{
-                $schedule->update($request->all());
+                $schedule->subject_code_id = $request['subject_code_id'][0]['id'];
+                $schedule->teacher_id = $request['tid'][0]['id'];
+                $schedule->room_id = $request['room_id'][0]['id'];
+                $schedule->start_time = $request->start_time;
+                $schedule->end_time = $request->end_time;
+                $schedule->school_year = $request->school_year;
+                $schedule->semester = $request->semester;
+                $schedule->term = $request->term;
+                $schedule->day = $days;
+                $schedule->save();
         }
 
         
