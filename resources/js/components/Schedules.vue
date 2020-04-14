@@ -326,8 +326,8 @@ import 'vue-select/dist/vue-select.css';
                         $(".modal-backdrop").remove();
                         this.getSchedulesPagination()
                     })
-                    .catch((e) => {
-                        console.log(e.status)
+                    .catch((res) => {
+                        console.log(res)
                         swal.fire("Record Exist", "", "warning");
                         $('#exampleModal').modal('hide');
                         $(".modal-backdrop").remove();
