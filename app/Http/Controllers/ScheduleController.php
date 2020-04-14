@@ -167,8 +167,8 @@ class ScheduleController extends Controller
                         ->exists();
         
         if($validate){
-            dd('exist');
-                // throw new \ErrorException('Record Exist');
+            // dd('exist');
+                throw new \ErrorException('Record Exist');
         } else{
             dd($from);
                 dd($request->all());

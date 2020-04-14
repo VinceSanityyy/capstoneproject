@@ -36,6 +36,22 @@
                            <li class="list-group-item">
                            <b>Assigned Checker</b> <a class="pull-right">{{schedule.name}}</a>
                         </li>
+                         </li>
+                           <li v-if="schedule.term == 1" class="list-group-item">
+                           <b >Term</b> <a  class="pull-right">First</a>
+                        </li>
+                        </li>
+                           <li v-else class="list-group-item">
+                           <b >Term</b> <a  class="pull-right">Second</a>
+                        </li>
+                        </li>
+                           <li v-if="schedule.semester == 1" class="list-group-item">
+                           <b>Semester</b> <a class="pull-right">First</a>
+                        </li>
+                         </li>
+                           <li v-else class="list-group-item">
+                           <b>Semester</b> <a class="pull-right">Second</a>
+                        </li>
                      </ul>
                      <button data-target="#exampleModal" @click="editModal(schedule)" type="button" class="btn btn-info btn-block" data-toggle="modal">Update</button>
                     <button  @click="deleteSchedule(schedule.scid)" type="button" class="btn btn-danger btn-block">Delete</button>
