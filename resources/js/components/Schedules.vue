@@ -338,7 +338,6 @@ import 'vue-select/dist/vue-select.css';
                     .then(() => {
                         swal.fire("Record Updated!", "", "success");
                         $('#exampleModal').modal('hide');
-                        $('#exampleModal').modal('close');
                         $(".modal-backdrop").remove();
                         this.getSchedulesPagination()
                     })
