@@ -76,32 +76,32 @@ class ScheduleController extends Controller
             'teacher' => 'required'
            ]);
 
-        //    dd($request['days']);
-        //    $arr = json_encode($request->days);
-        //    $arr = str_replace(['"', '[', ']'], [''], $arr);
-        //    $arr = str_replace(',','-',$arr);
+           $from = date('g:i A',strtotime($request->start_time));
+           $to = date('g:i A',strtotime($request->end_time));
+
+
            $days = implode(",", $request->days);
            $validate = Schedule::where('subject_code_id',$request->subject)
            ->where('teacher_id',$request['teacher']['id'])
            ->where('room_id',$request['room']['id'])
-           ->where('start_time',$request->start_time)
-           ->where('end_time',$request->end_time)
-        //    ->where('end_time',$request->end_time)
+           ->where('start_time','<',$to)
+           ->where('end_time','>',$from)
            ->where('school_year',$request->schoolyr)
-           ->where('day',$request->days)
+           ->where('day',implode(",", $request->day))
            ->where('term',$request->term)
            ->where('semester',$request->sem)
-           ->count();
+           ->exists();
 
-           if($validate >= 1){
-            throw new \ErrorException('Record Exist');
+           if($validate){
+            abort(404,'Duplicate Record');
+            // throw new \ErrorException('Record Exist');
             } else{
                 return Schedule::create([
                     'subject_code_id' => $request["subject"]['id'],
                     'teacher_id' => $request["teacher"]['id'],
                     'room_id' =>$request["room"]['id'],
-                    'start_time' => $request["start_time"],
-                    'end_time' => $request["end_time"],
+                    'start_time' => $from,
+                    'end_time' => $to,
                     'school_year' => $request["schoolyr"],
                     'semester' => $request["sem"],
                     'term' => $request["term"],
@@ -159,7 +159,7 @@ class ScheduleController extends Controller
                         ->where('start_time','<',$to)
                         ->where('end_time','>',$from)
                         ->where('school_year',$request->school_year)
-                        ->where('day',implode(",", $request->day))
+                        ->where('day',$days)
                         ->where('term',$request->term)
                         ->where('semester',$request->semester)
                         ->where('student_id',$request->student_id)

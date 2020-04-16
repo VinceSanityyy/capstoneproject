@@ -102,12 +102,19 @@
                         <label>Schedule days</label>
                          <br>
                          
-                        <span v-for="weekday in weekdays" :key="weekday.id" >
-                             <input class="form-check-input" type="checkbox" :value="weekday.value" v-model="day">
-                            <span>
-                                <label for="checkbox">{{ weekday.name }}</label>
-                                &nbsp;
-                            </span> 
+                        <span >
+                              <input type="checkbox"  value="Mon" v-model="day">
+                              <label for="">Mon</label>
+                              <input type="checkbox"  value="Tue" v-model="day">
+                              <label for="">Tue</label>
+                              <input type="checkbox" value="Wed" v-model="day">
+                              <label for="">Wed</label>
+                              <input type="checkbox"  value="Thu" v-model="day">
+                              <label for="">Thu</label>
+                              <input type="checkbox"  value="Fri" v-model="day">
+                              <label for="">Fri</label>
+                              <input type="checkbox" value="Sat" v-model="day">
+                              <label for="">Sat</label>
                         </span>
                     </div>
                     <div class="col-xs-2 form-group">
@@ -197,7 +204,7 @@ import 'vue-select/dist/vue-select.css';
                     { 'id': 5, "name":'Fri','value':'Fri'},
                     { 'id': 6, "name":'Sat','value':'Sat'}
                 ],
-                day:[],
+                day:{},
                 form: new Form({
                     id: '',
                     room: '',
@@ -312,13 +319,15 @@ import 'vue-select/dist/vue-select.css';
                 
                 this.student_id = 
                     { 'id': schedule.student_id, "label": schedule.name}
-                
 
-                console.log(this.tid)
+               
+                this.day = schedule.day
+                this.day = this.day.split(",")
+                console.log(this.day)
                 this.editmode = true
                 $('#exampleModal').modal('show')
                 this.form.fill(schedule)
-                console.log(this.form)
+               
             },
             updateSchedule() {
                 let params = {day: this.day}
