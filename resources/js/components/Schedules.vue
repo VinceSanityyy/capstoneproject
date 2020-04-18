@@ -204,7 +204,7 @@ import 'vue-select/dist/vue-select.css';
                     { 'id': 5, "name":'Fri','value':'Fri'},
                     { 'id': 6, "name":'Sat','value':'Sat'}
                 ],
-                day:{},
+                day:[],
                 form: new Form({
                     id: '',
                     room: '',
@@ -323,6 +323,9 @@ import 'vue-select/dist/vue-select.css';
                
                 this.day = schedule.day
                 this.day = this.day.split(",")
+                if(this.day[0] == ""){
+                this.day.shift()
+                }
                 console.log(this.day)
                 this.editmode = true
                 $('#exampleModal').modal('show')
