@@ -166,9 +166,10 @@ class ScheduleController extends Controller
                         ->exists();
         
         if($validate){
-            // dd('exist');
+            // dd($validate);
             abort(404,'Duplicate Record');
         } else{
+                // dd('update');
                 // dd($request->all());
                 // $schedule->update($request->all());
                 $schedule->subject_code_id = $request->subject_code_id;
