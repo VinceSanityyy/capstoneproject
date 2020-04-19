@@ -31,7 +31,7 @@
                            <b>Days</b> <a class="pull-right">{{schedule.day}}</a>
                         </li>
                         <li class="list-group-item">
-                           <b>Time</b> <a class="pull-right">{{schedule.start_time}} - {{schedule.end_time}}</a>
+                           <b>Time</b> <a class="pull-right">{{schedule.start_time | moment('hh:m a')}} - {{schedule.end_time | moment('hh:m a')}}</a>
                         </li>
                            <li class="list-group-item">
                            <b>Assigned Checker</b> <a class="pull-right">{{schedule.name}}</a>
@@ -226,14 +226,14 @@ import 'vue-select/dist/vue-select.css';
                 }),
                 start_time: new Date(),
                 options: {
-                    format: 'h:mm A',
+                    format: 'hh:mm A',
                     useCurrent: false,
                     showClear: true,
                     showClose: true,
                 },
                 end_time: new Date(),
                 options: {
-                    format: 'h:mm A',
+                    format: 'hh:mm A',
                     useCurrent: false,
                     showClear: true,
                     showClose: true,

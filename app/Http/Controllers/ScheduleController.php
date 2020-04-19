@@ -146,10 +146,11 @@ class ScheduleController extends Controller
     {
         $schedule = Schedule::findOrFail($id);
         $days = implode(",", $request->day);
-        $from = date('g:i A',strtotime($request->start_time));
-        $to = date('g:i A',strtotime($request->end_time));
+        $from = date('H:i:s',strtotime($request->start_time));
+        $to = date('H:i:s',strtotime($request->end_time));
         //days = Mon,Tue,Wed,Thu,Fri,Sat
         //time = eg. 12:30 PM
+     
         $forlike = "((schedules.day like '%" . 
                         str_replace(",", "%') or (schedules.day like '%", 
                         str_replace(' ', '', $days)) . "%'))";
@@ -159,24 +160,27 @@ class ScheduleController extends Controller
                         ->where('start_time','<',$to)
                         ->where('end_time','>',$from)
                         ->where('school_year',$request->school_year)
-                        ->where('day',$days)
+                        ->whereRaw($forlike)
                         ->where('term',$request->term)
                         ->where('semester',$request->semester)
-                        ->where('student_id',$request->student_id)
-                        ->exists();
-        
+                        ->where('student_id',$request->student_id);
+                        // ->exists();
+                        // ->toSql();
+        $sql_with_bindings = str_replace_array('?', $validate->getBindings(), $validate->toSql());
         if($validate){
-            // dd($validate);
+            dd($sql_with_bindings);
             abort(404,'Duplicate Record');
         } else{
-                // dd('update');
+                dd($validate);
+                // dd($schedule->day);
+                // dd($forlike);
                 // dd($request->all());
                 // $schedule->update($request->all());
                 $schedule->subject_code_id = $request->subject_code_id;
                 $schedule->teacher_id = $request->tid;
                 $schedule->room_id = $request->room_id;
-                $schedule->start_time = $request->start_time;
-                $schedule->end_time = $request->end_time;
+                $schedule->start_time = $from;
+                $schedule->end_time = $to;
                 $schedule->school_year = $request->school_year;
                 $schedule->semester = $request->semester;
                 $schedule->term = $request->term;
