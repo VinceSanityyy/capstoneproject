@@ -163,15 +163,15 @@ class ScheduleController extends Controller
                         ->whereRaw($forlike)
                         ->where('term',$request->term)
                         ->where('semester',$request->semester)
-                        ->where('student_id',$request->student_id);
-                        // ->exists();
+                        ->where('student_id',$request->student_id)
+                        ->exists();
                         // ->toSql();
-        $sql_with_bindings = str_replace_array('?', $validate->getBindings(), $validate->toSql());
+        // $sql_with_bindings = str_replace_array('?', $validate->getBindings(), $validate->toSql());
         if($validate){
-            dd($sql_with_bindings);
+            // dd($sql_with_bindings);
             abort(404,'Duplicate Record');
         } else{
-                dd($validate);
+                // dd($validate);
                 // dd($schedule->day);
                 // dd($forlike);
                 // dd($request->all());
