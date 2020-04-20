@@ -136,7 +136,7 @@ import 'vue-select/dist/vue-select.css';
                     ],
                     start_time: new Date(),
                     options: {
-                    format: 'h:mm A',
+                    format: 'hh:mm A',
                     useCurrent: false,
                     showClear: true,
                     showClose: true,
@@ -144,7 +144,7 @@ import 'vue-select/dist/vue-select.css';
 
                     end_time: new Date(),
                     options: {
-                    format: 'h:mm A',
+                    format: 'hh:mm A',
                     useCurrent: false,
                     showClear: true,
                     showClose: true,

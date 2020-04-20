@@ -76,8 +76,8 @@ class ScheduleController extends Controller
             'teacher' => 'required'
            ]);
 
-           $from = date('g:i A',strtotime($request->start_time));
-           $to = date('g:i A',strtotime($request->end_time));
+            $from = date('H:i:s',strtotime($request->start_time));
+            $to = date('H:i:s',strtotime($request->end_time));
 
            $days = implode(",", $request->days);
            $forlike = "((schedules.day like '%" . 
