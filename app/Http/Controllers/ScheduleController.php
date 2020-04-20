@@ -79,15 +79,19 @@ class ScheduleController extends Controller
            $from = date('g:i A',strtotime($request->start_time));
            $to = date('g:i A',strtotime($request->end_time));
 
-
            $days = implode(",", $request->days);
+           $forlike = "((schedules.day like '%" . 
+                        str_replace(",", "%') or (schedules.day like '%", 
+                        str_replace(' ', '', $days)) . "%'))";
+           
+
            $validate = Schedule::where('subject_code_id',$request->subject)
            ->where('teacher_id',$request['teacher']['id'])
            ->where('room_id',$request['room']['id'])
            ->where('start_time','<',$to)
            ->where('end_time','>',$from)
            ->where('school_year',$request->schoolyr)
-           ->where('day',implode(",", $request->day))
+           ->whereRaw($forlike)
            ->where('term',$request->term)
            ->where('semester',$request->sem)
            ->exists();
