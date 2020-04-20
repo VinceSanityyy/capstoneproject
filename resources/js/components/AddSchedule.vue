@@ -32,23 +32,21 @@
                     </div>
                     <div class="col-xs-4 form-group form-check">
                         <label  >Schedule days</label>
-                        <!-- <select class="form-control" name="day" v-model="form.days" :class="{ 'is-invalid': form.errors.has('days') }">
-                            <option value="M-W-F">M-W-F</option>
-                            <option value="T-Th">T-TH</option>
-                             <option value="M-T-W-Th-F">M-T-W-Th-F</option>
-                            <option value="S">SAT</option>
-                        </select> -->
                         <br>
-                         
-                        <span v-for="weekday in weekdays" :key="weekday.id" >
-                             <input class="form-check-input" type="checkbox" :value="weekday.value" v-model="form.days">
                             <span>
-                                <label for="checkbox">{{ weekday.name }}</label>
-                                &nbsp;
+                              <input type="checkbox"  value="Mon" v-model="form.days">
+                              <label for="">Mon</label>
+                              <input type="checkbox"  value="Tue" v-model="form.days">
+                              <label for="">Tue</label>
+                              <input type="checkbox" value="Wed" v-model="form.days">
+                              <label for="">Wed</label>
+                              <input type="checkbox"  value="Thu" v-model="form.days">
+                              <label for="">Thu</label>
+                              <input type="checkbox"  value="Fri" v-model="form.days">
+                              <label for="">Fri</label>
+                              <input type="checkbox" value="Sat" v-model="form.days">
+                              <label for="">Sat</label>
                             </span> 
-                        </span>
-                        
-                       
                     </div>
                     <div class="col-xs-2 form-group">
                         <label>Term</label>
