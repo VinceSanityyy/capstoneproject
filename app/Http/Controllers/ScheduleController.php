@@ -75,29 +75,54 @@ class ScheduleController extends Controller
             'teacher' => 'required'
         ]);
 
+        // dd($request->all());
+        $days = implode(",", $request->days);
         $from = date('H:i:s', strtotime($request->start_time));
         $to = date('H:i:s', strtotime($request->end_time));
 
-        $days = implode(",", $request->days);
-        $forlike = "((schedules.day like '%" .
-            str_replace(
-                ",",
-                "%') or (schedules.day like '%",
-                str_replace(' ', '', $days)
-            ) . "%'))";
+        $strDays = "";
+        foreach ($request->days as $key2 => $value2) {
+            if ($key2 == 0) {
+                if (sizeof($request->days) == 1) {
+                    $strDays = "((day LIKE '%" . $value2 . "%'))";
+                } else {
+                    $strDays = $strDays . "((day LIKE '%" . $value2 . "%')";
+                }
+            } else {
+                if ($key2 == (sizeof($request->days) - 1)) {
+                    $strDays = $strDays . " OR (day LIKE '%" . $value2 . "%'))";
+                } else {
+                    $strDays = $strDays . " OR (day LIKE '%" . $value2 . "%')";
+                }
+            }
+        }
 
-
-        $validate = Schedule::where('subject_code_id', $request->subject)
+        
+        $validate = Schedule::where('subject_code_id', $request['subject']['id'])
             ->where('teacher_id', $request['teacher']['id'])
             ->where('room_id', $request['room']['id'])
             ->where('start_time', '<', $to)
             ->where('end_time', '>', $from)
             ->where('school_year', $request->schoolyr)
-            ->whereRaw($forlike)
+            ->whereRaw($strDays)
             ->where('term', $request->term)
             ->where('semester', $request->sem)
+            ->where('student_id', $request['student']['id'])
             ->exists();
 
+        // $validate = Schedule ::where('room_id', $request->room_id)
+        //     ->where('subject_code_id', $request->subject_code_id)
+        //     ->where('teacher_id', $request->tid)
+        //     ->where('start_time', '<', $to)
+        //     ->where('end_time', '>', $from)
+        //     ->where('school_year', $request->school_year)
+        //     ->whereRaw($strDays)
+        //     ->where('term', $request->term)
+        //     ->where('semester', $request->semester)
+        //     ->where('student_id', $request->student_id)
+        //     ->exists();
+
+        // dd($validate);
         if ($validate) {
             abort(404, 'Duplicate Record');
             // throw new \ErrorException('Record Exist');
@@ -174,33 +199,22 @@ class ScheduleController extends Controller
             }
         }
 
-
-
-
         $validate = Schedule ::where('room_id', $request->room_id)
-                // ::where('subject_code_id', $request->subject_code_id)
-            // ->where('teacher_id', $request->tid)
+            ->where('subject_code_id', $request->subject_code_id)
+            ->where('teacher_id', $request->tid)
             ->where('start_time', '<', $to)
             ->where('end_time', '>', $from)
             ->where('school_year', $request->school_year)
             ->whereRaw($strDays)
             ->where('term', $request->term)
             ->where('semester', $request->semester)
-            // ->where('student_id', $request->student_id)
+            ->where('student_id', $request->student_id)
             ->exists();
 
-
-        // ->toSql();
-        // $sql_with_bindings = str_replace_array('?', $validate->getBindings(), $validate->toSql());
         if ($validate) {
-            // dd($sql_with_bindings);
             abort(404, 'Duplicate Record');
         } else {
-            // dd($validate);
-            // dd($schedule->day);
-            // dd($forlike);
-            // dd($request->all());
-            // $schedule->update($request->all());
+
             $schedule->subject_code_id = $request->subject_code_id;
             $schedule->teacher_id = $request->tid;
             $schedule->room_id = $request->room_id;
@@ -213,22 +227,6 @@ class ScheduleController extends Controller
             $schedule->student_id = $request->student_id;
             $schedule->save();
         }
-
-
-        // $schedule->subject_code_id = $request->subject;
-        // $schedule->teacher_id = $request->teacher;
-        // $schedule->room_id = $request->room;
-        // $schedule->start_time = $request->start_time;
-        // $schedule->end_time = $request->end_time;
-        // $schedule->school_year = $request->schoolyr;
-        // $schedule->semester = $request->sem;
-        // $schedule->term = $request->term;
-        // $schedule->day = $request->days;
-        // $schedule->update($request->all());
-
-
-
-
     }
 
     /**

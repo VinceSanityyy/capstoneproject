@@ -31,7 +31,7 @@
                            <b>Days</b> <a class="pull-right">{{schedule.day}}</a>
                         </li>
                         <li class="list-group-item">
-                           <b>Time</b> <a class="pull-right">{{schedule.start_time | moment('hh:m a')}} - {{schedule.end_time | moment('hh:m a')}}</a>
+                           <b>Time</b> <a class="pull-right">{{ `${$moment().format('YYYY-MM-DD')} ${schedule.start_time}` |  moment('hh:m A') }} - {{ `${$moment().format('YYYY-MM-DD')} ${schedule.end_time}` |  moment('hh:m A') }}</a>
                         </li>
                            <li class="list-group-item">
                            <b>Assigned Checker</b> <a class="pull-right">{{schedule.name}}</a>
