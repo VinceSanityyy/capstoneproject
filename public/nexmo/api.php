@@ -278,6 +278,7 @@ $query = mysqli_query($mysqli, "select * from schedules where deleted_at is NULL
 					'semester' => $data['semester'],
 					'term' => $data['term'],
 					'day' => $data['day'],
+					'student_id' => $data['student_id'],
 					'created_at' => $data['created_at'],
 					'updated_at' => $data['updated_at'],
 					'deleted_at' => $data['deleted_at']
@@ -316,8 +317,8 @@ $updated_at =  '';
 		
         else{
            // $result = json_encode(array('success'=>false,'msg'=>'Something went Wrong !','checkid'=>$last_id));
-echo("Error description: " . $mysqli -> error);
-			
+
+			  $result = json_encode(array('success'=>false,'msg'=>$mysqli -> error));
         }  
 		echo $result;
 

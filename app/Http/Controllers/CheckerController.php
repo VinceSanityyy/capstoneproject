@@ -69,7 +69,7 @@ class CheckerController extends Controller
         ->join('teachers','teachers.id','=','schedules.teacher_id')
         ->join('subject_codes','subject_codes.id','schedules.subject_code_id')
         ->join('rooms','schedules.room_id','rooms.id')
-        ->join('students','students.id','=','checkers.student_id')
+        ->join('students','students.id','=','checkers.user_id')
         ->whereDate('checkers.created_at', Carbon::today())
         ->get();
 

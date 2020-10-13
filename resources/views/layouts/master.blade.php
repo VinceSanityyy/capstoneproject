@@ -325,9 +325,9 @@
         <li class="treeview">
             <router-link to="/schedules" class="nav-link" > <i class="fa fa-calendar"></i>  <span>Schedules</span> </router-link>
         </li>
-        <!--<li class="treeview">
+      <li class="treeview">
           <router-link to="/comments" class="nav-link" > <i class="fa fa-pencil"></i>  <span>Comments</span> </router-link>
-      </li>-->
+      </li>
       <li class="treeview">
         <router-link to="/checkers_list" class="nav-link" > <i class="fa fa-user"></i>  <span>Checkers</span> </router-link>
     </li>
