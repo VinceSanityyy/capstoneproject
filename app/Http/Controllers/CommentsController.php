@@ -21,7 +21,7 @@ class CommentsController extends Controller
                     ->join('rooms','schedules.room_id','=','rooms.id')
                     ->join('remarks','remarks.id','=','checkers.remarks_id')
                     ->join('subject_codes','subject_codes.id','=','schedules.subject_code_id')
-                    ->select(\DB::raw("DATE_FORMAT(checkers.created_at, '%d-%b-%Y') as r"),'rooms.*','schedules.*','users.*','comments.*','subject_codes.*')
+                    ->select(\DB::raw("DATE_FORMAT(comments.created_at, '%d-%b-%Y') as r"),'rooms.*','schedules.*','users.*','comments.*','subject_codes.*')
                     ->get();
         return response()->json($comments);
     }
